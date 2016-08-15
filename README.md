@@ -1,10 +1,12 @@
 # plantapp - React + MobX
 
-Uses plant data from the [US Dept of Agricutlure Plants DB](https://plants.usda.gov/dl_all.html)
+Uses plant data from the [US Dept of Agricutlure Plants DB][plants-data]
+
+[MongoDB][mongo] and [mongoose][mongoose]
 
 ## How it was built
 
-Created a new plantapp repo in Github. As a starting template for a React app, I like [webpack-express-boilerplate](https://github.com/christianalfoni/webpack-express-boilerplate). 
+Created a new plantapp repo in Github. As a starting template for a React app, I like [webpack-express-boilerplate][boilerplate]. 
 Clone it into  plantapp/, remove the old git history, init, and push to the new repo.
 
 
@@ -22,7 +24,7 @@ $ git push -u origin dev
 
 ```
 
-Update and install dependencies. I like [ncu](https://www.npmjs.com/package/npm-check-updates)
+Update and install dependencies. I like [ncu][ncu]
 ```
 $ ncu -u
 $ npm install
@@ -36,3 +38,9 @@ $ mongoimport -d plantsdb -c plants --type csv --file data/plants.csv --headerli
 ```
 
 
+
+[plants-data]: https://plants.usda.gov/dl_all.html
+[boilerplate]: https://github.com/christianalfoni/webpack-express-boilerplate
+[mongoose]: http://mongoosejs.com
+[mongo]: https://www.mongodb.com
+[ncu]: https://www.npmjs.com/package/npm-check-updates

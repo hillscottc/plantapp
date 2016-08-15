@@ -12,9 +12,21 @@ const port = isDeveloping ? 3000 : process.env.PORT;
 const app = express();
 
 
+var mongoose = require('mongoose');
+
+// connect to Mongo when the app initializes
+mongoose.connect('mongodb://localhost/plantsdb', function (error) {
+  if (error) {
+    console.log(error);
+  }
+});
+
+
 // Enable api routes
 const api_routes = require('./api_routes');
 app.use('/api', api_routes);
+
+
 
 
 if (isDeveloping) {
