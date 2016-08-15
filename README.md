@@ -28,6 +28,11 @@ $ ncu -u
 $ npm install
 ```
 
-
+### Import the plants.csv into mongo
+```
+$ mongoimport -d plantsdb -c plants --type csv --file data/plants.csv --headerline
+2016-08-15T15:04:04.109-0700	connected to: localhost
+2016-08-15T15:04:05.582-0700	imported 90986 documents
+```
 
 
