@@ -1,12 +1,6 @@
 # plantapp - React + MobX
 
-
-Download plant data csv from the [US Dept of Agricutlure Plants DB](https://plants.usda.gov/dl_all.html)
-
-
-
-
-
+Uses plant data from the [US Dept of Agricutlure Plants DB](https://plants.usda.gov/dl_all.html)
 
 ## How it was built
 
@@ -25,7 +19,15 @@ $ git remote add origin git@github.com:hillscottc/plantapp.git
 $ git push -u origin master
 $ git co -b dev
 $ git push -u origin dev
+
+```
+
+Update and install dependencies. I like [ncu](https://www.npmjs.com/package/npm-check-updates)
+```
+$ ncu -u
 $ npm install
 ```
+
+
 
 
