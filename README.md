@@ -1,46 +1,69 @@
-# plantapp - React + MobX
-
-Uses plant data from the [US Dept of Agricutlure Plants DB][plants-data]
-
-[MongoDB][mongo] and [mongoose][mongoose]
-
-## How it was built
-
-Created a new plantapp repo in Github. As a starting template for a React app, I like [webpack-express-boilerplate][boilerplate]. 
-Clone it into  plantapp/, remove the old git history, init, and push to the new repo.
+# plantapp
 
 
-```
-$ git clone https://github.com/christianalfoni/webpack-express-boilerplate.git plantapp
+## Project structure
+- An [Express] app is the backend, serving the data api.
+- A [create-react-app] is the web frontend. [node-foreman] is used to run them together. (As suggested in [this fullstackreact post]).
+- The database is mongo. The plant data comes as a `.csv` file from [the USDA Plants Database]. 
+
+
+## Install
+```sh
+$ git clone https://github.com/hillscottc/plantapp
 $ cd plantapp
-$ rm -rf .git
-$ git init
-$ git add .
-$ git commit -am 'init from webpack-express-boilerplate'
-$ git remote add origin git@github.com:hillscottc/plantapp.git
-$ git push -u origin master
-$ git co -b dev
-$ git push -u origin dev
-
-```
-
-Update and install dependencies. I like [ncu][ncu]
-```
-$ ncu -u
 $ npm install
-```
-
-### Import the plants.csv into mongo
-```
 $ mongoimport -d plantsdb -c plants --type csv --file data/plants.csv --headerline
-2016-08-15T15:04:04.109-0700	connected to: localhost
-2016-08-15T15:04:05.582-0700	imported 90986 documents
+```
+- Note: The client project is independent of the server project. So a `postinstall` script is added to run `npm install` on the client dir as well. In `package.json`, you see:
+    ```
+      "scripts": {
+        "postinstall": "cd client && npm install"
+    ```
+
+## Run
+```sh
+$ npm start
+```
+This launches the Server and Client with foreman.
+
+The services can also be run individually. For example to run just the server:
+```
+$ npm start:server
+```
+Or, with foreman:
+```sh
+$ nf start server=1
 ```
 
 
+#### Using `node-foreman`
+[node-foreman] provides several benefits. In this project, it is used primarily for two things:
+ 
+1. Configure our client (React) service and server (Express) processes. This is done in the `Procfile`:
+    ```
+    web: npm run start:client
+    server: npm run start:server
+    ```
 
-[plants-data]: https://plants.usda.gov/dl_all.html
-[boilerplate]: https://github.com/christianalfoni/webpack-express-boilerplate
-[mongoose]: http://mongoosejs.com
-[mongo]: https://www.mongodb.com
-[ncu]: https://www.npmjs.com/package/npm-check-updates
+2. Configure environment variables read by at launch. This is done with a `.env` file:
+    ```javascript
+    {
+      "node": {
+        "env": "development"
+      },
+      "mongo": {
+        "url": "mongodb://localhost/plantsdb"
+      },
+      "server": {
+        "port": 3001
+      }
+    }
+    ```
+    Then these variables can be accessed from javascript like: `process.env.MONGO_URL`.
+ 
+[Express]: https://expressjs.com/   
+[create-react-app]: https://github.com/facebookincubator/create-react-app 
+[this fullstackreact post]: https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/
+[node-foreman]: http://strongloop.github.io/node-foreman/
+[the USDA Plants Database]: https://plants.usda.gov/dl_all.html
+
