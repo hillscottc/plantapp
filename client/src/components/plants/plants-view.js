@@ -29,17 +29,20 @@ class PlantsView extends Component {
       this.setState({plants:plants});
     });
   }
-
   render() {
     const { plants } = this.state;
     return (
       <div className="PlantsView">
         <h2>Plants</h2>
-        <PlantsQueryForm value={{firstName: 'Michael', lastName: 'Jackson'}} />
-        <PlantList plants={plants} />
+        <PlantsQueryForm value={
+          {symbol: 'ABGR4', synonym: '', sci_name: 'Abelia ×grandiflora (Rovelli ex André) Rehder',
+            common_name: 'glossy abelia', family: 'Caprifoliaceae'}
+        } />
+        <br/><br/>
         <button onClick={this.handleClick}>
           Query Plants
         </button>
+        <PlantList plants={plants} />
       </div>
     );
   }

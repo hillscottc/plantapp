@@ -19,8 +19,11 @@ export default class PlantsQueryForm extends React.Component {
   render() {
     return (
         <Fieldset formValue={this.state.formValue}>
-          <Field select="symbol" label="First name" />
-          <Field select="synonym" label="Last name" />
+          <Field select="symbol" label="Symbol" />
+          <Field select="synonym" label="Synonym" />
+          <Field select="sci_name" label="Scientific Name" />
+          <Field select="common_name" label="Common Name" />
+          <Field select="family" label="Family" />
         </Fieldset>
     )
   }
