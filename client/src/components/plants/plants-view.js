@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PlantList from './plants-list';
 import './plants-view.css';
 import { checkHttpResp } from '../../utils.js';
-import PlantModel from '../../models/plant-model';
+import PlantModel from './plant-model';
 import PlantsQueryForm from './plants-query-form';
 
 class PlantsView extends Component {
