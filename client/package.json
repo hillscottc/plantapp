@@ -9,6 +9,7 @@
   "dependencies": {
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
+    "react-forms": "^2.0.0-beta33",
     "react-router": "^2.7.0"
   },
   "scripts": {

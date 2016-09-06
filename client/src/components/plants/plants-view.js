@@ -3,7 +3,7 @@ import PlantList from './plants-list';
 import './plants-view.css';
 import { checkHttpResp } from '../../utils.js';
 import PlantModel from '../../models/plant-model';
-
+import PlantsQueryForm from './plants-query-form';
 
 class PlantsView extends Component {
 
@@ -35,6 +35,7 @@ class PlantsView extends Component {
     return (
       <div className="PlantsView">
         <h2>Plants</h2>
+        <PlantsQueryForm value={{firstName: 'Michael', lastName: 'Jackson'}} />
         <PlantList plants={plants} />
         <button onClick={this.handleClick}>
           Query Plants

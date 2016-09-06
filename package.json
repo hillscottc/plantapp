@@ -19,7 +19,8 @@
     "foreman": "^2.0.0",
     "mongodb": "^2.2.9",
     "mongoose": "^4.5.10",
-    "morgan": "^1.7.0"
+    "morgan": "^1.7.0",
+    "react-forms": "^2.0.0-beta33"
   },
   "devDependencies": {},
   "scripts": {
