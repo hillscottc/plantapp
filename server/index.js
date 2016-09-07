@@ -17,7 +17,7 @@ mongoose.connect(connStr, function (error) {
 });
 
 
-// Enable api routes
+// Enable routes with /api prefix
 const api_routes = require('./api_routes');
 app.use('/api', api_routes);
 
