@@ -1,30 +1,39 @@
 import React from 'react'
-import {Fieldset, Field, createValue} from 'react-forms'
 
 export default class PlantsQueryForm extends React.Component {
 
   constructor(props) {
     super(props);
-    let formValue = createValue({
-      value: props.value,
-      onChange: this.onChange.bind(this)
-    });
-    this.state = {formValue};
+    this.state = {text: ''};
+    this.handleTextChange = this.handleTextChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  onChange(formValue) {
-    this.setState({formValue});
+  handleTextChange(e) {
+    this.setState({ text: e.target.value });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    var text = this.state.text.trim();
+    if (!text) {
+      return;
+    }
+    this.props.onQuerySubmit({ text: text });
+    this.setState({text: ''});
   }
 
   render() {
     return (
-        <Fieldset formValue={this.state.formValue}>
-          <Field select="symbol" label="Symbol" />
-          <Field select="synonym" label="Synonym" />
-          <Field select="sci_name" label="Scientific Name" />
-          <Field select="common_name" label="Common Name" />
-          <Field select="family" label="Family" />
-        </Fieldset>
-    )
+        <form className="queryForm" onSubmit={this.handleSubmit}>
+          <input
+              type="text"
+              placeholder="Say something..."
+              value={this.state.text}
+              onChange={this.handleTextChange}
+          />
+          <input type="submit" value="Post" />
+        </form>
+    );
   }
 }

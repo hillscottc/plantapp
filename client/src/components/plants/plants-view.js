@@ -3,7 +3,7 @@ import PlantList from './plants-list';
 import './plants-view.css';
 import { checkHttpResp } from '../../utils.js';
 import PlantModel from './plant-model';
-import PlantsQueryForm from './plants-query-form';
+import PlantsQueryForm from './plants-query-form'
 
 class PlantsView extends Component {
 
@@ -22,6 +22,29 @@ class PlantsView extends Component {
         });
   }
 
+  handleQuerySubmit(query) {
+
+    console.log("Query:", query)
+    // var comments = this.state.data;
+    // comment.id = Date.now();
+    // var newComments = comments.concat([comment]);
+    // this.setState({data: newComments});
+    // $.ajax({
+    //   url: this.props.url,
+    //   dataType: 'json',
+    //   type: 'POST',
+    //   data: comment,
+    //   success: function (data) {
+    //     this.setState({data: data});
+    //   }.bind(this),
+    //   error: function (xhr, status, err) {
+    //     this.setState({data: comments});
+    //     console.error(this.props.url, status, err.toString());
+    //   }.bind(this)
+    // });
+  }
+
+
 
   handleClick() {
     this.getPlants().then((plants) => {
@@ -34,14 +57,11 @@ class PlantsView extends Component {
     return (
       <div className="PlantsView">
         <h2>Plants</h2>
-        <PlantsQueryForm value={
-          {symbol: 'ABGR4', synonym: '', sci_name: 'Abelia ×grandiflora (Rovelli ex André) Rehder',
-            common_name: 'glossy abelia', family: 'Caprifoliaceae'}
-        } />
-        <br/><br/>
-        <button onClick={this.handleClick}>
-          Query Plants
-        </button>
+        <div>
+          synonym:
+        </div>
+        <PlantsQueryForm onQuerySubmit={this.handleQuerySubmit} />
+        <button onClick={this.handleClick}> Query Plants </button>
         <PlantList plants={plants} />
       </div>
     );
