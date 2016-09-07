@@ -14,6 +14,8 @@ const PlantSchema = mongoose.model('plants', new mongoose.Schema({
 }));
 
 
+const MAX = 25;
+
 // GET - some plants with optional limit (10)
 router.get('/plants/:limit?', (req, res) => {
   const limit = req.params.limit || 10;
@@ -43,7 +45,7 @@ router.get('/plant/:id', (req, res) => {
 
 // GET - by symbol
 router.get('/plants/symbol/:symbol', (req, res) => {
-  const promise = PlantSchema.find({Symbol: req.params.symbol.toUpperCase()}).limit(25).exec();
+  const promise = PlantSchema.find({Symbol: req.params.symbol.toUpperCase()}).limit(MAX).exec();
   promise.then(function(plants) {
     res.json(plants);
   })
@@ -55,7 +57,7 @@ router.get('/plants/symbol/:symbol', (req, res) => {
 
 // GET - by synonym
 router.get('/plants/synonym/:synonym', (req, res) => {
-  const promise = PlantSchema.find({"Synonym Symbol": req.params.synonym.toUpperCase()}).limit(25).exec();
+  const promise = PlantSchema.find({"Synonym Symbol": req.params.synonym.toUpperCase()}).limit(MAX).exec();
   promise.then(function(plants) {
     res.json(plants);
   })
@@ -68,7 +70,7 @@ router.get('/plants/synonym/:synonym', (req, res) => {
 // GET - like family
 router.get('/plants/family/:family', (req, res) => {
   const regexQuery = new RegExp(req.params.family, "i");
-  const promise = PlantSchema.find({"Family": regexQuery}).limit(25).exec();
+  const promise = PlantSchema.find({"Family": regexQuery}).limit(MAX).exec();
   promise.then(function(plants) {
     res.json(plants);
   })
@@ -81,7 +83,7 @@ router.get('/plants/family/:family', (req, res) => {
 // GET - like common name
 router.get('/plants/common-name/:common', (req, res) => {
   const regexQuery = new RegExp(req.params.common, "i");
-  const promise = PlantSchema.find({"Common Name": regexQuery}).limit(25).exec();
+  const promise = PlantSchema.find({"Common Name": regexQuery}).limit(MAX).exec();
   promise.then(function(plants) {
     res.json(plants);
   })
@@ -94,7 +96,7 @@ router.get('/plants/common-name/:common', (req, res) => {
 // GET - like sci name
 router.get('/plants/sci-name/:sci', (req, res) => {
   const regexQuery = new RegExp(req.params.sci, "i");
-  const promise = PlantSchema.find({"Scientific Name with Author": regexQuery}).limit(25).exec();
+  const promise = PlantSchema.find({"Scientific Name with Author": regexQuery}).limit(MAX).exec();
   promise.then(function(plants) {
     res.json(plants);
   })
@@ -106,7 +108,7 @@ router.get('/plants/sci-name/:sci', (req, res) => {
 
 // POST /plants -- post a plants query
 router.post('/plants', (req, res) => {
-  const promise = PlantSchema.find(req.body).limit(25).exec();
+  const promise = PlantSchema.find(req.body).limit(MAX).exec();
   promise.then(function(plants) {
     res.json(plants);
   })
