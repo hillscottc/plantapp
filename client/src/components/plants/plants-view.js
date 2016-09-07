@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import PlantList from './plants-list';
+import PlantsTable from './plants-table';
 import './plants-view.css';
 import { checkHttpResp } from '../../utils.js';
 import PlantModel from './plant-model';
-import SynonymQueryForm from './synonym-query-form'
+import SymbolQueryForm from './symbol-query-form'
 
 class PlantsView extends Component {
 
@@ -59,8 +59,8 @@ class PlantsView extends Component {
           <label>Some plants</label>
           <button onClick={this.handleClick}> Go </button>
         </div>
-        <SynonymQueryForm onQuerySubmit={this.handleQuerySubmit} />
-        <PlantList plants={plants} />
+        <SymbolQueryForm onQuerySubmit={this.handleQuerySubmit} />
+        <PlantsTable plants={plants} />
       </div>
     );
   }

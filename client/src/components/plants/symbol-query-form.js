@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default class SynonymQueryForm extends React.Component {
+export default class SymbolQueryForm extends React.Component {
 
   constructor(props) {
     super(props);
@@ -26,7 +26,7 @@ export default class SynonymQueryForm extends React.Component {
   render() {
     return (
         <form className="queryForm" onSubmit={this.handleSubmit}>
-          <label>by Synonym</label>
+          <label>by Symbol</label>
           <input
               type="text"
               value={this.state.symbol}
