@@ -19,7 +19,7 @@ class PlantsView extends Component {
     const { symbol } = query;
     if (symbol) {
       getPlantsBySymbol(symbol).then((plants) => {
-        console.log(JSON.stringify(plants));
+        console.log("Plants returned:", plants.length);
         this.setState({plants:plants});
       });
     }
@@ -27,7 +27,7 @@ class PlantsView extends Component {
 
   handleClick() {
     getPlants().then((plants) => {
-      console.log(JSON.stringify(plants));
+      console.log("Plants returned:", plants.length);
       this.setState({plants:plants});
     });
   }

@@ -6,7 +6,7 @@ const PlantsTable = ({plants}) => (
     <br/>
     <table>
       <thead>
-        <tr><th>symbol</th><th>synonym</th><th>family</th><th>common-name</th><th>sci-name</th></tr>
+        <tr><th>symbol</th><th>synonym</th><th>family</th><th>common</th><th>sci-name</th></tr>
       </thead>
       <tbody>
         {plants.map((plant) =>
