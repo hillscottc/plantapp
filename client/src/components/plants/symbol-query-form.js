@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react';
 
-export default class SymbolQueryForm extends React.Component {
+class SymbolQueryForm extends Component {
 
   constructor(props) {
     super(props);
@@ -37,3 +37,9 @@ export default class SymbolQueryForm extends React.Component {
     );
   }
 }
+
+SymbolQueryForm.propTypes = {
+  onQuerySubmit: PropTypes.func.isRequired
+};
+
+export default SymbolQueryForm;
