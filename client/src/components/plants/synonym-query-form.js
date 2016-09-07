@@ -1,38 +1,38 @@
 import React from 'react'
 
-export default class PlantsQueryForm extends React.Component {
+export default class SynonymQueryForm extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {text: ''};
+    this.state = {symbol: ''};
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleTextChange(e) {
-    this.setState({ text: e.target.value });
+    this.setState({ symbol: e.target.value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    var text = this.state.text.trim();
+    var text = this.state.symbol.trim();
     if (!text) {
       return;
     }
-    this.props.onQuerySubmit({ text: text });
-    this.setState({text: ''});
+    this.props.onQuerySubmit({ symbol: text });
+    this.setState({symbol: ''});
   }
 
   render() {
     return (
         <form className="queryForm" onSubmit={this.handleSubmit}>
+          <label>by Synonym</label>
           <input
               type="text"
-              placeholder="Say something..."
-              value={this.state.text}
+              value={this.state.symbol}
               onChange={this.handleTextChange}
           />
-          <input type="submit" value="Post" />
+          <input type="submit" value="Go" />
         </form>
     );
   }
