@@ -1,6 +1,6 @@
 import React, { Component, PropTypes } from 'react';
 
-class SymbolQueryForm extends Component {
+class QuerySymbol extends Component {
 
   constructor(props) {
     super(props);
@@ -38,8 +38,8 @@ class SymbolQueryForm extends Component {
   }
 }
 
-SymbolQueryForm.propTypes = {
+QuerySymbol.propTypes = {
   onQuerySubmit: PropTypes.func.isRequired
 };
 
-export default SymbolQueryForm;
+export default QuerySymbol;

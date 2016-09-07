@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PlantsTable from './plants-table';
 import './plants-view.css';
-import SymbolQueryForm from './symbol-query-form'
+import QuerySymbol from './query-symbol'
 import {getPlants, getPlantsBySymbol} from '../../stores/plants-store'
 
 
@@ -41,7 +41,7 @@ class PlantsView extends Component {
           <label>Some plants</label>
           <button onClick={this.handleClick}> Go </button>
         </div>
-        <SymbolQueryForm onQuerySubmit={this.handleQuerySubmit} />
+        <QuerySymbol onQuerySubmit={this.handleQuerySubmit} />
         <PlantsTable plants={plants} />
       </div>
     );
