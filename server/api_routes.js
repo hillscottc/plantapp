@@ -16,12 +16,12 @@ const PlantSchema = mongoose.model('plants', new mongoose.Schema({
   "Family": String
 }));
 
-
+// maximum number of records returned
 const MAX = 25;
 
 // GET - some plants with optional limit (10)
 router.get('/plants/:limit?', (req, res) => {
-  const limit = req.params.limit || 10;
+  const limit = req.params.limit || MAX;
   const promise = PlantSchema.find({}).limit(parseInt(limit)).exec();
   promise.then(function(plants) {
     res.json(plants);
