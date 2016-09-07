@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PlantsTable from './plants-table';
 import './plants-view.css';
-import { checkHttpResp } from '../../utils.js';
-import PlantModel from './plant-model';
 import SymbolQueryForm from './symbol-query-form'
+import {getPlants, getPlantsBySymbol} from '../../stores/plants-store'
+
 
 class PlantsView extends Component {
 
@@ -14,29 +14,11 @@ class PlantsView extends Component {
     this.state = {plants: []};
   }
 
-  getPlants() {
-    return fetch(`/api/plants`, {accept: 'application/json',})
-        .then(checkHttpResp)
-        .then((response) => response.json())
-        .then((json) => {
-          return json.map(item => PlantModel.fromJS(item));
-        });
-  }
-
-  getPlantsBySymbol(symbol) {
-    return fetch(`/api/plants/symbol/${symbol}`, {accept: 'application/json',})
-        .then(checkHttpResp)
-        .then((response) => response.json())
-        .then((json) => {
-          return json.map(item => PlantModel.fromJS(item));
-        });
-  }
-
   handleQuerySubmit(query) {
     console.log("Query:", query);
     const { symbol } = query;
     if (symbol) {
-      this.getPlantsBySymbol(symbol).then((plants) => {
+      getPlantsBySymbol(symbol).then((plants) => {
         console.log(JSON.stringify(plants));
         this.setState({plants:plants});
       });
@@ -44,7 +26,7 @@ class PlantsView extends Component {
   }
 
   handleClick() {
-    this.getPlants().then((plants) => {
+    getPlants().then((plants) => {
       console.log(JSON.stringify(plants));
       this.setState({plants:plants});
     });

@@ -1,4 +1,4 @@
-/*
+/**
  * Server routes at /api/
  */
 const express = require('express');
