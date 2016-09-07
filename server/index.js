@@ -4,11 +4,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
 
-app.use(bodyParser.json());
-
 app.set('port', (process.env.API_PORT || 3001));
-
-// Setup logger
+app.use(bodyParser.json());
 app.use(morgan("dev"));
 
 // Connect to db
