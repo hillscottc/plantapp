@@ -44,4 +44,11 @@ router.get('/plant/:id', (req, res) => {
 });
 
 
+// POST /plants -- post a plants query
+router.post('/plants', (req, res) => {
+  const query = req.body;
+  res.json({you_said: query});
+});
+
+
 module.exports = router;

@@ -1,7 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const app = express();
+
+app.use(bodyParser.json());
 
 app.set('port', (process.env.API_PORT || 3001));
 
