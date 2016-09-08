@@ -1,0 +1,12 @@
+.selectDiv input {
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.Select{
+  display: inline-block;
+  vertical-align: middle;
+  width: 150px;
+  font-size: 16px;
+}
+
