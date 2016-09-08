@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PlantsTable from './plants-table';
 import './plants-view.css';
-import QueryForm from './query-form'
 import QuerySelect from './query-select'
 import * as store from '../../stores/plants-store'
 
@@ -79,23 +78,16 @@ class PlantsView extends Component {
     ];
     return (
       <div className="PlantsView">
-        <h2>Plants</h2>
-        <div>
-          <label>Some plants</label>
-          <button onClick={this.handleClick}> Go </button>
-        </div>
+        <h2>Plants &nbsp;&nbsp;
+          <button id="getSomeBtn" onClick={this.handleClick}> Get some plants </button>
+        </h2>
+
         <QuerySelect queryOptions={queryOptions}
                      selectValue={selectValue}
                      handleQueryChange={this.handleQueryChange}
                      handleQueryTextChange={this.handleQueryTextChange}
                      queryVal={queryVal}
                      handleQueryClick={this.handleQueryClick} />
-        <QueryForm onQuerySubmit={this.handleQuerySubmit}
-                   queryType="family"/>
-        <QueryForm onQuerySubmit={this.handleQuerySubmit}
-                   queryType="symbol"/>
-        <QueryForm onQuerySubmit={this.handleQuerySubmit}
-                   queryType="common"/>
         <PlantsTable plants={plants} />
       </div>
     );

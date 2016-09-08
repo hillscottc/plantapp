@@ -11,6 +11,7 @@ const QuerySelect = ({queryOptions,
     queryVal,
     handleQueryClick}) => (
   <div className="selectDiv">
+    <div>query by</div>
     <Select
         name="stateSelect"
         value={selectValue}
