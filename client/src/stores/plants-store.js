@@ -22,3 +22,12 @@ export function getPlantsBySymbol(symbol) {
         return json.map(item => PlantModel.fromJS(item));
       });
 }
+
+export function getPlantsByFamily(family) {
+  return fetch(`/api/plants/family/${family}`, {accept: 'application/json',})
+      .then(checkHttpResp)
+      .then((response) => response.json())
+      .then((json) => {
+        return json.map(item => PlantModel.fromJS(item));
+      });
+}

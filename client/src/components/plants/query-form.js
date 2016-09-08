@@ -1,35 +1,35 @@
 import React, { Component, PropTypes } from 'react';
 
-class QuerySymbol extends Component {
+class QueryForm extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {symbol: ''};
+    this.state = {queryVal: ''};
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleTextChange(e) {
-    this.setState({ symbol: e.target.value });
+    this.setState({ queryVal: e.target.value });
   }
 
   handleSubmit(e) {
     e.preventDefault();
-    var text = this.state.symbol.trim();
-    if (!text) {
+    const queryVal = this.state.queryVal.trim();
+    if (!queryVal) {
       return;
     }
-    this.props.onQuerySubmit({ symbol: text });
-    this.setState({symbol: ''});
+    this.props.onQuerySubmit({ queryVal: queryVal }, this.props.queryType);
+    this.setState({queryVal: ''});
   }
 
   render() {
     return (
         <form className="queryForm" onSubmit={this.handleSubmit}>
-          <label>by Symbol</label>
+          <label>by {this.props.queryType}</label>
           <input
               type="text"
-              value={this.state.symbol}
+              value={this.state.queryVal}
               onChange={this.handleTextChange}
           />
           <input type="submit" value="Go" />
@@ -38,8 +38,9 @@ class QuerySymbol extends Component {
   }
 }
 
-QuerySymbol.propTypes = {
-  onQuerySubmit: PropTypes.func.isRequired
+QueryForm.propTypes = {
+  onQuerySubmit: PropTypes.func.isRequired,
+  queryType: PropTypes.string.isRequired
 };
 
-export default QuerySymbol;
+export default QueryForm;
