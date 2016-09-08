@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PlantsTable from './plants-table';
 import './plants-view.css';
 import QueryForm from './query-form'
-import {getPlants, getPlantsBySymbol, getPlantsByFamily} from '../../stores/plants-store'
+import * as store from '../../stores/plants-store'
 
 
 class PlantsView extends Component {
@@ -20,12 +20,17 @@ class PlantsView extends Component {
 
     switch(queryType) {
       case "symbol":
-        getPlantsBySymbol(queryVal).then((plants) => {
+        store.getPlantsBySymbol(queryVal).then((plants) => {
           this.setState({plants:plants});
         });
         break;
       case "family":
-        getPlantsByFamily(queryVal).then((plants) => {
+        store.getPlantsByFamily(queryVal).then((plants) => {
+          this.setState({plants:plants});
+        });
+        break;
+      case "common":
+        store.getPlantsByCommon(queryVal).then((plants) => {
           this.setState({plants:plants});
         });
         break;
@@ -36,7 +41,7 @@ class PlantsView extends Component {
   }
 
   handleClick() {
-    getPlants().then((plants) => {
+    store.getPlants().then((plants) => {
       this.setState({plants:plants});
     });
   }
@@ -54,6 +59,8 @@ class PlantsView extends Component {
                    queryType="family"/>
         <QueryForm onQuerySubmit={this.handleQuerySubmit}
                    queryType="symbol"/>
+        <QueryForm onQuerySubmit={this.handleQuerySubmit}
+                   queryType="common"/>
         <PlantsTable plants={plants} />
       </div>
     );

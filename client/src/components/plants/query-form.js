@@ -24,12 +24,14 @@ class QueryForm extends Component {
   }
 
   render() {
+    const {queryType} = this.props;
+    const {queryVal} = this.state;
     return (
         <form className="queryForm" onSubmit={this.handleSubmit}>
-          <label>by {this.props.queryType}</label>
+          <label>by {queryType}</label>
           <input
               type="text"
-              value={this.state.queryVal}
+              value={queryVal}
               onChange={this.handleTextChange}
           />
           <input type="submit" value="Go" />

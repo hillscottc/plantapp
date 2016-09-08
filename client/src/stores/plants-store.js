@@ -31,3 +31,12 @@ export function getPlantsByFamily(family) {
         return json.map(item => PlantModel.fromJS(item));
       });
 }
+
+export function getPlantsByCommon(common) {
+  return fetch(`/api/plants/common-name/${common}`, {accept: 'application/json',})
+      .then(checkHttpResp)
+      .then((response) => response.json())
+      .then((json) => {
+        return json.map(item => PlantModel.fromJS(item));
+      });
+}
