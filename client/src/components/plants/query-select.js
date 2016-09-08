@@ -2,16 +2,26 @@ import React, { PropTypes }  from 'react'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 
-
-const QuerySelect = ({queryOptions, selectValue, handleChangeQuery}) => (
-  <div>
+const QuerySelect = ({queryOptions,
+    selectValue,
+    handleQueryChange,
+    handleQueryTextChange,
+    queryVal,
+    handleQueryClick}) => (
+  <div className="selectDiv">
     <Select
         name="stateSelect"
         value={selectValue}
         options={queryOptions}
-        onChange={handleChangeQuery}
+        onChange={handleQueryChange}
         className="select"
     />
+    <input
+        type="text"
+        value={queryVal}
+        onChange={handleQueryTextChange}
+    />
+    <button onClick={handleQueryClick}> Go </button>
   </div>
 );
 
@@ -19,7 +29,10 @@ const QuerySelect = ({queryOptions, selectValue, handleChangeQuery}) => (
 QuerySelect.propTypes = {
   queryOptions: PropTypes.array.isRequired,
   selectValue: PropTypes.string.isRequired,
-  handleChangeQuery: PropTypes.func.isRequired
+  handleQueryChange: PropTypes.func.isRequired,
+  handleQueryTextChange: PropTypes.func.isRequired,
+  queryVal: PropTypes.string.isRequired,
+  handleQueryClick: PropTypes.func.isRequired
 };
 
 export default QuerySelect;

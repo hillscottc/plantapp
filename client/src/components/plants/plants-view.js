@@ -12,12 +12,15 @@ class PlantsView extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this);
-    this.handleChangeQuery = this.handleChangeQuery.bind(this);
-    this.state = {plants: [], selectValue: ''};
+    this.handleQueryChange = this.handleQueryChange.bind(this);
+    this.handleQueryTextChange = this.handleQueryTextChange.bind(this);
+    this.handleQueryClick = this.handleQueryClick.bind(this);
+    this.state = {plants: [], selectValue: '', queryVal:''};
   }
 
   handleQuerySubmit(query, queryType) {
     console.log("Query:", query);
+    console.log("queryType:", queryType);
     const { queryVal } = query;
 
     switch(queryType) {
@@ -42,21 +45,33 @@ class PlantsView extends Component {
 
   }
 
-  handleChangeQuery(val) {
+  handleQueryChange(val) {
     this.setState({selectValue: val ? val.value : ""});
   }
 
+  handleQueryTextChange(e) {
+    this.setState({ queryVal: e.target.value });
+  }
+
+  handleQueryClick() {
+
+    console.log("selectValue is ", this.state.selectValue);
+    console.log("queryVal is ", this.state.queryVal);
+
+    const {selectValue, queryVal} = this.state;
+
+    this.handleQuerySubmit({queryVal: queryVal}, selectValue)
+
+  }
+
   handleClick() {
-
-    console.log("For no reason, selectValue is ", this.state.selectValue);
-
     store.getPlants().then((plants) => {
       this.setState({plants: plants});
     });
   }
 
   render() {
-    const { plants, selectValue } = this.state;
+    const { plants, selectValue, queryVal } = this.state;
     const queryOptions = [
         {value: 'common', label: 'Common'},
         {value: 'symbol', label: 'Symbol'},
@@ -71,7 +86,10 @@ class PlantsView extends Component {
         </div>
         <QuerySelect queryOptions={queryOptions}
                      selectValue={selectValue}
-                     handleChangeQuery={this.handleChangeQuery}/>
+                     handleQueryChange={this.handleQueryChange}
+                     handleQueryTextChange={this.handleQueryTextChange}
+                     queryVal={queryVal}
+                     handleQueryClick={this.handleQueryClick} />
         <QueryForm onQuerySubmit={this.handleQuerySubmit}
                    queryType="family"/>
         <QueryForm onQuerySubmit={this.handleQuerySubmit}
