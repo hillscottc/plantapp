@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PlantsTable from './plants-table';
 import './plants-view.css';
 import QueryForm from './query-form'
+import QuerySelect from './query-select'
 import * as store from '../../stores/plants-store'
 
 
@@ -11,7 +12,8 @@ class PlantsView extends Component {
     super(props);
     this.handleClick = this.handleClick.bind(this);
     this.handleQuerySubmit = this.handleQuerySubmit.bind(this);
-    this.state = {plants: []};
+    this.handleChangeQuery = this.handleChangeQuery.bind(this);
+    this.state = {plants: [], selectValue: ''};
   }
 
   handleQuerySubmit(query, queryType) {
@@ -40,14 +42,26 @@ class PlantsView extends Component {
 
   }
 
+  handleChangeQuery(val) {
+    this.setState({selectValue: val ? val.value : ""});
+  }
+
   handleClick() {
+
+    console.log("For no reason, selectValue is ", this.state.selectValue);
+
     store.getPlants().then((plants) => {
-      this.setState({plants:plants});
+      this.setState({plants: plants});
     });
   }
 
   render() {
-    const { plants } = this.state;
+    const { plants, selectValue } = this.state;
+    const queryOptions = [
+        {value: 'common', label: 'Common'},
+        {value: 'symbol', label: 'Symbol'},
+        {value: 'family', label: 'Family'}
+    ];
     return (
       <div className="PlantsView">
         <h2>Plants</h2>
@@ -55,6 +69,9 @@ class PlantsView extends Component {
           <label>Some plants</label>
           <button onClick={this.handleClick}> Go </button>
         </div>
+        <QuerySelect queryOptions={queryOptions}
+                     selectValue={selectValue}
+                     handleChangeQuery={this.handleChangeQuery}/>
         <QueryForm onQuerySubmit={this.handleQuerySubmit}
                    queryType="family"/>
         <QueryForm onQuerySubmit={this.handleQuerySubmit}
