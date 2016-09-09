@@ -4,7 +4,8 @@ import 'react-select/dist/react-select.css';
 import './query-select.css';
 
 
-const QuerySelect = ({queryOptions,
+const QuerySelect = ({
+    queryOptions,
     selectValue,
     handleQueryChange,
     handleQueryTextChange,
