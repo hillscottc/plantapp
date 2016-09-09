@@ -2,6 +2,11 @@ import React from 'react'
 
 export default React.createClass({
   render() {
-    return <div>About</div>
+    const style = {margin: '20px'};
+    return (
+      <div style={style}>
+        About
+      </div>
+    )
   }
 })

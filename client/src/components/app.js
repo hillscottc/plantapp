@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
 import { Grid, Jumbotron, Navbar, Nav, NavItem} from 'react-bootstrap';
-// import './app.css';
+import './app.css';
 
 
 class App extends Component {
