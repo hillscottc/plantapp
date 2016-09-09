@@ -54,14 +54,8 @@ class PlantsView extends Component {
   }
 
   handleQueryClick() {
-
-    console.log("selectValue is ", this.state.selectValue);
-    console.log("queryVal is ", this.state.queryVal);
-
     const {selectValue, queryVal} = this.state;
-
     this.handleQuerySubmit({queryVal: queryVal}, selectValue)
-
   }
 
   handleClick() {
