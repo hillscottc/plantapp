@@ -1,5 +1,6 @@
 import React, { PropTypes }  from 'react'
 import Select from 'react-select';
+import { Button } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
 import './query-select.css';
 
@@ -10,9 +11,10 @@ const QuerySelect = ({
     handleQueryChange,
     handleQueryTextChange,
     queryVal,
-    handleQueryClick}) => (
+    handleQueryClick,
+    classNames}) => (
   <div className="selectDiv">
-    <div>query by</div>
+    <label className="label label-default">query by</label>
     <Select
         name="stateSelect"
         value={selectValue}
@@ -25,7 +27,12 @@ const QuerySelect = ({
         value={queryVal}
         onChange={handleQueryTextChange}
     />
-    <button onClick={handleQueryClick}> Go </button>
+    <Button
+        bsStyle="primary"
+        bsSize="small"
+        onClick={handleQueryClick}>
+      Go
+    </Button>
   </div>
 );
 
@@ -36,7 +43,8 @@ QuerySelect.propTypes = {
   handleQueryChange: PropTypes.func.isRequired,
   handleQueryTextChange: PropTypes.func.isRequired,
   queryVal: PropTypes.string.isRequired,
-  handleQueryClick: PropTypes.func.isRequired
+  handleQueryClick: PropTypes.func.isRequired,
+  classNames: PropTypes.object.isRequired
 };
 
 export default QuerySelect;

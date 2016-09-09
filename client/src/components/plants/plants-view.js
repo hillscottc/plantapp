@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PlantsTable from './plants-table';
-import './plants-view.css';
 import QuerySelect from './query-select'
 import * as store from '../../stores/plants-store'
+import './plants-view.css';
+import { Button } from 'react-bootstrap';
 
 
 class PlantsView extends Component {
@@ -79,7 +80,12 @@ class PlantsView extends Component {
     return (
       <div className="PlantsView">
         <h2>Plants &nbsp;&nbsp;
-          <button id="getSomeBtn" onClick={this.handleClick}> Get some plants </button>
+          <Button
+              bsStyle="primary"
+              bsSize="small"
+              onClick={this.handleClick}>
+            Get some plants
+          </Button>
         </h2>
 
         <QuerySelect queryOptions={queryOptions}

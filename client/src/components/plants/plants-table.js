@@ -4,7 +4,7 @@ import React, { PropTypes }  from 'react'
 const PlantsTable = ({plants}) => (
   <div>
     <br/>
-    <table>
+    <table className="table table-striped">
       <thead>
         <tr><th>symbol</th><th>synonym</th><th>family</th><th>common</th><th>sci-name</th></tr>
       </thead>
