@@ -11,8 +11,7 @@ const QuerySelect = ({
     handleQueryChange,
     handleQueryTextChange,
     queryVal,
-    handleQueryClick,
-    classNames}) => (
+    handleQueryClick}) => (
   <div className="selectDiv">
     <label className="label label-default">query by</label>
     <Select
@@ -43,8 +42,7 @@ QuerySelect.propTypes = {
   handleQueryChange: PropTypes.func.isRequired,
   handleQueryTextChange: PropTypes.func.isRequired,
   queryVal: PropTypes.string.isRequired,
-  handleQueryClick: PropTypes.func.isRequired,
-  classNames: PropTypes.object.isRequired
+  handleQueryClick: PropTypes.func.isRequired
 };
 
 export default QuerySelect;

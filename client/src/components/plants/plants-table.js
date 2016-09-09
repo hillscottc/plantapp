@@ -1,10 +1,11 @@
 import React, { PropTypes }  from 'react'
+import { Table } from 'react-bootstrap';
 
 
 const PlantsTable = ({plants}) => (
   <div>
     <br/>
-    <table className="table table-striped">
+    <Table striped bordered condensed hover responsive>
       <thead>
         <tr><th>symbol</th><th>synonym</th><th>family</th><th>common</th><th>sci-name</th></tr>
       </thead>
@@ -19,7 +20,7 @@ const PlantsTable = ({plants}) => (
           </tr>
         )}
       </tbody>
-    </table>
+    </Table>
   </div>
 );
 
