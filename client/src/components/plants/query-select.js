@@ -15,7 +15,6 @@ const QuerySelect = ({
   <div className="selectDiv">
     <label className="label label-default">query by</label>
     <Select
-        name="stateSelect"
         value={queryType}
         options={queryOptions}
         onChange={handleQueryChange}
