@@ -7,7 +7,7 @@ import './query-select.css';
 
 const QuerySelect = ({
     queryOptions,
-    selectValue,
+    queryType,
     handleQueryChange,
     handleQueryTextChange,
     queryVal,
@@ -16,7 +16,7 @@ const QuerySelect = ({
     <label className="label label-default">query by</label>
     <Select
         name="stateSelect"
-        value={selectValue}
+        value={queryType}
         options={queryOptions}
         onChange={handleQueryChange}
         className="select"
@@ -38,7 +38,7 @@ const QuerySelect = ({
 
 QuerySelect.propTypes = {
   queryOptions: PropTypes.array.isRequired,
-  selectValue: PropTypes.string.isRequired,
+  queryType: PropTypes.string.isRequired,
   handleQueryChange: PropTypes.func.isRequired,
   handleQueryTextChange: PropTypes.func.isRequired,
   queryVal: PropTypes.string.isRequired,

@@ -14,11 +14,11 @@ class PlantsView extends Component {
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleQueryTextChange = this.handleQueryTextChange.bind(this);
     this.handleQueryClick = this.handleQueryClick.bind(this);
-    this.state = {plants: [], selectValue: '', queryVal:''};
+    this.state = {plants: [], queryType: '', queryVal:''};
   }
 
   handleQueryChange(val) {
-    this.setState({selectValue: val ? val.value : ""});
+    this.setState({queryType: val ? val.value : ""});
   }
 
   handleQueryTextChange(e) {
@@ -26,8 +26,8 @@ class PlantsView extends Component {
   }
 
   handleQueryClick() {
-    const {selectValue, queryVal} = this.state;
-    queryPlants(selectValue, queryVal ).then((plants) => {
+    const {queryType, queryVal} = this.state;
+    queryPlants(queryType, queryVal ).then((plants) => {
       this.setState({plants:plants});
     });
 
@@ -40,7 +40,7 @@ class PlantsView extends Component {
   }
 
   render() {
-    const { plants, selectValue, queryVal } = this.state;
+    const { plants, queryType, queryVal } = this.state;
     const queryOptions = [
         {value: 'common', label: 'Common'},
         {value: 'symbol', label: 'Symbol'},
@@ -58,7 +58,7 @@ class PlantsView extends Component {
         </h2>
 
         <QuerySelect queryOptions={queryOptions}
-                     selectValue={selectValue}
+                     queryType={queryType}
                      handleQueryChange={this.handleQueryChange}
                      handleQueryTextChange={this.handleQueryTextChange}
                      queryVal={queryVal}
