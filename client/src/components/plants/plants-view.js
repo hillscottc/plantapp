@@ -23,25 +23,25 @@ class PlantsView extends Component {
     console.log("queryType:", queryType);
     const { queryVal } = query;
 
+    let queryFunc;
+
     switch(queryType) {
       case "symbol":
-        store.getPlantsBySymbol(queryVal).then((plants) => {
-          this.setState({plants:plants});
-        });
+        queryFunc = store.getPlantsBySymbol;
         break;
       case "family":
-        store.getPlantsByFamily(queryVal).then((plants) => {
-          this.setState({plants:plants});
-        });
+        queryFunc = store.getPlantsByFamily;
         break;
       case "common":
-        store.getPlantsByCommon(queryVal).then((plants) => {
-          this.setState({plants:plants});
-        });
+        queryFunc = store.getPlantsByCommon;
         break;
       default:
         throw new Error("Query Type error");
     }
+
+    queryFunc(queryVal).then((plants) => {
+      this.setState({plants:plants});
+    });
 
   }
 
