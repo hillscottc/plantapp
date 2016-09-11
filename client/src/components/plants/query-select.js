@@ -10,29 +10,24 @@ const queryOptions = [
   {value: 'family', label: 'Family'}
 ];
 
-const QuerySelect = ({
-    queryType,
-    queryVal,
-    handleQueryChange,
-    handleQueryTextChange,
-    handleQueryClick}) => (
+const QuerySelect = (props) => (
   <div className="selectDiv">
     <label className="label label-default">query by</label>
     <Select
-        value={queryType}
+        value={props.queryType}
         options={queryOptions}
-        onChange={handleQueryChange}
+        onChange={props.handleQueryChange}
         className="select"
     />
     <input
         type="text"
-        value={queryVal}
-        onChange={handleQueryTextChange}
+        value={props.queryVal}
+        onChange={props.handleQueryTextChange}
     />
     <Button
         bsStyle="primary"
         bsSize="small"
-        onClick={handleQueryClick}>
+        onClick={props.handleQueryClick}>
       Go
     </Button>
   </div>
