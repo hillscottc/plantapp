@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap';
+import { LinkContainer } from 'react-router-bootstrap';
 import { Grid, Jumbotron, Navbar, Nav, NavItem} from 'react-bootstrap';
-import './app.css';
+// import './app.css';
 
 
 class App extends Component {
@@ -11,9 +11,7 @@ class App extends Component {
           <Navbar inverse fixedTop>
             <Navbar.Header>
               <Navbar.Brand>
-                <IndexLinkContainer to="/">
-                  <a>Home</a>
-                </IndexLinkContainer>
+                  <a href="/">Home</a>
               </Navbar.Brand>
               <Navbar.Toggle />
             </Navbar.Header>
