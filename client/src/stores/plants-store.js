@@ -40,7 +40,32 @@ class PlantModel {
   }
 }
 
-export function getPlants() {
+
+export function queryPlants(queryType,  queryVal) {
+  console.log("args:", arguments);
+
+  let queryPromise;
+  switch(queryType) {
+    case "symbol":
+      queryPromise = getPlantsBySymbol;
+      break;
+    case "family":
+      queryPromise = getPlantsByFamily;
+      break;
+    case "common":
+      queryPromise = getPlantsByCommon;
+      break;
+    case undefined:
+      queryPromise = getPlantsList;
+      break;
+    default:
+      throw new Error("Query Type error");
+  }
+  return queryPromise(queryVal);
+}
+
+
+export function getPlantsList() {
   return fetch(`/api/plants`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
@@ -49,7 +74,7 @@ export function getPlants() {
       });
 }
 
-export function getPlantsBySymbol(symbol) {
+function getPlantsBySymbol(symbol) {
   return fetch(`/api/plants/symbol/${symbol}`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
@@ -58,7 +83,7 @@ export function getPlantsBySymbol(symbol) {
       });
 }
 
-export function getPlantsByFamily(family) {
+function getPlantsByFamily(family) {
   return fetch(`/api/plants/family/${family}`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
@@ -67,7 +92,7 @@ export function getPlantsByFamily(family) {
       });
 }
 
-export function getPlantsByCommon(common) {
+function getPlantsByCommon(common) {
   return fetch(`/api/plants/common-name/${common}`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
