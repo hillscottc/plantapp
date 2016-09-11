@@ -30,7 +30,6 @@ class PlantsView extends Component {
     queryPlants(queryType, queryVal ).then((plants) => {
       this.setState({plants:plants});
     });
-
   }
 
   handleClick() {
@@ -41,11 +40,6 @@ class PlantsView extends Component {
 
   render() {
     const { plants, queryType, queryVal } = this.state;
-    const queryOptions = [
-        {value: 'common', label: 'Common'},
-        {value: 'symbol', label: 'Symbol'},
-        {value: 'family', label: 'Family'}
-    ];
     return (
       <div className="PlantsView">
         <h2>Plants &nbsp;&nbsp;
@@ -57,11 +51,10 @@ class PlantsView extends Component {
           </Button>
         </h2>
 
-        <QuerySelect queryOptions={queryOptions}
-                     queryType={queryType}
+        <QuerySelect queryType={queryType}
+                     queryVal={queryVal}
                      handleQueryChange={this.handleQueryChange}
                      handleQueryTextChange={this.handleQueryTextChange}
-                     queryVal={queryVal}
                      handleQueryClick={this.handleQueryClick} />
         <PlantsTable plants={plants} />
       </div>

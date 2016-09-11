@@ -4,13 +4,17 @@ import { Button } from 'react-bootstrap';
 import 'react-select/dist/react-select.css';
 import './query-select.css';
 
+const queryOptions = [
+  {value: 'common', label: 'Common'},
+  {value: 'symbol', label: 'Symbol'},
+  {value: 'family', label: 'Family'}
+];
 
 const QuerySelect = ({
-    queryOptions,
     queryType,
+    queryVal,
     handleQueryChange,
     handleQueryTextChange,
-    queryVal,
     handleQueryClick}) => (
   <div className="selectDiv">
     <label className="label label-default">query by</label>
@@ -36,11 +40,10 @@ const QuerySelect = ({
 
 
 QuerySelect.propTypes = {
-  queryOptions: PropTypes.array.isRequired,
   queryType: PropTypes.string.isRequired,
+  queryVal: PropTypes.string.isRequired,
   handleQueryChange: PropTypes.func.isRequired,
   handleQueryTextChange: PropTypes.func.isRequired,
-  queryVal: PropTypes.string.isRequired,
   handleQueryClick: PropTypes.func.isRequired
 };
 
