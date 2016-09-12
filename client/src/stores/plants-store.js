@@ -55,6 +55,7 @@ export function queryPlants(queryType,  queryVal) {
     case "common":
       queryPromise = getPlantsByCommon;
       break;
+    case "":
     case undefined:
       queryPromise = getPlantsList;
       break;

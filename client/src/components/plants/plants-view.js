@@ -14,9 +14,16 @@ class PlantsView extends Component {
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleQueryTextChange = this.handleQueryTextChange.bind(this);
     this.handleQueryClick = this.handleQueryClick.bind(this);
-    this.handleTextClick = this.handleTextClick.bind(this);
+    this.handleColumnClick = this.handleColumnClick.bind(this);
     this.state = {plants: [], queryType: '', queryVal:''};
   }
+
+  componentDidMount() {
+    queryPlants().then((plants) => {
+      this.setState({plants:plants});
+    });
+  }
+
 
   handleClick() {
     queryPlants().then((plants) => {
@@ -39,7 +46,7 @@ class PlantsView extends Component {
     });
   }
 
-  handleTextClick(queryType, e) {
+  handleColumnClick(queryType, e) {
     queryPlants(queryType, e.target.textContent).then((plants) => {
       this.setState({plants:plants});
     });
@@ -65,7 +72,7 @@ class PlantsView extends Component {
                      handleQueryTextChange={this.handleQueryTextChange}
                      handleQueryClick={this.handleQueryClick} />
         <PlantsTable plants={plants}
-                     textClick={this.handleTextClick} />
+                     columnClick={this.handleColumnClick} />
       </div>
     );
   }

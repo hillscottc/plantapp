@@ -2,8 +2,8 @@ import React, { PropTypes }  from 'react'
 import { Table } from 'react-bootstrap';
 
 /*
-This `props.textClick.bind(this, 'symbol')` prepends `symbol` to the arg list
-of `textClick`. ref: http://derpturkey.com/react-pass-value-with-onclick/
+This `props.columnClick.bind(this, 'symbol')` prepends `symbol` to the arg list
+of `columnClick`. ref: http://derpturkey.com/react-pass-value-with-onclick/
  */
 
 
@@ -17,16 +17,16 @@ const PlantsTable = (props) => (
       <tbody>
         {props.plants.map((plant) =>
           <tr key={plant.id} >
-            <td onClick={props.textClick.bind(this, 'symbol')}>
+            <td onClick={props.columnClick.bind(this, 'symbol')}>
               {plant.symbol}
             </td>
-            <td onClick={props.textClick.bind(this, 'synonym')}>
+            <td>
               {plant.synonym}
             </td>
-            <td onClick={props.textClick.bind(this, 'family')}>
+            <td onClick={props.columnClick.bind(this, 'family')}>
               {plant.family}
             </td>
-            <td onClick={props.textClick.bind(this, 'common')}>
+            <td onClick={props.columnClick.bind(this, 'common')}>
               {plant.common_name}
             </td>
             <td>{plant.sci_name}</td>
@@ -40,7 +40,7 @@ const PlantsTable = (props) => (
 
 PlantsTable.propTypes = {
   plants: PropTypes.array.isRequired,
-  textClick: PropTypes.func.isRequired
+  columnClick: PropTypes.func.isRequired
 };
 
 export default PlantsTable;
