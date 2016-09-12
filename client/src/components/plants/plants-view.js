@@ -3,14 +3,12 @@ import PlantsTable from './plants-table';
 import QuerySelect from './query-select'
 import {queryPlants} from '../../stores/plants-store'
 import './plants-view.css';
-import { Button } from 'react-bootstrap';
 
 
 class PlantsView extends Component {
 
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleQueryTextChange = this.handleQueryTextChange.bind(this);
     this.handleQueryClick = this.handleQueryClick.bind(this);
@@ -19,13 +17,6 @@ class PlantsView extends Component {
   }
 
   componentDidMount() {
-    queryPlants().then((plants) => {
-      this.setState({plants:plants});
-    });
-  }
-
-
-  handleClick() {
     queryPlants().then((plants) => {
       this.setState({plants:plants});
     });
@@ -57,15 +48,7 @@ class PlantsView extends Component {
     const { plants, queryType, queryVal } = this.state;
     return (
       <div className="PlantsView">
-        <h2>Plants &nbsp;&nbsp;
-          <Button
-              bsStyle="primary"
-              bsSize="small"
-              onClick={this.handleClick}>
-            Get some plants
-          </Button>
-        </h2>
-
+        <h2>Plants</h2>
         <QuerySelect queryType={queryType}
                      queryVal={queryVal}
                      handleQueryChange={this.handleQueryChange}
