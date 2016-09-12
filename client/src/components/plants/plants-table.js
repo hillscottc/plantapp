@@ -1,16 +1,19 @@
 import React, { PropTypes }  from 'react'
 import { Table } from 'react-bootstrap';
 import './plants-table.css';
+import { Button } from 'react-bootstrap';
 
-/*
-This `props.columnClick.bind(this, 'symbol')` prepends `symbol` to the arg list
-of `columnClick`. ref: http://derpturkey.com/react-pass-value-with-onclick/
- */
 
 
 const PlantsTable = (props) => (
   <div>
     <br/>
+    <Button
+        bsStyle="primary"
+        bsSize="xsmall"
+        onClick={props.handleQueryClick}>
+      reset
+    </Button>
     <Table striped bordered condensed hover responsive>
       <thead>
         <tr><th>Symbol</th><th>Synonym</th><th>Family</th><th>Common</th><th>Sci-name</th></tr>
@@ -24,6 +27,9 @@ const PlantsTable = (props) => (
             </td>
             <td>
               {plant.synonym}
+              <Button bsStyle="link" onClick={props.columnClick.bind(this, 'symbol')}>
+                Link to {plant.synonym}
+              </Button>
             </td>
             <td className="clickable"
                 onClick={props.columnClick.bind(this, 'family')}>
