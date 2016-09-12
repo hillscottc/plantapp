@@ -1,12 +1,15 @@
 import React, { PropTypes }  from 'react'
 import { Table } from 'react-bootstrap';
 
-
+/*
+This `props.textClick.bind(this, 'symbol')` prepends `symbol` to the arg list
+of `textClick`. ref: http://derpturkey.com/react-pass-value-with-onclick/
+ */
 
 
 const PlantsTable = (props) => (
   <div>
-    <button onClick={props.textClick}>test link</button>
+
     <br/>
     <Table striped bordered condensed hover responsive>
       <thead>
@@ -15,10 +18,18 @@ const PlantsTable = (props) => (
       <tbody>
         {props.plants.map((plant) =>
           <tr key={plant.id} >
-            <td>{plant.symbol}</td>
-            <td>{plant.synonym}</td>
-            <td>{plant.family}</td>
-            <td>{plant.common_name}</td>
+            <td onClick={props.textClick.bind(this, 'symbol')}>
+              {plant.symbol}
+            </td>
+            <td onClick={props.textClick.bind(this, 'synonym')}>
+              {plant.synonym}
+            </td>
+            <td onClick={props.textClick.bind(this, 'family')}>
+              {plant.family}
+            </td>
+            <td onClick={props.textClick.bind(this, 'common')}>
+              {plant.common_name}
+            </td>
             <td>{plant.sci_name}</td>
           </tr>
         )}
