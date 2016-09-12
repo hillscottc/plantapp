@@ -9,7 +9,6 @@ of `textClick`. ref: http://derpturkey.com/react-pass-value-with-onclick/
 
 const PlantsTable = (props) => (
   <div>
-
     <br/>
     <Table striped bordered condensed hover responsive>
       <thead>
