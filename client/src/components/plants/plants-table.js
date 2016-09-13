@@ -1,6 +1,5 @@
 import React, { PropTypes }  from 'react'
 import { Table } from 'react-bootstrap';
-import './plants-table.css';
 import { Button } from 'react-bootstrap';
 
 
@@ -11,7 +10,7 @@ const PlantsTable = (props) => (
     <Button
         bsStyle="primary"
         bsSize="xsmall"
-        onClick={props.handleQueryClick}>
+        onClick={props.resetQuery}>
       reset
     </Button>
     <Table striped bordered condensed hover responsive>
@@ -21,23 +20,23 @@ const PlantsTable = (props) => (
       <tbody>
         {props.plants.map((plant) =>
           <tr key={plant.id} >
-            <td className="clickable"
-                onClick={props.columnClick.bind(this, 'symbol')}>
-              {plant.symbol}
+            <td>
+              <Button bsStyle="link" onClick={props.columnClick} value='symbol'>
+                {plant.symbol}
+              </Button>
             </td>
             <td>
               {plant.synonym}
-              <Button bsStyle="link" onClick={props.columnClick.bind(this, 'symbol')}>
-                Link to {plant.synonym}
+            </td>
+            <td>
+              <Button bsStyle="link" onClick={props.columnClick} value='family'>
+                {plant.family}
               </Button>
             </td>
-            <td className="clickable"
-                onClick={props.columnClick.bind(this, 'family')}>
-              {plant.family}
-            </td>
-            <td className="clickable"
-                onClick={props.columnClick.bind(this, 'common')}>
-              {plant.common_name}
+            <td>
+              <Button bsStyle="link" onClick={props.columnClick} value='common'>
+                {plant.common_name}
+              </Button>
             </td>
             <td>{plant.sci_name}</td>
           </tr>
