@@ -1,16 +1,15 @@
 import React from 'react'
-import { Grid} from 'react-bootstrap';
 
-
+const headerStyle = {marginTop: '70px'};
 
 const About = (props) => (
   <div>
-    <Grid>
+    <div className="page-header" style={headerStyle}>
       <h1>About</h1>
+    </div>
       <p>
         React,
       </p>
-      </Grid>
   </div>
 );
 
