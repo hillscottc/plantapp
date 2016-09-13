@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Grid, Navbar, Nav, NavItem} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 
+const divStyle = {backgroundColor: "#66cc99"};
 
 class App extends Component {
   render() {
     return (
-        <div>
+        <div style={divStyle}>
           <Navbar inverse fixedTop>
             <Navbar.Header>
               <Navbar.Brand>

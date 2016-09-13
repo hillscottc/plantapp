@@ -3,7 +3,6 @@ import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
 
-
 const PlantsTable = (props) => (
   <div>
     <br/>
