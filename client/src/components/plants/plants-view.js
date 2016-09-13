@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Grid, Jumbotron} from 'react-bootstrap';
 import PlantsTable from './plants-table';
 import QuerySelect from './query-select'
 import {queryPlants} from '../../stores/plants-store'
@@ -63,7 +64,14 @@ class PlantsView extends Component {
     const { plants, queryType, queryVal } = this.state;
     return (
       <div className="PlantsView">
-        <h2>Plants</h2>
+
+        <Jumbotron>
+          <Grid>
+            <h1>Plants</h1>
+            Driven by data from the <a href="https://plants.usda.gov/dl_all.html">USDA Plants Database</a>
+          </Grid>
+        </Jumbotron>
+
         <QuerySelect queryType={queryType}
                      queryVal={queryVal}
                      handleQueryChange={this.handleQueryChange}

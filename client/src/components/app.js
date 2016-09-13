@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Grid, Navbar, Nav, NavItem} from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
-import { Grid, Jumbotron, Navbar, Nav, NavItem} from 'react-bootstrap';
+
 // import './app.css';
 
 
@@ -24,14 +25,10 @@ class App extends Component {
             </Navbar.Collapse>
           </Navbar>
 
-          <Jumbotron>
-            <Grid>
-              <h1>Welcome to PlantApp</h1>
-            </Grid>
-          </Jumbotron>
-
-          {/* render nested routes */}
-          {this.props.children}
+          <Grid>
+            {/* render nested routes */}
+            {this.props.children}
+          </Grid>
 
         </div>
     );

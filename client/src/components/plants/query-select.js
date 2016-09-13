@@ -12,8 +12,8 @@ const queryOptions = [
 
 const QuerySelect = (props) => (
   <div className="selectDiv">
-    <label className="label label-default">query by</label>
     <Select
+        placeholder="query by..."
         value={props.queryType}
         options={queryOptions}
         onChange={props.handleQueryChange}

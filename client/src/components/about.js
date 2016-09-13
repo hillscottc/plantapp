@@ -1,12 +1,17 @@
 import React from 'react'
+import { Grid} from 'react-bootstrap';
 
-export default React.createClass({
-  render() {
-    const style = {margin: '20px'};
-    return (
-      <div style={style}>
-        About
-      </div>
-    )
-  }
-})
+
+
+const About = (props) => (
+  <div>
+    <Grid>
+      <h1>About</h1>
+      <p>
+        React,
+      </p>
+      </Grid>
+  </div>
+);
+
+export default About;
