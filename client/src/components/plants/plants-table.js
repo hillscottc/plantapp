@@ -15,7 +15,7 @@ const PlantsTable = (props) => (
     </Button>
     <Table striped bordered condensed hover responsive>
       <thead>
-        <tr><th>Symbol</th><th>Synonym</th><th>Family</th><th>Common</th><th>Sci-name</th></tr>
+        <tr><th>Symbol</th><th>Synonym</th><th>Family</th><th>Common</th><th>Pics</th><th>Sci-name</th></tr>
       </thead>
       <tbody>
         {props.plants.map((plant) =>
@@ -37,6 +37,11 @@ const PlantsTable = (props) => (
               <Button bsStyle="link" onClick={props.columnClick} value='common'>
                 {plant.common_name}
               </Button>
+            </td>
+            <td>
+              <a target="_blank" href={`http://images.google.com/images?q="${plant.sci_name}"`}>
+                <span className={plant.sci_name ? "glyphicon glyphicon-camera": ""}> </span>
+              </a>
             </td>
             <td>{plant.sci_name}</td>
           </tr>
