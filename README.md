@@ -3,7 +3,7 @@
 
 ## Project structure
 - An [Express] app is the backend, serving the data api.
-- A [create-react-app] is the web frontend. [node-foreman] is used to run them together. (As suggested in [this fullstackreact post]).
+- A [create-react-app] is the web frontend. [node-foreman] is used to run them together. (As suggested in [this post]).
 - The database is mongo. The plant data comes as a `.csv` file from [the USDA Plants Database]. 
 
 
@@ -63,7 +63,7 @@ $ nf start server=1
  
 [Express]: https://expressjs.com/   
 [create-react-app]: https://github.com/facebookincubator/create-react-app 
-[this fullstackreact post]: https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/
+[this post]: https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/
 [node-foreman]: http://strongloop.github.io/node-foreman/
 [the USDA Plants Database]: https://plants.usda.gov/dl_all.html
 
