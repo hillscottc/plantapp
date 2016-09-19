@@ -4,15 +4,13 @@
 ## Project structure
 - An [Express] app is the backend, serving the data api.
 - A [create-react-app] is the web frontend. [node-foreman] is used to run them together. (As suggested in [this post]).
-- The database is mongo. The plant data comes as a `.csv` file from [the USDA Plants Database]. 
-
+- The database is [PostgreSQL] with a [pg-promise] interface. The plant data comes as a `.csv` file from [the USDA Plants Database]. 
 
 ## Install
 ```sh
 $ git clone https://github.com/hillscottc/plantapp
 $ cd plantapp
 $ npm install
-$ mongoimport -d plantsdb -c plants --type csv --file data/plants.csv --headerline
 ```
 - Note: The client project is independent of the server project. So a `postinstall` script is added to run `npm install` on the client dir as well. In `package.json`, you see:
     ```
@@ -66,4 +64,6 @@ $ nf start server=1
 [this post]: https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/
 [node-foreman]: http://strongloop.github.io/node-foreman/
 [the USDA Plants Database]: https://plants.usda.gov/dl_all.html
+[PostgreSQL]: https://www.postgresql.org/
+[pg-promise]: https://github.com/vitaly-t/pg-promise
 
