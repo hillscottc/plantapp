@@ -5,7 +5,7 @@
 DROP TABLE IF EXISTS plant;
 
 CREATE TABLE plant (
-    category_id serial primary key,
+    id serial primary key,
     symbol varchar(8) NOT NULL,
     synonym varchar(8),
     sci_name varchar(250),

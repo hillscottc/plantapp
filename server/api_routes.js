@@ -3,110 +3,109 @@
  */
 const express = require('express');
 const router = express.Router();
-const mongoose = require('mongoose');
+const config = require('../config');
 
-mongoose.Promise = require('bluebird');
+const promise = require('bluebird');
+const pgp = require('pg-promise')({promiseLib: promise});
 
+var db = pgp(config.databaseUrl);
 
-const PlantSchema = mongoose.model('plants', new mongoose.Schema({
-  "Symbol" : String,
-  "Synonym Symbol": String,
-  "Scientific Name with Author": String,
-  "Common Name": String,
-  "Family": String
-}));
+// const PlantSchema = mongoose.model('plants', new mongoose.Schema({
+//   "Symbol" : String,
+//   "Synonym Symbol": String,
+//   "Scientific Name with Author": String,
+//   "Common Name": String,
+//   "Family": String
+// }));
 
 // maximum number of records returned
 const MAX = 25;
 
-// GET - some plants with optional limit (10)
+// GET - some plants with optional limit
 router.get('/plants/:limit?', (req, res) => {
   const limit = req.params.limit || MAX;
-  const promise = PlantSchema.find({}).limit(parseInt(limit)).exec();
-  promise.then(function(plants) {
-    res.json(plants);
-  })
-  .catch(function(err){
-    throw err;
-  });
-
+  db.any("SELECT * FROM plant LIMIT $1", [limit])
+      .then(function (data) {
+        return res.json(data);
+      })
+      .catch(function (error) {
+        console.log("ERROR:", error);
+      })
 });
 
 
 // GET - by id
 router.get('/plant/:id', (req, res) => {
-  const promise = PlantSchema.findById(req.params.id).exec();
-  promise.then(function(plants) {
-    res.json(plants);
-  })
-  .catch(function(err){
-    throw err;
-  });
-
+  db.oneOrNone("SELECT * FROM plant WHERE id = $1", [req.params.id])
+      .then(function (data) {
+        return res.json(data);
+      })
+      .catch(function (error) {
+        console.log("ERROR:", error);
+      })
 });
 
 
 // GET - by symbol
 router.get('/plants/symbol/:symbol', (req, res) => {
-  const promise = PlantSchema.find({Symbol: req.params.symbol.toUpperCase()}).limit(MAX).exec();
-  promise.then(function(plants) {
-    res.json(plants);
-  })
-  .catch(function(err){
-    throw err;
-  });
+  db.any("SELECT * FROM plant WHERE symbol = $1", [req.params.symbol])
+      .then(function (data) {
+        return res.json(data);
+      })
+      .catch(function (error) {
+        console.log("ERROR:", error);
+      })
 });
-
 
 // GET - by synonym
 router.get('/plants/synonym/:synonym', (req, res) => {
-  const promise = PlantSchema.find({"Synonym Symbol": req.params.synonym.toUpperCase()}).limit(MAX).exec();
-  promise.then(function(plants) {
-    res.json(plants);
-  })
-  .catch(function(err){
-    throw err;
-  });
+  db.any("SELECT * FROM plant WHERE synonym = $1", [req.params.synonym])
+      .then(function (data) {
+        return res.json(data);
+      })
+      .catch(function (error) {
+        console.log("ERROR:", error);
+      })
 });
 
 
 // GET - like family
 router.get('/plants/family/:family', (req, res) => {
-  const regexQuery = new RegExp(req.params.family, "i");
-  const promise = PlantSchema.find({"Family": regexQuery}).limit(MAX).exec();
-  promise.then(function(plants) {
-    res.json(plants);
-  })
-  .catch(function(err){
-    throw err;
-  });
+  db.any("SELECT * FROM plant WHERE family LIKE '%$1#%' LIMIT $2", [req.params.family, MAX])
+      .then(function (data) {
+        return res.json(data);
+      })
+      .catch(function (error) {
+        console.log("ERROR:", error);
+      })
 });
 
 
 // GET - like common name
 router.get('/plants/common-name/:common', (req, res) => {
-  const regexQuery = new RegExp(req.params.common, "i");
-  const promise = PlantSchema.find({"Common Name": regexQuery}).limit(MAX).exec();
-  promise.then(function(plants) {
-    res.json(plants);
-  })
-  .catch(function(err){
-    throw err;
-  });
+  db.any("SELECT * FROM plant WHERE common_name LIKE '%$1#%' LIMIT $2", [req.params.common, MAX])
+      .then(function (data) {
+        return res.json(data);
+      })
+      .catch(function (error) {
+        console.log("ERROR:", error);
+      })
 });
 
 
 // GET - like sci name
 router.get('/plants/sci-name/:sci', (req, res) => {
-  const regexQuery = new RegExp(req.params.sci, "i");
-  const promise = PlantSchema.find({"Scientific Name with Author": regexQuery}).limit(MAX).exec();
-  promise.then(function(plants) {
-    res.json(plants);
-  })
-  .catch(function(err){
-    throw err;
-  });
+  db.any("SELECT * FROM plant WHERE sci_name LIKE '%$1#%' LIMIT $2", [req.params.sci, MAX])
+      .then(function (data) {
+        return res.json(data);
+      })
+      .catch(function (error) {
+        console.log("ERROR:", error);
+      })
 });
+
+
+//  this one NOT DONE YET
 
 
 // POST /plants -- post a plants query
