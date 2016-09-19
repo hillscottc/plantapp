@@ -1,6 +1,4 @@
 
-# I will likely use one db for all of these demos
-#CREATE database plants_db WITH encoding 'utf8';
 
 DROP TABLE IF EXISTS plant;
 
@@ -13,5 +11,6 @@ CREATE TABLE plant (
     family varchar(25)
 );
 
+-- Note, you need to get the path right here. This should be scripted somehow.
 \copy plant(symbol,synonym,sci_name,common_name,family) from '/Users/hills120/dev/plantapp/data/plants.csv' DELIMITER ',' CSV HEADER
 
