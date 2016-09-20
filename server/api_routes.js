@@ -10,14 +10,6 @@ const pgp = require('pg-promise')({promiseLib: promise});
 
 var db = pgp(config.databaseUrl);
 
-// const PlantSchema = mongoose.model('plants', new mongoose.Schema({
-//   "Symbol" : String,
-//   "Synonym Symbol": String,
-//   "Scientific Name with Author": String,
-//   "Common Name": String,
-//   "Family": String
-// }));
-
 // maximum number of records returned
 const MAX = 25;
 
@@ -102,21 +94,6 @@ router.get('/plants/sci-name/:sci', (req, res) => {
       .catch(function (error) {
         console.log("ERROR:", error);
       })
-});
-
-
-//  this one NOT DONE YET
-
-
-// POST /plants -- post a plants query
-router.post('/plants', (req, res) => {
-  const promise = PlantSchema.find(req.body).limit(MAX).exec();
-  promise.then(function(plants) {
-    res.json(plants);
-  })
-  .catch(function(err){
-    throw err;
-  });
 });
 
 

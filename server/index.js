@@ -1,5 +1,4 @@
 const express = require('express');
-// const mongoose = require('mongoose');
 const path = require('path');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
@@ -15,15 +14,6 @@ console.log("Environ:", process.env.NODE_ENV);
 if (process.env.NODE_ENV === "prod") {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
-
-// // Connect to db
-// const connStr = process.env.MONGO_URL || 'mongodb://localhost/plantsdb';
-// mongoose.connect(connStr, function (error) {
-//   if (error) {
-//     console.log(error);
-//   }
-// });
-
 
 // Enable routes with /api prefix
 const api_routes = require('./api_routes');

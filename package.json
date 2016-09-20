@@ -21,14 +21,20 @@
     "morgan": "^1.7.0",
     "pg-promise": "^5.3.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "chalk": "^1.1.3",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0",
+    "supertest": "^2.0.0"
+  },
   "scripts": {
     "build": "cd client && npm run build",
     "postinstall": "cd client && npm install",
     "start:server": "babel-node server",
     "start:client": "cd client && npm start",
     "start:prod": "NODE_ENV=prod npm run start:server",
-    "start": "nf start -p 3000"
+    "start": "nf start -p 3000",
+    "test": "mocha server/"
   },
   "repository": {
     "type": "git",
