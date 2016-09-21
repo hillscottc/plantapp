@@ -11,7 +11,7 @@ app.use(morgan("dev"));
 console.log("Environ:", process.env.NODE_ENV);
 
 // If this is prod, serve the client build dir
-if (process.env.NODE_ENV === "prod") {
+if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, '../client/build')));
 }
 
