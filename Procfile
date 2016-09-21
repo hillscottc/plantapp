@@ -1,2 +1,1 @@
-web: npm run start:client
-server: npm run start:server
+web: babel-node server
