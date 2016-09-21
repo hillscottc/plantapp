@@ -32,7 +32,7 @@
     "postinstall": "cd client && npm install",
     "start:server": "babel-node server",
     "start:client": "cd client && npm start",
-    "start:prod": "NODE_ENV=prod npm run start:server",
+    "start:prod": "NODE_ENV=production npm run start:server",
     "start": "nf start -p 3000",
     "test": "mocha server/"
   },
