@@ -1,2 +1,2 @@
-client: npm run start:client
+client: cd client && npm start
 server: babel-node server

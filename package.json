@@ -31,10 +31,9 @@
     "build": "cd client && npm run build",
     "postinstall": "cd client && npm install",
     "start:server": "nf start server=1",
-    "start:client": "cd client && npm start",
-    "start:prod": "NODE_ENV=production npm run start:server",
+    "start:client": "nf start client=1",
+    "start:prod": "NODE_ENV=production nf start server=1",
     "start": "nf start -p 3000",
-    "start:mod": "nf run npm run start:server & nf run npm run start:client",
     "test": "mocha server/"
   },
   "repository": {
