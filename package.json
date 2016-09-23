@@ -34,6 +34,7 @@
     "start:client": "cd client && npm start",
     "start:prod": "NODE_ENV=production npm run start:server",
     "start": "nf start -p 3000",
+    "start:mod": "nf run npm run start:server & nf run npm run start:client",
     "test": "mocha server/"
   },
   "repository": {
