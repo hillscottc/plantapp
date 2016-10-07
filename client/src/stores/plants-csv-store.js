@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require("path");
 const parse = require('csv-parse');
 
-const dataFile = path.join(__dirname, 'plants.csv');
+const dataFile = path.join(__dirname, '../../../data/plants.csv');
 
 
 function getAll(callback) {
