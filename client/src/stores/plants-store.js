@@ -27,6 +27,16 @@ class PlantModel {
         object["common_name"],
         object["family"]);
   }
+
+  static fromArray(arr) {
+    return new PlantModel(
+        null,
+        arr[0],
+        arr[1],
+        arr[2],
+        arr[3],
+        arr[4]);
+  }
 }
 
 

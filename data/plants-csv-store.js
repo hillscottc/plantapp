@@ -28,6 +28,9 @@ function getBySymbol(symbol, callback) {
         const matches = csvData.filter((val) => {
           return val[0] === symbol;
         });
+
+        // const plants = matches.map((val)=> {return  })
+
         callback(matches);
       });
 }
@@ -44,7 +47,6 @@ function getLikeCommon(common, callback) {
         const matches = csvData.filter((val) => {
           const re = new RegExp(common, 'i');
           return val[3].match(re);
-          // return val[3] === common;
         });
         callback(matches);
       });
