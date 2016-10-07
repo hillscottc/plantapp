@@ -13,6 +13,7 @@
     "babel-cli": "^6.14.0",
     "babel-core": "^6.14.0",
     "babel-preset-es2015": "^6.14.0",
+    "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.5.0",
     "bluebird": "^3.4.5",
     "body-parser": "^1.15.2",
@@ -36,7 +37,7 @@
     "start:client": "nf start client=1",
     "start:prod": "NODE_ENV=production nf start server=1",
     "start": "nf start -p 3000",
-    "test": "mocha server/ client/src/stores/plants-csv-store.spec.js --compilers js:babel-register"
+    "test": "mocha server/ client/test --compilers js:babel-register"
   },
   "repository": {
     "type": "git",
