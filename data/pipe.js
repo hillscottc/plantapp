@@ -15,11 +15,7 @@ fs.createReadStream(dataFile)
         csvData.push(csvrow);
     })
     .on('end', () => {
-      //console.log(csvData);
-      const matches = csvData.filter((val, index, array) => {
-         return val[0] === 'NAAM';
-      });
-      console.log(matches);
+      console.log(csvData);
     });
 
 
