@@ -2,7 +2,7 @@
   "name": "demo-react-mobx",
   "version": "0.0.1",
   "private": true,
-  "proxy": "http://plantapp.herokuapp.com/",
+  "proxy": "http://localhost:3001",
   "devDependencies": {
     "react-scripts": "0.4.1"
   },
