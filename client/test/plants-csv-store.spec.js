@@ -22,14 +22,6 @@ describe("Test plants-csv-store",function(){
   });
 
 
-  it("queryPlants, all",function(done){
-    queryPlants().then((plants) => {
-      plants.length.should.be.above(19);
-      done();
-    });
-  });
-
-
   it("queryPlants by common",function(done){
     queryPlants('common', 'yarrow').then((plants) => {
       plants.length.should.be.above(19);
