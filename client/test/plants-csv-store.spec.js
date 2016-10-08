@@ -19,6 +19,7 @@ describe("plants-csv-store test",function(){
 
     getBySymbol('NAAM', (plants) => {
       plants.length.should.be.above(1);
+      // console.log(plants);
       done();
     });
   });

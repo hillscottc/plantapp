@@ -1,52 +1,50 @@
 const fs = require('fs');
 const path = require("path");
 const parse = require('csv-parse');
+import PlantModel from './plant-model'
 
 const dataFile = path.join(__dirname, '../../../data/plants.csv');
 
 
 function getAll(callback) {
-  const csvData=[];
+  const plants = [];
   fs.createReadStream(dataFile)
       .pipe(parse({delimiter: ','}))
       .on('data', (csvrow) => {
-        csvData.push(csvrow);
+        plants.push(PlantModel.fromArray(csvrow));
       })
       .on('end', () => {
-        callback(csvData);
+        callback(plants);
       });
 }
 
 function getBySymbol(symbol, callback) {
-  const csvData=[];
+  const plants = [];
   fs.createReadStream(dataFile)
       .pipe(parse({delimiter: ','}))
       .on('data', (csvrow) => {
-        csvData.push(csvrow);
+        plants.push(PlantModel.fromArray(csvrow));
       })
       .on('end', () => {
-        const matches = csvData.filter((val) => {
-          return val[0] === symbol;
+        const matches = plants.filter((plant) => {
+          return plant.symbol === symbol;
         });
-
-        // const plants = matches.map((val)=> {return  })
-
         callback(matches);
       });
 }
 
 
 function getLikeCommon(common, callback) {
-  const csvData=[];
+  const plants = [];
   fs.createReadStream(dataFile)
       .pipe(parse({delimiter: ','}))
       .on('data', (csvrow) => {
-        csvData.push(csvrow);
+        plants.push(PlantModel.fromArray(csvrow));
       })
       .on('end', () => {
-        const matches = csvData.filter((val) => {
+        const matches = plants.filter((plant) => {
           const re = new RegExp(common, 'i');
-          return val[3].match(re);
+          return plant.common_name.match(re);
         });
         callback(matches);
       });
