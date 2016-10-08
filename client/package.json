@@ -2,7 +2,7 @@
   "name": "plantapp-client",
   "version": "0.0.1",
   "private": true,
-  "proxy": "http://localhost:3001",
+  "proxy": "http://plantapp.herokuapp.com",
   "devDependencies": {
     "react-scripts": "0.6.1"
   },
