@@ -1,41 +1,52 @@
 /*
 Test the plants-csv-store
  */
-import {getPlantsList, getPlantsBySymbol,
-    getPlantsListAsync, getPlantsByCommon} from '../src/stores/plants-csv-store'
+import { queryPlants} from '../src/stores/plants-csv-store'
 
 
-describe("plants-csv-store test",function(){
+describe("Test plants-csv-store",function(){
 
-
-  it("all plants",function(done){
-    getPlantsList().then((plants) => {
-      plants.length.should.be.above(5);
-      done();
-    })
-  });
-
-
-  it("plants by symbol",function(done){
-    this.timeout(3000);
-
-    getPlantsBySymbol('NAAM').then((plants) => {
-      plants.length.should.be.above(1);
-      done();
-    })
-
-  });
-
-
-  it("plants like common name ",function(done){
-    this.timeout(5000);
-
-    getPlantsByCommon('yarrow').then((plants) => {
+  it("queryPlants, all",function(done){
+    queryPlants().then((plants) => {
       plants.length.should.be.above(19);
       done();
     });
   });
 
+
+  it("queryPlants by symbol",function(done){
+    queryPlants('symbol', 'NAAM').then((plants) => {
+      plants.length.should.be.above(1);
+      done();
+    });
+  });
+
+
+  it("queryPlants, all",function(done){
+    queryPlants().then((plants) => {
+      plants.length.should.be.above(19);
+      done();
+    });
+  });
+
+
+  it("queryPlants by common",function(done){
+    queryPlants('common', 'yarrow').then((plants) => {
+      plants.length.should.be.above(19);
+      done();
+    });
+  });
+
+
+  it("queryPlants by family",function(done){
+    queryPlants('family', 'liliaceae').then((plants) => {
+      plants.length.should.be.above(50);
+      done();
+    });
+  });
+
 });
+
+
 
 
