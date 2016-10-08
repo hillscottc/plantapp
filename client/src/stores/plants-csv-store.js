@@ -6,7 +6,7 @@ import PlantModel from './plant-model'
 const dataFile = path.join(__dirname, '../../../data/plants.csv');
 
 
-function getAll(callback) {
+export function getPlantsList(callback) {
   const plants = [];
   fs.createReadStream(dataFile)
       .pipe(parse({delimiter: ','}))
@@ -18,7 +18,7 @@ function getAll(callback) {
       });
 }
 
-function getBySymbol(symbol, callback) {
+export function getPlantsBySymbol(symbol, callback) {
   const plants = [];
   fs.createReadStream(dataFile)
       .pipe(parse({delimiter: ','}))
@@ -34,7 +34,7 @@ function getBySymbol(symbol, callback) {
 }
 
 
-function getLikeCommon(common, callback) {
+export function getPlantsByCommon(common, callback) {
   const plants = [];
   fs.createReadStream(dataFile)
       .pipe(parse({delimiter: ','}))
@@ -51,8 +51,3 @@ function getLikeCommon(common, callback) {
 }
 
 
-module.exports = {
-  getBySymbol: getBySymbol,
-  getAll: getAll,
-  getLikeCommon: getLikeCommon
-};

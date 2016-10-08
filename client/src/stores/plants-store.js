@@ -26,7 +26,7 @@ export function queryPlants(queryType,  queryVal) {
 }
 
 
-export function getPlantsList() {
+function getPlantsList() {
   return fetch(`/api/plants`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
