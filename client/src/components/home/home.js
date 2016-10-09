@@ -12,6 +12,7 @@ const Home = (props) => (
         </h1>
       </div>
       <PlantsView />
+      <br/>
     </div>
 );
 
