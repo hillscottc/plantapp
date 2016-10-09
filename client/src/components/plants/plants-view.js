@@ -51,13 +51,12 @@ class PlantsView extends Component {
   /**
    * links in the table
    */
-  handleColumnClick(e) {
-    const {value, textContent} = e.target;
-    queryPlants(value, textContent).then((plants) => {
+  handleColumnClick(queryType, val) {
+
+    queryPlants(queryType, val).then((plants) => {
       this.setState({plants:plants});
     });
   }
-
 
   render() {
     const { plants, queryType, queryVal } = this.state;
