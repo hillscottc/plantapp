@@ -19,22 +19,16 @@ const PlantsTable = (props) => (
         {props.plants.map((plant) =>
           <tr key={plant.id} >
             <td>
-              <Button bsStyle="link" onClick={props.columnClick} value='symbol'>
-                {plant.symbol}
-              </Button>
+              <a onClick={() => props.columnClick('symbol', plant.symbol )} >{plant.symbol}</a>
             </td>
             <td>
               {plant.synonym}
             </td>
             <td>
-              <Button bsStyle="link" onClick={props.columnClick} value='family'>
-                {plant.family}
-              </Button>
+              <a onClick={() => props.columnClick('family', plant.family )} >{plant.family}</a>
             </td>
             <td>
-              <Button bsStyle="link" onClick={props.columnClick} value='common'>
-                {plant.common_name}
-              </Button>
+              <a onClick={() => props.columnClick('common', plant.common_name )} >{plant.common_name}</a>
             </td>
             <td>
               <a target="_blank" href={`http://images.google.com/images?q="${plant.sci_name}"`}>
