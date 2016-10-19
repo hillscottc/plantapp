@@ -12,7 +12,7 @@ class PlantsView extends Component {
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleQueryTextChange = this.handleQueryTextChange.bind(this);
     this.handleQueryClick = this.handleQueryClick.bind(this);
-    this.handleColumnClick = this.handleColumnClick.bind(this);
+    this.columnClick = this.columnClick.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
     this.state = {plants: [], queryType: '', queryVal:''};
   }
@@ -51,7 +51,7 @@ class PlantsView extends Component {
   /**
    * links in the table
    */
-  handleColumnClick(queryType, val) {
+  columnClick(queryType, val) {
 
     queryPlants(queryType, val).then((plants) => {
       this.setState({plants:plants});
@@ -60,16 +60,12 @@ class PlantsView extends Component {
 
   render() {
     const { plants, queryType, queryVal } = this.state;
+    const {handleQueryChange, handleQueryTextChange,  handleQueryClick, resetQuery, columnClick} = this;
     return (
       <div className="PlantsView">
-        <QuerySelect queryType={queryType}
-                     queryVal={queryVal}
-                     handleQueryChange={this.handleQueryChange}
-                     handleQueryTextChange={this.handleQueryTextChange}
-                     handleQueryClick={this.handleQueryClick} />
-        <PlantsTable plants={plants}
-                     resetQuery={this.resetQuery}
-                     columnClick={this.handleColumnClick} />
+        <QuerySelect { ...{queryType, queryVal, handleQueryChange, handleQueryTextChange, handleQueryClick} }
+        />
+        <PlantsTable { ...{plants, resetQuery, columnClick} } />
       </div>
     );
   }
