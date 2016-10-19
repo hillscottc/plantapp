@@ -19,16 +19,16 @@ const PlantsTable = (props) => (
         {props.plants.map((plant) =>
           <tr key={plant.id} >
             <td>
-              <a onClick={() => props.columnClick('symbol', plant.symbol )} >{plant.symbol}</a>
+              <a onClick={() => props.clickColumn('symbol', plant.symbol )} >{plant.symbol}</a>
             </td>
             <td>
               {plant.synonym}
             </td>
             <td>
-              <a onClick={() => props.columnClick('family', plant.family )} >{plant.family}</a>
+              <a onClick={() => props.clickColumn('family', plant.family )} >{plant.family}</a>
             </td>
             <td>
-              <a onClick={() => props.columnClick('common', plant.common_name )} >{plant.common_name}</a>
+              <a onClick={() => props.clickColumn('common', plant.common_name )} >{plant.common_name}</a>
             </td>
             <td>
               <a target="_blank" href={`http://images.google.com/images?q="${plant.sci_name}"`}>
@@ -46,7 +46,7 @@ const PlantsTable = (props) => (
 
 PlantsTable.propTypes = {
   plants: PropTypes.array.isRequired,
-  columnClick: PropTypes.func.isRequired
+  clickColumn: PropTypes.func.isRequired
 };
 
 export default PlantsTable;

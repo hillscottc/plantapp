@@ -9,10 +9,10 @@ class PlantsView extends Component {
 
   constructor(props) {
     super(props);
-    this.handleQueryChange = this.handleQueryChange.bind(this);
-    this.handleQueryTextChange = this.handleQueryTextChange.bind(this);
-    this.handleQueryClick = this.handleQueryClick.bind(this);
-    this.columnClick = this.columnClick.bind(this);
+    this.selectQuery = this.selectQuery.bind(this);
+    this.changeQueryVal = this.changeQueryVal.bind(this);
+    this.clickQuery = this.clickQuery.bind(this);
+    this.clickColumn = this.clickColumn.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
     this.state = {plants: [], queryType: '', queryVal:''};
   }
@@ -30,18 +30,18 @@ class PlantsView extends Component {
     });
   }
 
-  handleQueryChange(val) {
+  selectQuery(val) {
     this.setState({queryType: val ? val.value : ""});
   }
 
-  handleQueryTextChange(e) {
+  changeQueryVal(e) {
     this.setState({ queryVal: e.target.value });
   }
 
   /**
    * query go button
    */
-  handleQueryClick() {
+  clickQuery() {
     const {queryType, queryVal} = this.state;
     queryPlants(queryType, queryVal ).then((plants) => {
       this.setState({plants:plants});
@@ -51,7 +51,7 @@ class PlantsView extends Component {
   /**
    * links in the table
    */
-  columnClick(queryType, val) {
+  clickColumn(queryType, val) {
 
     queryPlants(queryType, val).then((plants) => {
       this.setState({plants:plants});
@@ -60,12 +60,12 @@ class PlantsView extends Component {
 
   render() {
     const { plants, queryType, queryVal } = this.state;
-    const {handleQueryChange, handleQueryTextChange,  handleQueryClick, resetQuery, columnClick} = this;
+    const {selectQuery, changeQueryVal,  clickQuery, resetQuery, clickColumn} = this;
     return (
       <div className="PlantsView">
-        <QuerySelect { ...{queryType, queryVal, handleQueryChange, handleQueryTextChange, handleQueryClick} }
+        <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal, clickQuery} }
         />
-        <PlantsTable { ...{plants, resetQuery, columnClick} } />
+        <PlantsTable { ...{plants, resetQuery, clickColumn} } />
       </div>
     );
   }

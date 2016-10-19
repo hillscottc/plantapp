@@ -16,18 +16,18 @@ const QuerySelect = (props) => (
         placeholder="query by..."
         value={props.queryType}
         options={queryOptions}
-        onChange={props.handleQueryChange}
+        onChange={props.selectQuery}
         className="select"
     />
     <input
         type="text"
         value={props.queryVal}
-        onChange={props.handleQueryTextChange}
+        onChange={props.changeQueryVal}
     />
     <Button
         bsStyle="primary"
         bsSize="small"
-        onClick={props.handleQueryClick}>
+        onClick={props.clickQuery}>
       Go
     </Button>
   </div>
@@ -37,9 +37,9 @@ const QuerySelect = (props) => (
 QuerySelect.propTypes = {
   queryType: PropTypes.string.isRequired,
   queryVal: PropTypes.string.isRequired,
-  handleQueryChange: PropTypes.func.isRequired,
-  handleQueryTextChange: PropTypes.func.isRequired,
-  handleQueryClick: PropTypes.func.isRequired
+  selectQuery: PropTypes.func.isRequired,
+  changeQueryVal: PropTypes.func.isRequired,
+  clickQuery: PropTypes.func.isRequired
 };
 
 export default QuerySelect;
