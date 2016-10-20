@@ -7,6 +7,7 @@ const About = (props) => (
       <h1>About</h1>
     </div>
     <ul>
+      <li>Source on <a target="_blank" href="https://github.com/hillscottc/plantapp">github</a></li>
       <li>A <a target="_blank" href="https://github.com/facebookincubator/create-react-app">create-react-app</a> is the web frontend.
       </li>
       <li>An <a target="_blank" href="https://expressjs.com/">Express</a> app is the backend, serving the client app and a data
