@@ -1,5 +1,6 @@
 # plantapp
 
+See this running on Heroku at <a href="https://plantapp.herokuapp.com/">https://plantapp.herokuapp.com/</a>
 
 ## Project structure
 - An [Express] app is the backend, serving the data api.
