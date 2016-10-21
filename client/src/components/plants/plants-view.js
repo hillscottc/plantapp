@@ -13,7 +13,7 @@ class PlantsView extends Component {
     this.selectQuery = this.selectQuery.bind(this);
     this.changeQueryVal = this.changeQueryVal.bind(this);
     this.clickQuery = this.clickQuery.bind(this);
-    this.clickColumn = this.clickColumn.bind(this);
+    this.doQuery = this.doQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
     this.selectMax = this.selectMax.bind(this);
     this.state = {plants: [], queryType: '', queryVal:'', maxVal: 100};
@@ -58,11 +58,7 @@ class PlantsView extends Component {
     });
   }
 
-  /**
-   * links in the table
-   */
-  clickColumn(queryType, queryVal) {
-
+  doQuery(queryType, queryVal) {
     queryPlants({queryType, queryVal}).then((plants) => {
       this.setState({plants:plants});
     });
@@ -70,12 +66,17 @@ class PlantsView extends Component {
 
   render() {
     const { plants, queryType, queryVal, maxVal } = this.state;
-    const {selectQuery, changeQueryVal,  clickQuery, resetQuery, clickColumn, selectMax} = this;
+    const {selectQuery, changeQueryVal,  clickQuery,
+        resetQuery, doQuery, selectMax} = this;
+
     return (
       <div className="PlantsView">
         <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal, clickQuery} } />
         <QueryMax { ...{selectMax, maxVal} } />
-        <PlantsTable { ...{plants, resetQuery, clickColumn} } />
+        <div>Common:
+          <input type="text" onChange={(e) => doQuery('common', e.target.value)} />
+        </div>
+        <PlantsTable { ...{plants, resetQuery, doQuery} } />
       </div>
     );
   }
