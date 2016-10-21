@@ -1,7 +1,7 @@
 import { checkHttpResp } from '../utils.js';
 import PlantModel from './plant-model'
 
-export function queryPlants(queryType,  queryVal) {
+export function queryPlants(queryType,  queryVal, max=100) {
   console.log("args:", arguments);
 
   let queryPromise;
@@ -26,8 +26,8 @@ export function queryPlants(queryType,  queryVal) {
 }
 
 
-function getPlantsList() {
-  return fetch(`/api/plants`, {accept: 'application/json',})
+function getPlantsList(max) {
+  return fetch(`/api/plants/${max}`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
       .then((json) => {
