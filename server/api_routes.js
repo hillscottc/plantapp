@@ -28,7 +28,7 @@ router.get('/plants/:limit?', (req, res) => {
 
 // GET - by id
 router.get('/plant/:id', (req, res) => {
-  db.oneOrNone("SELECT * FROM plant WHERE id = $1", [req.params.id])
+  db.oneOrNone("SELECT * FROM plant WHERE id = $1", [+req.params.id])
       .then(function (data) {
         return res.json(data);
       })
