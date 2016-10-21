@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PlantsTable from './plants-table'
 import QuerySelect from './query-select'
-import QueryMax from './query-max'
+import QueryOpts from './query-opts'
 import {queryPlants} from '../../stores/plants-store'
 import './plants-view.css'
 
@@ -14,6 +14,7 @@ class PlantsView extends Component {
     this.changeQueryVal = this.changeQueryVal.bind(this);
     this.clickQuery = this.clickQuery.bind(this);
     this.doQuery = this.doQuery.bind(this);
+    this.doComplexQuery = this.doComplexQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
     this.selectMax = this.selectMax.bind(this);
     this.state = {plants: [], queryType: '', queryVal:'', maxVal: 100};
@@ -64,18 +65,20 @@ class PlantsView extends Component {
     });
   }
 
+  doComplexQuery({symbol, common, family}) {
+    console.log(`Complex query: ${symbol}, ${common}, ${family}`);
+  }
+
   render() {
     const { plants, queryType, queryVal, maxVal } = this.state;
     const {selectQuery, changeQueryVal,  clickQuery,
-        resetQuery, doQuery, selectMax} = this;
+        resetQuery, doQuery, selectMax, doComplexQuery} = this;
 
     return (
       <div className="PlantsView">
         <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal, clickQuery} } />
-        <QueryMax { ...{selectMax, maxVal} } />
-        <div>Common:
-          <input type="text" onChange={(e) => doQuery('common', e.target.value)} />
-        </div>
+        <QueryOpts { ...{selectMax, maxVal, doQuery, doComplexQuery} } />
+
         <PlantsTable { ...{plants, resetQuery, doQuery} } />
       </div>
     );
