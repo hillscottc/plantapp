@@ -27,7 +27,7 @@ class PlantsView extends Component {
    * init the plants table
    */
   resetQuery() {
-    queryPlants().then((plants) => {
+    queryPlants({}).then((plants) => {
       this.setState({plants:plants});
     });
   }
@@ -53,7 +53,7 @@ class PlantsView extends Component {
    */
   clickQuery() {
     const {queryType, queryVal} = this.state;
-    queryPlants(queryType, queryVal ).then((plants) => {
+    queryPlants({queryType, queryVal}).then((plants) => {
       this.setState({plants:plants});
     });
   }
@@ -61,9 +61,9 @@ class PlantsView extends Component {
   /**
    * links in the table
    */
-  clickColumn(queryType, val) {
+  clickColumn(queryType, queryVal) {
 
-    queryPlants(queryType, val).then((plants) => {
+    queryPlants({queryType, queryVal}).then((plants) => {
       this.setState({plants:plants});
     });
   }
