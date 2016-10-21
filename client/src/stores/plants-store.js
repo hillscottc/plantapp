@@ -24,7 +24,7 @@ export function queryPlants({queryType, queryVal, max}) {
 }
 
 
-function getPlantsList({max=100}) {
+function getPlantsList({max=1000}) {
   return fetch(`/api/plants/${max}`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())

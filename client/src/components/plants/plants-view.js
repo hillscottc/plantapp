@@ -27,7 +27,7 @@ class PlantsView extends Component {
    * init the plants table
    */
   resetQuery() {
-    queryPlants({}).then((plants) => {
+    queryPlants({max:100}).then((plants) => {
       this.setState({plants:plants});
     });
   }
