@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import PlantsTable from './plants-table'
 import QuerySelect from './query-select'
 import QueryOpts from './query-opts'
-import {queryPlants} from '../../stores/plants-store'
+import {queryPlants, complexQueryPlants} from '../../stores/plants-store'
 import './plants-view.css'
 
 
@@ -58,6 +58,9 @@ class PlantsView extends Component {
 
   doComplexQuery({symbol, common, family}) {
     console.log(`Complex query: ${symbol}, ${common}, ${family}`);
+    complexQueryPlants({symbol, common, family}).then((plants) => {
+      this.setState({plants:plants});
+    });
   }
 
   render() {

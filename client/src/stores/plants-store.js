@@ -24,6 +24,38 @@ export function queryPlants({queryType, queryVal, max}) {
 }
 
 
+export function complexQueryPlants({symbol, common, family}) {
+
+  let queryPromise;
+
+
+  if (symbol) {
+
+    if (family) {
+      return getPlantsBySymbol({queryVal:symbol})
+          .then((plants) => {
+            return plants.filter((plant) => plant.family === family);
+          });
+
+    } else if (common) {
+
+    } else {
+      return getPlantsBySymbol({queryVal:symbol})
+    }
+
+  } else if (family) {
+    return getPlantsByFamily({queryVal:symbol})
+
+
+  } else if (common) {
+
+  } else {
+    return getPlantsList({})
+  }
+
+}
+
+
 function getPlantsList({max=1000}) {
   return fetch(`/api/plants/${max}`, {accept: 'application/json',})
       .then(checkHttpResp)
