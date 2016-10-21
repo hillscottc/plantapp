@@ -16,8 +16,7 @@ class PlantsView extends Component {
     this.doQuery = this.doQuery.bind(this);
     this.doComplexQuery = this.doComplexQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
-    this.selectMax = this.selectMax.bind(this);
-    this.state = {plants: [], queryType: '', queryVal:'', maxVal: 100};
+    this.state = {plants: [], queryType: '', queryVal:''};
   }
 
   componentDidMount() {
@@ -42,14 +41,6 @@ class PlantsView extends Component {
   }
 
   /**
-   * max plants to show
-   */
-
-  selectMax(val) {
-    this.setState({maxVal: val ? val.value : 100});
-  }
-
-  /**
    * query go button
    */
   clickQuery() {
@@ -70,14 +61,14 @@ class PlantsView extends Component {
   }
 
   render() {
-    const { plants, queryType, queryVal, maxVal } = this.state;
-    const {selectQuery, changeQueryVal,  clickQuery,
-        resetQuery, doQuery, selectMax, doComplexQuery} = this;
+    const { plants, queryType, queryVal } = this.state;
+    const {selectQuery, changeQueryVal, clickQuery, resetQuery, doQuery, doComplexQuery} = this;
 
     return (
       <div className="PlantsView">
         <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal, clickQuery} } />
-        <QueryOpts { ...{selectMax, maxVal, doQuery, doComplexQuery} } />
+
+        <QueryOpts { ...{doComplexQuery} } />
 
         <PlantsTable { ...{plants, resetQuery, doQuery} } />
       </div>
