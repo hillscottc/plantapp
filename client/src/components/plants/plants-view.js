@@ -25,13 +25,16 @@ class PlantsView extends Component {
    * init the plants table
    */
   resetQuery() {
+    this.setState({queryType: '', queryVal:''});
     queryPlants({max:100}).then((plants) => {
       this.setState({plants});
     });
   }
 
-  selectQuery(val) {
-    this.setState({queryType: val ? val.value : ""});
+  selectQuery(e) {
+    this.setState({ queryVal:''});
+    const queryType = e.value;
+    this.setState({queryType});
   }
 
   changeQueryVal(e) {
@@ -40,14 +43,11 @@ class PlantsView extends Component {
 
     this.setState({queryVal});
 
-
     if (queryType && queryVal ) {
       queryPlants({queryType, queryVal}).then((plants) => {
         this.setState({plants});
       });
     }
-
-
   }
 
   /**
