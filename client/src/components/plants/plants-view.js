@@ -11,7 +11,6 @@ class PlantsView extends Component {
     super(props);
     this.selectQuery = this.selectQuery.bind(this);
     this.changeQueryVal = this.changeQueryVal.bind(this);
-    this.clickQuery = this.clickQuery.bind(this);
     this.doQuery = this.doQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
     this.state = {plants: [], queryType: '', queryVal:''};
@@ -50,16 +49,6 @@ class PlantsView extends Component {
     }
   }
 
-  /**
-   * query go button
-   */
-  clickQuery() {
-    const {queryType, queryVal} = this.state;
-    queryPlants({queryType, queryVal}).then((plants) => {
-      this.setState({plants});
-    });
-  }
-
   doQuery(queryType, queryVal) {
     queryPlants({queryType, queryVal}).then((plants) => {
       this.setState({plants});
@@ -68,11 +57,11 @@ class PlantsView extends Component {
 
   render() {
     const { plants, queryType, queryVal } = this.state;
-    const {selectQuery, changeQueryVal, clickQuery, resetQuery, doQuery} = this;
+    const {selectQuery, changeQueryVal, resetQuery, doQuery} = this;
 
     return (
       <div className="PlantsView">
-        <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal, clickQuery} } />
+        <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal} } />
         <PlantsTable { ...{plants, resetQuery, doQuery} } />
       </div>
     );
