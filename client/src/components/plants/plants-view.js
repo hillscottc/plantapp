@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
-import PlantsTable from './plants-table';
+import React, { Component } from 'react'
+import PlantsTable from './plants-table'
 import QuerySelect from './query-select'
 import {queryPlants} from '../../stores/plants-store'
-import './plants-view.css';
+import './plants-view.css'
 
 
 class PlantsView extends Component {
@@ -11,8 +11,7 @@ class PlantsView extends Component {
     super(props);
     this.selectQuery = this.selectQuery.bind(this);
     this.changeQueryVal = this.changeQueryVal.bind(this);
-    this.clickQuery = this.clickQuery.bind(this);
-    this.clickColumn = this.clickColumn.bind(this);
+    this.doQuery = this.doQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
     this.state = {plants: [], queryType: '', queryVal:''};
   }
@@ -25,47 +24,48 @@ class PlantsView extends Component {
    * init the plants table
    */
   resetQuery() {
-    queryPlants().then((plants) => {
-      this.setState({plants:plants});
+    this.setState({queryType: '', queryVal:''});
+    queryPlants({max:1000}).then((plants) => {
+      this.setState({plants});
     });
   }
 
-  selectQuery(val) {
-    this.setState({queryType: val ? val.value : ""});
+  selectQuery(e) {
+    this.setState({ queryVal:''});
+    const queryType = e ? e.value : '';
+    this.setState({queryType});
+    if (! queryType) {
+      this.resetQuery();
+    }
   }
 
   changeQueryVal(e) {
-    this.setState({ queryVal: e.target.value });
+    const queryType = this.state.queryType;
+    const queryVal = e.target.value;
+
+    this.setState({queryVal});
+
+    if (queryType && queryVal ) {
+      queryPlants({queryType, queryVal}).then((plants) => {
+        this.setState({plants});
+      });
+    }
   }
 
-  /**
-   * query go button
-   */
-  clickQuery() {
-    const {queryType, queryVal} = this.state;
-    queryPlants(queryType, queryVal ).then((plants) => {
-      this.setState({plants:plants});
-    });
-  }
-
-  /**
-   * links in the table
-   */
-  clickColumn(queryType, val) {
-
-    queryPlants(queryType, val).then((plants) => {
-      this.setState({plants:plants});
+  doQuery(queryType, queryVal) {
+    queryPlants({queryType, queryVal}).then((plants) => {
+      this.setState({plants});
     });
   }
 
   render() {
     const { plants, queryType, queryVal } = this.state;
-    const {selectQuery, changeQueryVal,  clickQuery, resetQuery, clickColumn} = this;
+    const {selectQuery, changeQueryVal, resetQuery, doQuery} = this;
+
     return (
       <div className="PlantsView">
-        <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal, clickQuery} }
-        />
-        <PlantsTable { ...{plants, resetQuery, clickColumn} } />
+        <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal} } />
+        <PlantsTable { ...{plants, resetQuery, doQuery} } />
       </div>
     );
   }

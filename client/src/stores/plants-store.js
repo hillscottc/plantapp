@@ -1,9 +1,8 @@
 import { checkHttpResp } from '../utils.js';
 import PlantModel from './plant-model'
 
-export function queryPlants(queryType,  queryVal) {
-  console.log("args:", arguments);
-
+export function queryPlants({queryType, queryVal, max}) {
+  // console.log(`Querying: ${queryType}, ${queryVal}, ${max}`);
   let queryPromise;
   switch(queryType) {
     case "symbol":
@@ -22,12 +21,11 @@ export function queryPlants(queryType,  queryVal) {
     default:
       throw new Error("Query Type error");
   }
-  return queryPromise(queryVal);
+  return queryPromise({queryType, queryVal, max});
 }
 
-
-function getPlantsList() {
-  return fetch(`/api/plants`, {accept: 'application/json',})
+function getPlantsList({max=1000}) {
+  return fetch(`/api/plants/${max}`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
       .then((json) => {
@@ -35,8 +33,8 @@ function getPlantsList() {
       });
 }
 
-function getPlantsBySymbol(symbol) {
-  return fetch(`/api/plants/symbol/${symbol}`, {accept: 'application/json',})
+function getPlantsBySymbol({queryVal}) {
+  return fetch(`/api/plants/symbol/${queryVal}`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
       .then((json) => {
@@ -44,8 +42,8 @@ function getPlantsBySymbol(symbol) {
       });
 }
 
-function getPlantsByFamily(family) {
-  return fetch(`/api/plants/family/${family}`, {accept: 'application/json',})
+function getPlantsByFamily({queryVal}) {
+  return fetch(`/api/plants/family/${queryVal}`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
       .then((json) => {
@@ -53,8 +51,8 @@ function getPlantsByFamily(family) {
       });
 }
 
-function getPlantsByCommon(common) {
-  return fetch(`/api/plants/common-name/${common}`, {accept: 'application/json',})
+function getPlantsByCommon({queryVal}) {
+  return fetch(`/api/plants/common-name/${queryVal}`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
       .then((json) => {
