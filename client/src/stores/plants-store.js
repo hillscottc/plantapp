@@ -2,7 +2,7 @@ import { checkHttpResp } from '../utils.js';
 import PlantModel from './plant-model'
 
 export function queryPlants({queryType, queryVal, max}) {
-  console.log(`Querying: ${queryType}, ${queryVal}, ${max}`);
+  // console.log(`Querying: ${queryType}, ${queryVal}, ${max}`);
   let queryPromise;
   switch(queryType) {
     case "symbol":

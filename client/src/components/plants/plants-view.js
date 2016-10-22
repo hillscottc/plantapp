@@ -32,8 +32,11 @@ class PlantsView extends Component {
 
   selectQuery(e) {
     this.setState({ queryVal:''});
-    const queryType = e.value;
+    const queryType = e ? e.value : '';
     this.setState({queryType});
+    if (! queryType) {
+      this.resetQuery();
+    }
   }
 
   changeQueryVal(e) {

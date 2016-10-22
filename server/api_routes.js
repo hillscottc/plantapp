@@ -40,7 +40,7 @@ router.get('/plant/:id', (req, res) => {
 
 // GET - by symbol
 router.get('/plants/symbol/:symbol', (req, res) => {
-  db.any("SELECT * FROM plant WHERE symbol = $1", [req.params.symbol])
+  db.any("SELECT * FROM plant WHERE symbol = $1", [req.params.symbol.toUpperCase()])
       .then(function (data) {
         return res.json(data);
       })
