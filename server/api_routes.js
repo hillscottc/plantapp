@@ -10,8 +10,9 @@ const pgp = require('pg-promise')({promiseLib: promise});
 
 var db = pgp(config.databaseUrl);
 
-// maximum number of records returned
+// maximum records returned
 const MAX = 25;
+
 
 // GET - some plants with optional limit
 router.get('/plants/:limit?', (req, res) => {
@@ -23,6 +24,13 @@ router.get('/plants/:limit?', (req, res) => {
       .catch(function (error) {
         console.log("ERROR:", error);
       })
+});
+
+
+// POST QUERY
+router.post('/plants/', (req, res) => {
+  console.log("got POST data:", req.body);
+  return res.json({ok:1});
 });
 
 
