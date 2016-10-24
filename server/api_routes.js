@@ -20,7 +20,7 @@ const MAX = 25;
 // GET - some plants with optional limit
 router.get('/plants/:limit?', (req, res) => {
   const limit = req.params.limit || MAX;
-  db.any("SELECT * FROM plant LIMIT $1", [limit])
+  db.any(SQL`SELECT * FROM plant LIMIT ${limit}`)
       .then(function (data) {
         return res.json(data);
       })
@@ -33,17 +33,14 @@ router.get('/plants/:limit?', (req, res) => {
 // POST SEARCH QUERY
 router.post('/plants/:limit?', (req, res) => {
   console.log("got POST data:", req.body);
-
-  return res.json({ok:1});
-
+  return res.json({testing:'fake post ok'});
 });
 
 
 // GET - by id
 router.get('/plant/:id', (req, res) => {
   const {id} = req.params;
-  const sql = SQL`SELECT * FROM plant WHERE id = ${id}`;
-  db.oneOrNone(sql)
+  db.oneOrNone(SQL`SELECT * FROM plant WHERE id = ${id}`)
       .then(function (data) {
         return res.json(data);
       })
@@ -57,8 +54,7 @@ router.get('/plant/:id', (req, res) => {
 router.get('/plants/symbol/:symbol', (req, res) => {
   let {symbol} = req.params;
   symbol = symbol.toUpperCase();
-  const sql = SQL`SELECT * FROM plant WHERE symbol = ${symbol}`;
-  db.any(sql)
+  db.any(SQL`SELECT * FROM plant WHERE symbol = ${symbol}`)
       .then(function (data) {
         return res.json(data);
       })
@@ -83,7 +79,10 @@ router.get('/plants/synonym/:synonym', (req, res) => {
 
 // GET - like family
 router.get('/plants/family/:family', (req, res) => {
-  db.any("SELECT * FROM plant WHERE family LIKE '%$1#%' LIMIT $2", [req.params.family, MAX])
+  let {family} = req.params;
+  family = "%" + family + "%";
+  const sql = SQL`SELECT * FROM plant WHERE family LIKE ${family} LIMIT ${MAX}`.setName('get_family');
+  db.any(sql)
       .then(function (data) {
         return res.json(data);
       })
@@ -95,7 +94,10 @@ router.get('/plants/family/:family', (req, res) => {
 
 // GET - like common name
 router.get('/plants/common-name/:common', (req, res) => {
-  db.any("SELECT * FROM plant WHERE common_name LIKE '%$1#%' LIMIT $2", [req.params.common, MAX])
+  let {common} = req.params;
+  common = "%" + common + "%";
+  const sql = SQL`SELECT * FROM plant WHERE common_name LIKE ${common} LIMIT ${MAX}`.setName('get_common');
+  db.any(sql)
       .then(function (data) {
         return res.json(data);
       })
@@ -107,7 +109,10 @@ router.get('/plants/common-name/:common', (req, res) => {
 
 // GET - like sci name
 router.get('/plants/sci-name/:sci', (req, res) => {
-  db.any("SELECT * FROM plant WHERE sci_name LIKE '%$1#%' LIMIT $2", [req.params.sci, MAX])
+  let {sci} = req.params;
+  sci = "%" + sci + "%";
+  const sql = SQL`SELECT * FROM plant WHERE sci_name LIKE ${sci} LIMIT ${MAX}`.setName('get_sci');
+  db.any(sql)
       .then(function (data) {
         return res.json(data);
       })

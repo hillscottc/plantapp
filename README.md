@@ -22,43 +22,13 @@ $ npm install
 ```sh
 $ npm start
 ```
-This launches the Server and Client with foreman.
-
-The services can also be run individually. For example to run just the server:
-```
-$ npm start:server
-```
-Or, with foreman:
-```sh
-$ nf start server=1
-```
+This launches the Server and Client with node-foreman.
 
 
-#### Using `node-foreman`
-[node-foreman] provides several benefits. In this project, it is used primarily for two things:
- 
-1. Configure our client (React) service and server (Express) processes. This is done in the `Procfile`:
-    ```
-    web: npm run start:client
-    server: npm run start:server
-    ```
+## Test
+Run the tests for the server api with `npm test`. This runs the tests at [server/api_routes.spec.js](server/api_routes.spec.js)
 
-2. Configure environment variables read by at launch. This is done with a `.env` file:
-    ```javascript
-    {
-      "node": {
-        "env": "development"
-      },
-      "mongo": {
-        "url": "mongodb://localhost/plantsdb"
-      },
-      "server": {
-        "port": 3001
-      }
-    }
-    ```
-    Then these variables can be accessed from javascript like: `process.env.MONGO_URL`.
- 
+
 [Express]: https://expressjs.com/   
 [create-react-app]: https://github.com/facebookincubator/create-react-app 
 [this post]: https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/

@@ -51,7 +51,7 @@ describe("Plants api test",function(){
   it("plants by symbol ",function(done){
 
     server
-        .get("/api/plants/symbol/NAAM")
+        .get("/api/plants/symbol/naam")
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
@@ -61,6 +61,8 @@ describe("Plants api test",function(){
           done();
         });
   });
+
+
 
   it("plants by synonym ",function(done){
 
@@ -76,10 +78,10 @@ describe("Plants api test",function(){
         });
   });
 
-  it("plants by family ",function(done){
+  it("plants LIKE family ",function(done){
 
     server
-        .get("/api/plants/family/Pinaceae")
+        .get("/api/plants/family/Pina")
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
