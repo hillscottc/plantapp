@@ -2,11 +2,14 @@
  * Server routes at /api/
  */
 const express = require('express');
+const SQL = require('sql-template-strings');
 const router = express.Router();
 const config = require('../config');
 
 const promise = require('bluebird');
 const pgp = require('pg-promise')({promiseLib: promise});
+
+
 
 var db = pgp(config.databaseUrl);
 
@@ -27,16 +30,20 @@ router.get('/plants/:limit?', (req, res) => {
 });
 
 
-// POST QUERY
-router.post('/plants/', (req, res) => {
+// POST SEARCH QUERY
+router.post('/plants/:limit?', (req, res) => {
   console.log("got POST data:", req.body);
+
   return res.json({ok:1});
+
 });
 
 
 // GET - by id
 router.get('/plant/:id', (req, res) => {
-  db.oneOrNone("SELECT * FROM plant WHERE id = $1", [req.params.id])
+  const {id} = req.params;
+  const sql = SQL`SELECT * FROM plant WHERE id = ${id}`;
+  db.oneOrNone(sql)
       .then(function (data) {
         return res.json(data);
       })
@@ -48,7 +55,10 @@ router.get('/plant/:id', (req, res) => {
 
 // GET - by symbol
 router.get('/plants/symbol/:symbol', (req, res) => {
-  db.any("SELECT * FROM plant WHERE symbol = $1", [req.params.symbol.toUpperCase()])
+  let {symbol} = req.params;
+  symbol = symbol.toUpperCase();
+  const sql = SQL`SELECT * FROM plant WHERE symbol = ${symbol}`;
+  db.any(sql)
       .then(function (data) {
         return res.json(data);
       })
@@ -59,7 +69,9 @@ router.get('/plants/symbol/:symbol', (req, res) => {
 
 // GET - by synonym
 router.get('/plants/synonym/:synonym', (req, res) => {
-  db.any("SELECT * FROM plant WHERE synonym = $1", [req.params.synonym])
+  const {synonym} = req.params;
+  const sql = SQL`SELECT * FROM plant WHERE synonym = ${synonym}`;
+  db.any(sql)
       .then(function (data) {
         return res.json(data);
       })
