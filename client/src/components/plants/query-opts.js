@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import QuerySelect from './query-select'
 
 
 class QueryOpts extends Component {
@@ -10,10 +9,7 @@ class QueryOpts extends Component {
     this.changeFamilyVal = this.changeFamilyVal.bind(this);
     this.changeSymbolVal = this.changeSymbolVal.bind(this);
     this.changeSciVal = this.changeSciVal.bind(this);
-    this.selectQuery = this.selectQuery.bind(this);
-    this.changeQueryVal = this.changeQueryVal.bind(this);
-    this.state = {queryType: '', queryVal:'', family:'',
-      common:'', symbol: '', sci: ''};
+    this.state = {family:'', common:'', symbol: '', sci: ''};
   }
 
   changeSymbolVal(e) {
@@ -44,35 +40,12 @@ class QueryOpts extends Component {
     this.props.doComplexQuery({family, common, symbol, sci});
   }
 
-  selectQuery(e) {
-    this.setState({ queryVal:''});
-    const queryType = e ? e.value : '';
-    this.setState({queryType});
-    if (! queryType) {
-      this.props.resetQuery();
-    }
-  }
-
-  changeQueryVal(e) {
-    const queryType = this.state.queryType;
-    const queryVal = e.target.value;
-
-    this.setState({queryVal});
-
-    if (queryType && queryVal ) {
-      this.props.doQuery(queryType, queryVal);
-    }
-  }
-
   render() {
-    const { family, common, symbol, sci, queryType, queryVal } = this.state;
-    const {selectQuery, changeQueryVal, changeCommonVal, changeFamilyVal,
-        changeSymbolVal, changeSciVal} = this;
+    const { family, common, symbol, sci } = this.state;
+    const {changeCommonVal, changeFamilyVal, changeSymbolVal, changeSciVal} = this;
 
     return (
         <div>
-          <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal} } />
-
           <div>
             symbol
             <input type="text" value={symbol} onChange={changeSymbolVal} />
