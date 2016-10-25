@@ -1,12 +1,11 @@
 const supertest = require("supertest");
 const should = require("should");
-const chalk = require('chalk');
-
+const config = require('../config');
 const server = supertest.agent("http://localhost:3001");
 
+const MAX = config.maxRecs;
 
-describe("Plants api test",function(){
-
+describe("Plants api GET tests",function(){
 
   it("plants list",function(done){
 
@@ -15,22 +14,7 @@ describe("Plants api test",function(){
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
-          res.body.length.should.equal(25);
-          res.status.should.equal(200);
-          should.not.exist(res.body.error);
-          done();
-        });
-  });
-
-  it("plants list with limit",function(done){
-
-    server
-        .get("/api/plants/50")
-        .expect("Content-type",/json/)
-        .expect(200)
-        .end(function(err, res){
-          res.body.length.should.equal(50);
-          res.status.should.equal(200);
+          res.body.length.should.equal(MAX);
           should.not.exist(res.body.error);
           done();
         });
@@ -45,7 +29,6 @@ describe("Plants api test",function(){
         .expect(200)
         .end(function(err, res){
           res.body.id.should.equal(1);
-          res.status.should.equal(200);
           should.not.exist(res.body.error);
           done();
         });
@@ -54,17 +37,17 @@ describe("Plants api test",function(){
   it("plants by symbol ",function(done){
 
     server
-        .get("/api/plants/symbol/NAAM")
+        .get("/api/plants/symbol/naam")
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
           // console.log(res.body.length);
           res.body.length.should.equal(4);
-          res.status.should.equal(200);
           should.not.exist(res.body.error);
           done();
         });
   });
+
 
   it("plants by synonym ",function(done){
 
@@ -75,22 +58,20 @@ describe("Plants api test",function(){
         .end(function(err, res){
           // console.log(res.body.length);
           res.body.length.should.equal(1);
-          res.status.should.equal(200);
           should.not.exist(res.body.error);
           done();
         });
   });
 
-  it("plants by family ",function(done){
+  it("plants LIKE family ",function(done){
 
     server
-        .get("/api/plants/family/Pinaceae")
+        .get("/api/plants/family/Pleo")
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
           // console.log(res.body.length);
-          res.body.length.should.equal(25);
-          res.status.should.equal(200);
+          res.body.length.should.equal(14);
           should.not.exist(res.body.error);
           done();
         });
@@ -105,7 +86,6 @@ describe("Plants api test",function(){
         .end(function(err, res){
           // console.log(res.body.length);
           res.body.length.should.equal(3);
-          res.status.should.equal(200);
           should.not.exist(res.body.error);
           done();
         });
@@ -120,13 +100,85 @@ describe("Plants api test",function(){
         .expect(200)
         .end(function(err, res){
           // console.log(res.body.length);
-          res.body.length.should.equal(25);
-          res.status.should.equal(200);
+          res.body.length.should.equal(38);
           should.not.exist(res.body.error);
           done();
         });
   });
 
+});
 
+
+describe("Plants search query POST tests",function() {
+
+  it("blank query",function(done){
+    const data = {};
+    console.log("query:", data);
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res){
+          res.body.length.should.equal(MAX);
+          done();
+        });
+  });
+
+  it("family query",function(done){
+    const data = {family:'Pleo'};
+    console.log("query:", data);
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res){
+          res.body.length.should.equal(14);
+          done();
+        });
+  });
+
+  it("okra query",function(done){
+    const data = {family:'Malva', common: 'okra'};
+    console.log("query:", data);
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res){
+          res.body.length.should.equal(3);
+          done();
+        });
+  });
+
+  it("musk okra query",function(done){
+    const data = {family:'Malva', common: 'musk'};
+    console.log("query:", data);
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res){
+          res.body.length.should.equal(2);
+          done();
+        });
+  });
+
+  it("another okra query",function(done){
+    const data = {sci:'Medik.', common: 'okra'};
+    console.log("query:", data);
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res){
+          res.body.length.should.equal(2);
+          done();
+        });
+  });
 
 });
