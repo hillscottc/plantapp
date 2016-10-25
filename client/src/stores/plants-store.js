@@ -23,8 +23,8 @@ export function queryPlants({queryType, queryVal}) {
   return queryPromise({queryType, queryVal});
 }
 
-export function searchPlants({common, family}) {
-  const payload = {common, family};
+export function searchPlants({common, family, symbol, sci}) {
+  const payload = {common, family, symbol, sci};
   return fetch("/api/plants/", {
         headers: {'Accept': 'application/json', 'Content-Type': 'application/json'},
         method: "POST",

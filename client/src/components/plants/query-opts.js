@@ -8,21 +8,40 @@ class QueryOpts extends Component {
     super(props);
     this.changeCommonVal = this.changeCommonVal.bind(this);
     this.changeFamilyVal = this.changeFamilyVal.bind(this);
+    this.changeSymbolVal = this.changeSymbolVal.bind(this);
+    this.changeSciVal = this.changeSciVal.bind(this);
     this.selectQuery = this.selectQuery.bind(this);
     this.changeQueryVal = this.changeQueryVal.bind(this);
-    this.state = {queryType: '', queryVal:'', familyVal:'', commonVal:''};
+    this.state = {queryType: '', queryVal:'', family:'',
+      common:'', symbol: '', sci: ''};
+  }
+
+  changeSymbolVal(e) {
+    const symbol = e.target.value;
+    this.setState({symbol});
+    const {family, common, sci} = this.state;
+    this.props.doComplexQuery({family, common, symbol, sci});
   }
 
   changeCommonVal(e) {
-    const commonVal = e.target.value;
-    this.setState({commonVal});
-    this.props.doComplexQuery({family:this.state.familyVal, common: commonVal});
+    const common = e.target.value;
+    this.setState({common});
+    const {family, symbol, sci} = this.state;
+    this.props.doComplexQuery({family, common, symbol, sci});
   }
 
   changeFamilyVal(e) {
-    const familyVal = e.target.value;
-    this.setState({familyVal});
-    this.props.doComplexQuery({family:familyVal, common: this.state.commonVal});
+    const family = e.target.value;
+    this.setState({family});
+    const {common, symbol, sci} = this.state;
+    this.props.doComplexQuery({family, common, symbol, sci});
+  }
+
+  changeSciVal(e) {
+    const sci = e.target.value;
+    this.setState({sci});
+    const {common, symbol, family} = this.state;
+    this.props.doComplexQuery({family, common, symbol, sci});
   }
 
   selectQuery(e) {
@@ -46,19 +65,26 @@ class QueryOpts extends Component {
   }
 
   render() {
-    const { familyVal, commonVal, queryType, queryVal } = this.state;
-    const {selectQuery, changeQueryVal, changeCommonVal, changeFamilyVal} = this;
+    const { family, common, symbol, sci, queryType, queryVal } = this.state;
+    const {selectQuery, changeQueryVal, changeCommonVal, changeFamilyVal,
+        changeSymbolVal, changeSciVal} = this;
 
     return (
         <div>
           <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal} } />
 
           <div>
+            symbol
+            <input type="text" value={symbol} onChange={changeSymbolVal} />
+            <br/>
+            sci
+            <input type="text" value={sci} onChange={changeSciVal} />
+            <br/>
             family
-            <input type="text" value={familyVal} onChange={changeFamilyVal} />
+            <input type="text" value={family} onChange={changeFamilyVal} />
             <br/>
             common
-            <input type="text" value={commonVal} onChange={changeCommonVal} />
+            <input type="text" value={common} onChange={changeCommonVal} />
           </div>
         </div>
     );

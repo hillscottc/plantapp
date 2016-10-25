@@ -36,9 +36,9 @@ class PlantsView extends Component {
     });
   }
 
-  doComplexQuery({common, family}) {
+  doComplexQuery({common, family, symbol, sci}) {
     // console.log(`Querying: common:${common}, family: ${family} `);
-    searchPlants({common, family}).then((plants) => {
+    searchPlants({common, family, symbol, sci}).then((plants) => {
       this.setState({plants});
     });
   }
