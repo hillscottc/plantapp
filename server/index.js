@@ -7,9 +7,6 @@ const app = express();
 app.use(bodyParser.json());
 app.use(morgan("dev"));
 
-console.log("Environ:", process.env.NODE_ENV);
-
-
 // If this is prod, serve the client build dir and set port
 if (process.env.NODE_ENV === "production") {
   app.set('port', (process.env.PORT || 3001));
