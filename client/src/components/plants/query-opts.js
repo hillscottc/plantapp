@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import './query-opts.css'
 
 
 class QueryOpts extends Component {
@@ -45,19 +46,22 @@ class QueryOpts extends Component {
     const {changeCommonVal, changeFamilyVal, changeSymbolVal, changeSciVal} = this;
 
     return (
-        <div>
+        <div className="QueryOpts">
           <div>
-            symbol
-            <input type="text" value={symbol} onChange={changeSymbolVal} />
-            <br/>
-            sci
-            <input type="text" value={sci} onChange={changeSciVal} />
-            <br/>
-            family
-            <input type="text" value={family} onChange={changeFamilyVal} />
-            <br/>
-            common
-            <input type="text" value={common} onChange={changeCommonVal} />
+            <label htmlFor="symbol">symbol</label>
+            <input id="symbol" type="text" value={symbol} onChange={changeSymbolVal} />
+          </div>
+          <div>
+            <label htmlFor="sci">sci</label>
+            <input id="sci" type="text" value={sci} onChange={changeSciVal} />
+          </div>
+          <div>
+            <label htmlFor="sci">family</label>
+            <input id="family" type="text" value={family} onChange={changeFamilyVal} />
+          </div>
+          <div>
+            <label htmlFor="common">common</label>
+            <input id="common" type="text" value={common} onChange={changeCommonVal} />
           </div>
         </div>
     );
