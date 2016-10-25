@@ -28,7 +28,7 @@ router.post('/plants/', (req, res) => {
   family = family ? "%" + family + "%" : "";
   common = common ? "%" + common + "%" : "";
   sci = sci ? "%" + sci + "%" : "";
-  symbol = symbol.toUpperCase();
+  symbol = symbol ? symbol.toUpperCase() : "";
 
   const sql = SQL`SELECT * FROM plant WHERE 1 = 1 `;
 
