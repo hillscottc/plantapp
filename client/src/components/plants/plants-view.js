@@ -25,7 +25,7 @@ class PlantsView extends Component {
    */
   resetQuery() {
     this.setState({queryType: '', queryVal:''});
-    queryPlants({max:1000}).then((plants) => {
+    queryPlants({}).then((plants) => {
       this.setState({plants});
     });
   }

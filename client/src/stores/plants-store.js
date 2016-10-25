@@ -1,8 +1,7 @@
 import { checkHttpResp } from '../utils.js';
 import PlantModel from './plant-model'
 
-export function queryPlants({queryType, queryVal, max}) {
-  // console.log(`Querying: ${queryType}, ${queryVal}, ${max}`);
+export function queryPlants({queryType, queryVal}) {
   let queryPromise;
   switch(queryType) {
     case "symbol":
@@ -21,11 +20,11 @@ export function queryPlants({queryType, queryVal, max}) {
     default:
       throw new Error("Query Type error");
   }
-  return queryPromise({queryType, queryVal, max});
+  return queryPromise({queryType, queryVal});
 }
 
-function getPlantsList({max=1000}) {
-  return fetch(`/api/plants/${max}`, {accept: 'application/json',})
+function getPlantsList() {
+  return fetch(`/api/plants/`, {accept: 'application/json',})
       .then(checkHttpResp)
       .then((response) => response.json())
       .then((json) => {

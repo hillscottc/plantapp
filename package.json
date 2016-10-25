@@ -21,7 +21,8 @@
     "express": "^4.14.0",
     "foreman": "^2.0.0",
     "morgan": "^1.7.0",
-    "pg-promise": "^5.3.3"
+    "pg-promise": "^5.3.3",
+    "sql-template-strings": "^2.2.2"
   },
   "devDependencies": {
     "babel-register": "^6.16.3",
@@ -37,7 +38,7 @@
     "start:client": "nf start client=1",
     "start:prod": "NODE_ENV=production nf start server=1",
     "start": "nf start -p 3000",
-    "test": "mocha server/ client/test --compilers js:babel-register -R spec --ui bdd"
+    "test": "mocha server/ --compilers js:babel-register -R spec --ui bdd"
   },
   "repository": {
     "type": "git",
