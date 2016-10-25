@@ -113,6 +113,7 @@ describe("Plants search query POST tests",function() {
 
   it("blank query",function(done){
     const data = {};
+    console.log("query:", data);
     server
         .post("/api/plants/")
         .send(data)
@@ -126,6 +127,7 @@ describe("Plants search query POST tests",function() {
 
   it("family query",function(done){
     const data = {family:'Pleo'};
+    console.log("query:", data);
     server
         .post("/api/plants/")
         .send(data)
@@ -139,6 +141,7 @@ describe("Plants search query POST tests",function() {
 
   it("okra query",function(done){
     const data = {family:'Malva', common: 'okra'};
+    console.log("query:", data);
     server
         .post("/api/plants/")
         .send(data)
@@ -152,6 +155,7 @@ describe("Plants search query POST tests",function() {
 
   it("musk okra query",function(done){
     const data = {family:'Malva', common: 'musk'};
+    console.log("query:", data);
     server
         .post("/api/plants/")
         .send(data)
@@ -165,6 +169,7 @@ describe("Plants search query POST tests",function() {
 
   it("another okra query",function(done){
     const data = {sci:'Medik.', common: 'okra'};
+    console.log("query:", data);
     server
         .post("/api/plants/")
         .send(data)

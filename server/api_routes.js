@@ -21,7 +21,6 @@ router.get('/plants/', (req, res) => {
 
 // POST SEARCH QUERY
 router.post('/plants/', (req, res) => {
-  console.log("handling POST data:", req.body);
 
   let {family, common, sci} = req.body;
   family = family ? "%" + family + "%" : "";
