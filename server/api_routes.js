@@ -28,10 +28,13 @@ router.post('/plants/', (req, res) => {
   family = family ? "%" + family + "%" : "";
   common = common ? "%" + common + "%" : "";
   sci = sci ? "%" + sci + "%" : "";
-  symbol = symbol ? symbol.toUpperCase() : "";
+  symbol = symbol ? "%" + symbol.toUpperCase() + "%" : "";
 
   const sql = SQL`SELECT * FROM plant WHERE 1 = 1 `;
 
+  if (symbol) {
+    sql.append(SQL` AND symbol LIKE ${symbol}`);
+  }
   if (family) {
     sql.append(SQL` AND family LIKE ${family}`);
   }
