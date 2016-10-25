@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PlantsTable from './plants-table'
-import QuerySelect from './query-select'
 import QueryOpts from './query-opts'
 import {queryPlants, searchPlants} from '../../stores/plants-store'
 import './plants-view.css'
@@ -10,12 +9,10 @@ class PlantsView extends Component {
 
   constructor(props) {
     super(props);
-    this.selectQuery = this.selectQuery.bind(this);
-    this.changeQueryVal = this.changeQueryVal.bind(this);
     this.doQuery = this.doQuery.bind(this);
     this.doComplexQuery = this.doComplexQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
-    this.state = {plants: [], queryType: '', queryVal:''};
+    this.state = {plants: []};
   }
 
   componentDidMount() {
@@ -32,27 +29,6 @@ class PlantsView extends Component {
     });
   }
 
-  selectQuery(e) {
-    this.setState({ queryVal:''});
-    const queryType = e ? e.value : '';
-    this.setState({queryType});
-    if (! queryType) {
-      this.resetQuery();
-    }
-  }
-
-  changeQueryVal(e) {
-    const queryType = this.state.queryType;
-    const queryVal = e.target.value;
-
-    this.setState({queryVal});
-
-    if (queryType && queryVal ) {
-      queryPlants({queryType, queryVal}).then((plants) => {
-        this.setState({plants});
-      });
-    }
-  }
 
   doQuery(queryType, queryVal) {
     queryPlants({queryType, queryVal}).then((plants) => {
@@ -69,13 +45,12 @@ class PlantsView extends Component {
 
 
   render() {
-    const { plants, queryType, queryVal } = this.state;
-    const {selectQuery, changeQueryVal, resetQuery, doQuery, doComplexQuery} = this;
+    const { plants } = this.state;
+    const {resetQuery, doQuery, doComplexQuery} = this;
 
     return (
       <div className="PlantsView">
-        <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal} } />
-        <QueryOpts { ...{doComplexQuery} } />
+        <QueryOpts { ...{doComplexQuery, doQuery, resetQuery} } />
         <PlantsTable { ...{plants, resetQuery, doQuery} } />
       </div>
     );
