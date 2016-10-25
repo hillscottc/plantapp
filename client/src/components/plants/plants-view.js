@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import PlantsTable from './plants-table'
 import QuerySelect from './query-select'
+import QueryOpts from './query-opts'
 import {queryPlants, searchPlants} from '../../stores/plants-store'
 import './plants-view.css'
 
@@ -12,11 +13,9 @@ class PlantsView extends Component {
     this.selectQuery = this.selectQuery.bind(this);
     this.changeQueryVal = this.changeQueryVal.bind(this);
     this.doQuery = this.doQuery.bind(this);
+    this.doComplexQuery = this.doComplexQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
-    this.changeCommonVal = this.changeCommonVal.bind(this);
-    this.changeFamilyVal = this.changeFamilyVal.bind(this);
-    // this.doComplexQuery = this.doComplexQuery.bind(this);
-    this.state = {plants: [], queryType: '', queryVal:'', familyVal:'', commonVal:''};
+    this.state = {plants: [], queryType: '', queryVal:''};
   }
 
   componentDidMount() {
@@ -61,7 +60,6 @@ class PlantsView extends Component {
     });
   }
 
-
   doComplexQuery({common, family}) {
     // console.log(`Querying: common:${common}, family: ${family} `);
     searchPlants({common, family}).then((plants) => {
@@ -69,33 +67,15 @@ class PlantsView extends Component {
     });
   }
 
-  changeCommonVal(e) {
-    const commonVal = e.target.value;
-    this.setState({commonVal});
-    this.doComplexQuery({family:this.state.familyVal, common: commonVal});
-  }
-
-  changeFamilyVal(e) {
-    const familyVal = e.target.value;
-    this.setState({familyVal});
-    this.doComplexQuery({family:familyVal, common: this.state.commonVal});
-  }
-
 
   render() {
-    const { plants, queryType, queryVal, familyVal, commonVal } = this.state;
-    const {selectQuery, changeQueryVal, resetQuery, doQuery, changeCommonVal, changeFamilyVal} = this;
+    const { plants, queryType, queryVal } = this.state;
+    const {selectQuery, changeQueryVal, resetQuery, doQuery, doComplexQuery} = this;
 
     return (
       <div className="PlantsView">
         <QuerySelect { ...{queryType, queryVal, selectQuery, changeQueryVal} } />
-        <div>
-          family
-          <input type="text" value={familyVal} onChange={changeFamilyVal} />
-          <br/>
-          common
-          <input type="text" value={commonVal} onChange={changeCommonVal} />
-        </div>
+        <QueryOpts { ...{doComplexQuery} } />
         <PlantsTable { ...{plants, resetQuery, doQuery} } />
       </div>
     );
