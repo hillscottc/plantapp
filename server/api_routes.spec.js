@@ -5,8 +5,7 @@ const chalk = require('chalk');
 const server = supertest.agent("http://localhost:3001");
 
 
-describe("Plants api test",function(){
-
+describe("Plants api GET tests",function(){
 
   it("plants list",function(done){
 
@@ -15,7 +14,7 @@ describe("Plants api test",function(){
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
-          res.body.length.should.equal(25);
+          res.body.length.should.equal(100);
           should.not.exist(res.body.error);
           done();
         });
@@ -81,12 +80,12 @@ describe("Plants api test",function(){
   it("plants LIKE family ",function(done){
 
     server
-        .get("/api/plants/family/Pina")
+        .get("/api/plants/family/Pleo")
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
           // console.log(res.body.length);
-          res.body.length.should.equal(25);
+          res.body.length.should.equal(14);
           should.not.exist(res.body.error);
           done();
         });
@@ -115,24 +114,80 @@ describe("Plants api test",function(){
         .expect(200)
         .end(function(err, res){
           // console.log(res.body.length);
-          res.body.length.should.equal(25);
+          res.body.length.should.equal(38);
           should.not.exist(res.body.error);
           done();
         });
   });
 
-  it("plants POST ",function(done){
-    const data = {foo:"bar"};
+});
+
+
+describe("Plants search query POST tests",function() {
+
+  it("blank query",function(done){
+    const data = {};
     server
         .post("/api/plants/")
         .send(data)
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
-          console.log(res.body);
+          res.body.length.should.equal(100);
           done();
         });
   });
 
+  it("family query",function(done){
+    const data = {family:'Pleo'};
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res){
+          res.body.length.should.equal(14);
+          done();
+        });
+  });
+
+  it("okra query",function(done){
+    const data = {family:'Malva', common: 'okra'};
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res){
+          res.body.length.should.equal(3);
+          done();
+        });
+  });
+
+  it("musk okra query",function(done){
+    const data = {family:'Malva', common: 'musk'};
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res){
+          res.body.length.should.equal(2);
+          done();
+        });
+  });
+
+  it("another okra query",function(done){
+    const data = {sci:'Medik.', common: 'okra'};
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res){
+          res.body.length.should.equal(2);
+          done();
+        });
+  });
 
 });

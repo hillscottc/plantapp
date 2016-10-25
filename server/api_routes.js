@@ -2,20 +2,16 @@
  * Server routes at /api/
  */
 const express = require('express');
+const promise = require('bluebird');
 const SQL = require('sql-template-strings');
 const router = express.Router();
 const config = require('../config');
-
-const promise = require('bluebird');
 const pgp = require('pg-promise')({promiseLib: promise});
-
-
 
 var db = pgp(config.databaseUrl);
 
 // maximum records returned
-const MAX = 25;
-
+const MAX = 100;
 
 // GET - some plants with optional limit
 router.get('/plants/:limit?', (req, res) => {
@@ -33,7 +29,36 @@ router.get('/plants/:limit?', (req, res) => {
 // POST SEARCH QUERY
 router.post('/plants/:limit?', (req, res) => {
   console.log("got POST data:", req.body);
-  return res.json({testing:'fake post ok'});
+  const limit = parseInt(req.params.limit) || MAX;
+
+  let {family, common, sci} = req.body;
+  family = family ? "%" + family + "%" : "";
+  common = common ? "%" + common + "%" : "";
+  sci = sci ? "%" + sci + "%" : "";
+
+  let sql = SQL`SELECT * FROM plant WHERE 1 = 1 `;
+  if (family) {
+    sql.append(SQL` AND family LIKE ${family}`)
+  }
+  if (common) {
+    sql.append(SQL` AND common_name LIKE ${common}`)
+  }
+  if (sci) {
+    sql.append(SQL` AND sci_name LIKE ${sci}`)
+  }
+
+  sql.append(SQL` LIMIT ${limit}`);
+
+  console.log(sql.sql);
+  console.log(sql.values);
+
+  db.any(sql)
+      .then(function (data) {
+        return res.json(data);
+      })
+      .catch(function (error) {
+        console.log("ERROR:", error);
+      })
 });
 
 
