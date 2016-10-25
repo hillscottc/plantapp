@@ -23,6 +23,30 @@ export function queryPlants({queryType, queryVal}) {
   return queryPromise({queryType, queryVal});
 }
 
+
+
+
+// WHY NO SEND PAYLOAD?
+export function searchPlants({common, family}) {
+
+
+
+  console.log(`Searching: common:${common}, family: ${family} `);
+  // const payload = JSON.stringify({common, family});
+  const payload = JSON.stringify({foo:1, bar:2});
+  return fetch(`/api/plants/`, {accept: 'application/json', method: 'post', body: payload})
+      .then(checkHttpResp)
+      .then((response) => response.json())
+      .then((json) => {
+        return json.map(item => PlantModel.fromJS(item));
+      });
+
+
+
+
+
+}
+
 function getPlantsList() {
   return fetch(`/api/plants/`, {accept: 'application/json',})
       .then(checkHttpResp)

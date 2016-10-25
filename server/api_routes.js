@@ -22,6 +22,8 @@ router.get('/plants/', (req, res) => {
 // POST SEARCH QUERY
 router.post('/plants/', (req, res) => {
 
+  console.log("Handling:", req.body);
+
   let {family, common, sci} = req.body;
   family = family ? "%" + family + "%" : "";
   common = common ? "%" + common + "%" : "";
