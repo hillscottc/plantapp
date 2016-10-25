@@ -1,9 +1,9 @@
 const supertest = require("supertest");
 const should = require("should");
-const chalk = require('chalk');
-
+const config = require('../config');
 const server = supertest.agent("http://localhost:3001");
 
+const MAX = config.maxRecs;
 
 describe("Plants api GET tests",function(){
 
@@ -14,20 +14,7 @@ describe("Plants api GET tests",function(){
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
-          res.body.length.should.equal(100);
-          should.not.exist(res.body.error);
-          done();
-        });
-  });
-
-  it("plants list with limit",function(done){
-
-    server
-        .get("/api/plants/50")
-        .expect("Content-type",/json/)
-        .expect(200)
-        .end(function(err, res){
-          res.body.length.should.equal(50);
+          res.body.length.should.equal(MAX);
           should.not.exist(res.body.error);
           done();
         });
@@ -60,7 +47,6 @@ describe("Plants api GET tests",function(){
           done();
         });
   });
-
 
 
   it("plants by synonym ",function(done){
@@ -133,7 +119,7 @@ describe("Plants search query POST tests",function() {
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
-          res.body.length.should.equal(100);
+          res.body.length.should.equal(MAX);
           done();
         });
   });

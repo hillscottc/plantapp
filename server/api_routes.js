@@ -3,75 +3,59 @@
  */
 const express = require('express');
 const promise = require('bluebird');
+const pgp = require('pg-promise')({promiseLib: promise});
 const SQL = require('sql-template-strings');
 const router = express.Router();
 const config = require('../config');
-const pgp = require('pg-promise')({promiseLib: promise});
 
-var db = pgp(config.databaseUrl);
+const db = pgp(config.databaseUrl);
+const MAX = config.maxRecs;
 
-// maximum records returned
-const MAX = 100;
-
-// GET - some plants with optional limit
-router.get('/plants/:limit?', (req, res) => {
-  const limit = req.params.limit || MAX;
-  db.any(SQL`SELECT * FROM plant LIMIT ${limit}`)
-      .then(function (data) {
-        return res.json(data);
-      })
-      .catch(function (error) {
-        console.log("ERROR:", error);
-      })
+// GET - some plants
+router.get('/plants/', (req, res) => {
+  db.any(SQL`SELECT * FROM plant LIMIT ${MAX}`)
+      .then(function (data) { return res.json(data) })
+      .catch(function (error) { console.error(error) })
 });
 
 
 // POST SEARCH QUERY
-router.post('/plants/:limit?', (req, res) => {
-  console.log("got POST data:", req.body);
-  const limit = parseInt(req.params.limit) || MAX;
+router.post('/plants/', (req, res) => {
+  console.log("handling POST data:", req.body);
 
   let {family, common, sci} = req.body;
   family = family ? "%" + family + "%" : "";
   common = common ? "%" + common + "%" : "";
   sci = sci ? "%" + sci + "%" : "";
 
-  let sql = SQL`SELECT * FROM plant WHERE 1 = 1 `;
+  const sql = SQL`SELECT * FROM plant WHERE 1 = 1 `;
+
   if (family) {
-    sql.append(SQL` AND family LIKE ${family}`)
+    sql.append(SQL` AND family LIKE ${family}`);
   }
   if (common) {
-    sql.append(SQL` AND common_name LIKE ${common}`)
+    sql.append(SQL` AND common_name LIKE ${common}`);
   }
   if (sci) {
-    sql.append(SQL` AND sci_name LIKE ${sci}`)
+    sql.append(SQL` AND sci_name LIKE ${sci}`);
   }
 
-  sql.append(SQL` LIMIT ${limit}`);
+  sql.append(SQL` LIMIT ${MAX}`);
 
-  console.log(sql.sql);
-  console.log(sql.values);
+  // console.log(sql.sql);
+  // console.log(sql.values);
 
   db.any(sql)
-      .then(function (data) {
-        return res.json(data);
-      })
-      .catch(function (error) {
-        console.log("ERROR:", error);
-      })
+      .then(function (data) { return res.json(data) })
+      .catch(function (error) { console.error(error) })
 });
 
 
 // GET - by id
 router.get('/plant/:id', (req, res) => {
-  const {id} = req.params;
-  db.oneOrNone(SQL`SELECT * FROM plant WHERE id = ${id}`)
-      .then(function (data) {
-        return res.json(data);
-      })
-      .catch(function (error) {
-        console.log("ERROR:", error);
-      })
+  db.oneOrNone(SQL`SELECT * FROM plant WHERE id = ${req.params.id}`)
+      .then(function (data) { return res.json(data) })
+      .catch(function (error) { console.error(error) })
 });
 
 
@@ -80,25 +64,16 @@ router.get('/plants/symbol/:symbol', (req, res) => {
   let {symbol} = req.params;
   symbol = symbol.toUpperCase();
   db.any(SQL`SELECT * FROM plant WHERE symbol = ${symbol}`)
-      .then(function (data) {
-        return res.json(data);
-      })
-      .catch(function (error) {
-        console.log("ERROR:", error);
-      })
+      .then(function (data) { return res.json(data) })
+      .catch(function (error) { console.error(error) })
 });
 
 // GET - by synonym
 router.get('/plants/synonym/:synonym', (req, res) => {
-  const {synonym} = req.params;
-  const sql = SQL`SELECT * FROM plant WHERE synonym = ${synonym}`;
+  const sql = SQL`SELECT * FROM plant WHERE synonym = ${req.params.synonym}`;
   db.any(sql)
-      .then(function (data) {
-        return res.json(data);
-      })
-      .catch(function (error) {
-        console.log("ERROR:", error);
-      })
+      .then(function (data) { return res.json(data) })
+      .catch(function (error) { console.error(error) })
 });
 
 
@@ -108,12 +83,8 @@ router.get('/plants/family/:family', (req, res) => {
   family = "%" + family + "%";
   const sql = SQL`SELECT * FROM plant WHERE family LIKE ${family} LIMIT ${MAX}`.setName('get_family');
   db.any(sql)
-      .then(function (data) {
-        return res.json(data);
-      })
-      .catch(function (error) {
-        console.log("ERROR:", error);
-      })
+      .then(function (data) { return res.json(data) })
+      .catch(function (error) { console.error(error) })
 });
 
 
@@ -123,12 +94,8 @@ router.get('/plants/common-name/:common', (req, res) => {
   common = "%" + common + "%";
   const sql = SQL`SELECT * FROM plant WHERE common_name LIKE ${common} LIMIT ${MAX}`.setName('get_common');
   db.any(sql)
-      .then(function (data) {
-        return res.json(data);
-      })
-      .catch(function (error) {
-        console.log("ERROR:", error);
-      })
+      .then(function (data) { return res.json(data) })
+      .catch(function (error) { console.error(error) })
 });
 
 
@@ -138,12 +105,8 @@ router.get('/plants/sci-name/:sci', (req, res) => {
   sci = "%" + sci + "%";
   const sql = SQL`SELECT * FROM plant WHERE sci_name LIKE ${sci} LIMIT ${MAX}`.setName('get_sci');
   db.any(sql)
-      .then(function (data) {
-        return res.json(data);
-      })
-      .catch(function (error) {
-        console.log("ERROR:", error);
-      })
+      .then(function (data) { return res.json(data) })
+      .catch(function (error) { console.error(error) })
 });
 
 
