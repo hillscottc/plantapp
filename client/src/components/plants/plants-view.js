@@ -15,7 +15,7 @@ class PlantsView extends Component {
     this.resetQuery = this.resetQuery.bind(this);
     this.changeCommonVal = this.changeCommonVal.bind(this);
     this.changeFamilyVal = this.changeFamilyVal.bind(this);
-    this.doComplexQuery = this.doComplexQuery.bind(this);
+    // this.doComplexQuery = this.doComplexQuery.bind(this);
     this.state = {plants: [], queryType: '', queryVal:'', familyVal:'', commonVal:''};
   }
 
@@ -63,7 +63,7 @@ class PlantsView extends Component {
 
 
   doComplexQuery({common, family}) {
-    console.log(`Querying: common:${common}, family: ${family} `);
+    // console.log(`Querying: common:${common}, family: ${family} `);
     searchPlants({common, family}).then((plants) => {
       this.setState({plants});
     });
