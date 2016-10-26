@@ -13,6 +13,7 @@
     "react": "^15.3.1",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.1",
+    "react-js-pagination": "^2.0.0",
     "react-router": "^2.7.0",
     "react-router-bootstrap": "^0.23.1"
   },
