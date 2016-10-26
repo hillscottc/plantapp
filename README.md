@@ -29,6 +29,12 @@ This launches the Server and Client with node-foreman.
 Run the tests for the server api with `npm test`. This runs the tests at [server/api_routes.spec.js](server/api_routes.spec.js)
 
 
+## Debug messages
+Uses the [debug] logger module. To see this app's debugger messages, you might set an env var like `DEBUG=app:*`. So to see them while running, you would
+```
+DEBUG=plantapp:* npm start
+```
+
 [Express]: https://expressjs.com/   
 [create-react-app]: https://github.com/facebookincubator/create-react-app 
 [this post]: https://www.fullstackreact.com/articles/using-create-react-app-with-a-server/
@@ -36,3 +42,4 @@ Run the tests for the server api with `npm test`. This runs the tests at [server
 [the USDA Plants Database]: https://plants.usda.gov/dl_all.html
 [PostgreSQL]: https://www.postgresql.org/
 [pg-promise]: https://github.com/vitaly-t/pg-promise
+[debug]: https://github.com/visionmedia/debug 

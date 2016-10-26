@@ -17,28 +17,28 @@ class QueryOpts extends Component {
     const symbol = e.target.value;
     this.setState({symbol});
     const {family, common, sci} = this.state;
-    this.props.doComplexQuery({family, common, symbol, sci});
+    this.props.doQuery({family, common, symbol, sci});
   }
 
   changeCommonVal(e) {
     const common = e.target.value;
     this.setState({common});
     const {family, symbol, sci} = this.state;
-    this.props.doComplexQuery({family, common, symbol, sci});
+    this.props.doQuery({family, common, symbol, sci});
   }
 
   changeFamilyVal(e) {
     const family = e.target.value;
     this.setState({family});
     const {common, symbol, sci} = this.state;
-    this.props.doComplexQuery({family, common, symbol, sci});
+    this.props.doQuery({family, common, symbol, sci});
   }
 
   changeSciVal(e) {
     const sci = e.target.value;
     this.setState({sci});
     const {common, symbol, family} = this.state;
-    this.props.doComplexQuery({family, common, symbol, sci});
+    this.props.doQuery({family, common, symbol, sci});
   }
 
   render() {
@@ -69,9 +69,8 @@ class QueryOpts extends Component {
 }
 
 QueryOpts.propTypes = {
-  doQuery: PropTypes.func.isRequired,
   resetQuery: PropTypes.func.isRequired,
-  doComplexQuery: PropTypes.func.isRequired,
+  doQuery: PropTypes.func.isRequired,
 };
 
 export default QueryOpts;

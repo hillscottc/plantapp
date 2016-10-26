@@ -19,16 +19,16 @@ const PlantsTable = (props) => (
         {props.plants.map((plant) =>
           <tr key={plant.id} >
             <td>
-              <a onClick={() => props.doQuery('symbol', plant.symbol )} >{plant.symbol}</a>
+              <a onClick={() => props.doQuery({symbol: plant.symbol})} >{plant.symbol}</a>
             </td>
             <td>
               {plant.synonym}
             </td>
             <td>
-              <a onClick={() => props.doQuery('family', plant.family )} >{plant.family}</a>
+              <a onClick={() => props.doQuery({family: plant.family})} >{plant.family}</a>
             </td>
             <td>
-              <a onClick={() => props.doQuery('common', plant.common_name )} >{plant.common_name}</a>
+              <a onClick={() => props.doQuery({common: plant.common_name})} >{plant.common_name}</a>
             </td>
             <td>
               <a target="_blank" href={`http://images.google.com/images?q="${plant.sci_name}"`}>
