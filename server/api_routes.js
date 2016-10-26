@@ -1,6 +1,7 @@
 /**
  * Server routes at /api/
  */
+const debug = require('debug')('plantapp:api');
 const express = require('express');
 const promise = require('bluebird');
 const pgp = require('pg-promise')({promiseLib: promise});
@@ -18,7 +19,7 @@ const MAX = config.maxRecs;
  */
 router.post('/plants/', (req, res) => {
 
-  console.log("Handling:", req.body);
+  debug("Handling:", req.body);
 
   let {family, common, symbol, sci} = req.body;
   family = family ? "%" + family + "%" : "";
@@ -43,8 +44,8 @@ router.post('/plants/', (req, res) => {
 
   sql.append(SQL` LIMIT ${MAX}`);
 
-  // console.log(sql.sql);
-  // console.log(sql.values);
+  debug(sql.sql);
+  debug(sql.values);
 
   db.any(sql)
       .then((data) => { return res.json(data) })
