@@ -21,7 +21,7 @@ router.post('/plants/', (req, res) => {
 
   debug("Handling:", req.body);
 
-  let {family, common, symbol, sci} = req.body;
+  let {family, common, symbol, sci, order} = req.body;
   family = family ? "%" + family + "%" : "";
   common = common ? "%" + common + "%" : "";
   sci = sci ? "%" + sci + "%" : "";
@@ -42,7 +42,11 @@ router.post('/plants/', (req, res) => {
     sql.append(SQL` AND sci_name LIKE ${sci}`);
   }
 
-  sql.append(SQL` LIMIT ${MAX}`);
+  // note: dont use SQL escaping here
+  if (order) {
+    sql.append(` ORDER BY ${order}`);
+  }
+  sql.append(` LIMIT ${MAX}`);
 
   debug(sql.sql);
   debug(sql.values);

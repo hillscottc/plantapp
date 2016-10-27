@@ -125,6 +125,38 @@ describe("Plants search query POST tests",function() {
         });
   });
 
+  it("order by family",function(done){
+    const data = {order:'family'};
+    console.log("query:", data);
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res) {
+          const firstPlant = res.body[0];
+          firstPlant.family.should.equal("Acanthaceae");
+          res.body.length.should.equal(MAX);
+          done();
+        });
+  });
+
+  it("order by common_name, descending",function(done){
+    const data = {order:'common_name DESC'};
+    console.log("query:", data);
+    server
+        .post("/api/plants/")
+        .send(data)
+        .expect("Content-type",/json/)
+        .expect(200)
+        .end(function(err, res) {
+          const firstPlant = res.body[0];
+          firstPlant.common_name.should.equal("‘ilima");
+          res.body.length.should.equal(MAX);
+          done();
+        });
+  });
+
   it("family query",function(done){
     const data = {family:'Pleo'};
     console.log("query:", data);
@@ -139,8 +171,9 @@ describe("Plants search query POST tests",function() {
         });
   });
 
-  it("okra query",function(done){
-    const data = {family:'Malva', common: 'okra'};
+
+  it("okra query, order by symbol",function(done){
+    const data = {family:'Malva', common: 'okra', order: 'symbol'};
     console.log("query:", data);
     server
         .post("/api/plants/")
@@ -148,6 +181,8 @@ describe("Plants search query POST tests",function() {
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
+          const firstPlant = res.body[0];
+          firstPlant.symbol.should.equal("ABELM");
           res.body.length.should.equal(3);
           done();
         });
