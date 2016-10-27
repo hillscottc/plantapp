@@ -13,6 +13,25 @@ const db = pgp(config.databaseUrl);
 const MAX = config.maxRecs;
 
 
+
+
+const Plant = require('./models/plant');
+
+// plants-bs by id
+router.get('/plants-bs/symbol/:id', (req, res) => {
+  Plant.forge({symbol: req.params.id})
+      .fetch()
+      .then(function (plant) {
+        return res.json(plant.toJSON())
+      })
+      .catch(function (err) {
+        return res.status(500).json({error: true, data: {message: err.message}});
+      });
+});
+
+
+
+
 /*
  POST QUERY
  Accepts post of search args to return plant records.
