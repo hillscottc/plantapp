@@ -21,13 +21,62 @@ const Plant = require('./models/plant');
 router.get('/plants-bs/symbol/:id', (req, res) => {
   Plant.forge({symbol: req.params.id})
       .fetch()
-      .then(function (plant) {
+      .then((plant) => {
         return res.json(plant.toJSON())
       })
-      .catch(function (err) {
+      .catch((err) => {
         return res.status(500).json({error: true, data: {message: err.message}});
       });
 });
+
+
+// plant-bs all
+router.get('/plants-bs/', (req, res) => {
+  Plant.forge()
+      .query((qb) => {
+        //qb is knex query builder
+        qb.offset(0).limit(10);
+      })
+      .fetchAll()
+      .then((plants) => {
+        return res.json(plants.toJSON())
+      })
+      .catch((err) => {
+        return res.status(500).json({error: true, data: {message: err.message}});
+      });
+});
+
+
+// plant-bs POST QUERY
+router.post('/plants-bs/', (req, res) => {
+
+  console.log("Handling:", req.body);
+
+  let {family, common, symbol, sci} = req.body;
+  family = family ? "%" + family + "%" : "";
+  common = common ? "%" + common + "%" : "";
+  sci = sci ? "%" + sci + "%" : "";
+  symbol = symbol ? "%" + symbol.toUpperCase() + "%" : "";
+
+  Plant.forge()
+      .query((qb) => {
+        //qb is knex query builder
+        qb.offset(0).limit(10);
+        if (symbol) qb.where('symbol', 'like', symbol);
+        if (common) qb.where('common_name', 'like', common);
+        if (family) qb.where('family', 'like', family);
+      })
+      .fetchAll()
+      .then((plants) => {
+        return res.json(plants.toJSON())
+      })
+      .catch((err) => {
+        return res.status(500).json({error: true, data: {message: err.message}});
+      });
+
+});
+
+
 
 
 
