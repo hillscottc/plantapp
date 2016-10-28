@@ -13,6 +13,7 @@ class PlantsView extends Component {
     super(props);
     this.doQuery = this.doQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
+    this.handlePageClick = this.handlePageClick.bind(this);
     this.state = {plants: [], offset:0, pageNum: 1};
   }
 
@@ -24,10 +25,10 @@ class PlantsView extends Component {
     this.loadPlants({});
   }
 
-  loadPlants({common, family, symbol, sci}) {
-    searchPlants({common, family, symbol, sci}).then((searchResults) => {
+  loadPlants({common, family, symbol, sci, offset}) {
+    searchPlants({common, family, symbol, sci, offset}).then((searchResults) => {
       const {data: plants, pagination} = searchResults;
-      const {offset, rowCount, limit} = pagination;
+      const {rowCount, limit} = pagination;
       let pageNum = Math.ceil(rowCount / limit);
       this.setState({ plants, offset, pageNum});
     });
@@ -40,15 +41,12 @@ class PlantsView extends Component {
 
   handlePageClick(e)  {
     let offset = Math.ceil(e.selected * PAGE_LIMIT);
-    this.setState({offset: offset}, () => {
-      this.loadPlants({offset});
-    });
-
+    this.loadPlants({offset});
   }
 
   render() {
     const { plants, pageNum } = this.state;
-    const {resetQuery, doQuery} = this;
+    const {resetQuery, doQuery, handlePageClick} = this;
 
     return (
       <div className="PlantsView">
@@ -61,7 +59,7 @@ class PlantsView extends Component {
                        pageNum={pageNum}
                        marginPagesDisplayed={2}
                        pageRangeDisplayed={5}
-                       clickCallback={doQuery}
+                       clickCallback={handlePageClick}
                        containerClassName={"pagination"}
                        subContainerClassName={"pages pagination"}
                        activeClassName={"active"} />
