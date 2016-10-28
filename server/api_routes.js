@@ -3,20 +3,9 @@
  */
 const debug = require('debug')('plantapp:api');
 const express = require('express');
-const promise = require('bluebird');
-const pgp = require('pg-promise')({promiseLib: promise});
-const SQL = require('sql-template-strings');
 const router = express.Router();
-const config = require('../config');
-
-const db = pgp(config.databaseUrl);
-const MAX = config.maxRecs;
-
-
-
 
 const Plant = require('./models/plant');
-
 
 
 // plant-bs all
