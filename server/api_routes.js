@@ -4,11 +4,10 @@
 const debug = require('debug')('plantapp:api');
 const express = require('express');
 const router = express.Router();
-
 const Plant = require('./models/plant');
 
 
-// plant-bs all
+// GET plants all
 router.get('/plants/', (req, res) => {
   Plant.forge()
       .query((qb) => {
@@ -44,6 +43,7 @@ router.post('/plants/', (req, res) => {
         if (symbol) qb.where('symbol', 'like', symbol);
         if (common) qb.where('common_name', 'like', common);
         if (family) qb.where('family', 'like', family);
+        if (sci) qb.where('sci_name', 'like', sci);
       })
       .fetchAll()
       .then((plants) => {
