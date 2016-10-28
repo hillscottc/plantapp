@@ -14,7 +14,9 @@ class PlantsView extends Component {
     this.doQuery = this.doQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
     this.handlePageClick = this.handlePageClick.bind(this);
-    this.state = {plants: [], offset:0, pageNum: 1};
+    this.state = { plants:[],
+      common:'', family:'', symbol:'', sci:'', // search terms
+      offset:0, pageNum: 1, limit: 10};
   }
 
   componentDidMount() {
@@ -30,7 +32,7 @@ class PlantsView extends Component {
       const {data: plants, pagination} = searchResults;
       const {rowCount, limit} = pagination;
       let pageNum = Math.ceil(rowCount / limit);
-      this.setState({ plants, offset, pageNum});
+      this.setState({ plants, common, family, symbol, sci, offset, pageNum});
     });
   }
 
@@ -40,8 +42,9 @@ class PlantsView extends Component {
   }
 
   handlePageClick(e)  {
-    let offset = Math.ceil(e.selected * PAGE_LIMIT);
-    this.loadPlants({offset});
+    const {common, family, symbol, sci, limit} = this.state;
+    let offset = Math.ceil(e.selected * limit);
+    this.loadPlants({common, family, symbol, sci, offset});
   }
 
   render() {

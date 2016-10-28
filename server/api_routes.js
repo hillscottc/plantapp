@@ -6,9 +6,6 @@ const express = require('express');
 const router = express.Router();
 const Plant = require('./models/plant');
 
-const PAGE_LIMIT = 10;
-
-
 
 function parsePlantArgs({family, common, symbol, sci, limit, offset}) {
   family = family ? "%" + family + "%" : "";
@@ -24,9 +21,8 @@ router.get('/plants/', (req, res) => {
   Plant.forge()
       .query((qb) => {})
       // .fetchAll()
-      .fetchPage({limit: PAGE_LIMIT, offset: 0})
+      .fetchPage({})
       .then((plants) => {
-        // return res.json(plants.toJSON())
         return res.json({
           data: plants.toJSON(),
           pagination: plants.pagination
@@ -42,11 +38,9 @@ router.get('/plants/', (req, res) => {
 // Accepts post of search args to return plant records.
 router.post('/plants/', (req, res) => {
 
-
   const {family, common, symbol, sci, limit, offset} = parsePlantArgs(req.body);
 
-  console.log("Handling:", {family, common, symbol, sci, limit, offset});
-
+  debug("Handling:", {family, common, symbol, sci, limit, offset});
 
   Plant.forge()
       .query((qb) => {
@@ -58,7 +52,6 @@ router.post('/plants/', (req, res) => {
       })
       .fetchPage({limit, offset})
       .then((plants) => {
-        // return res.json(plants.toJSON())
         return res.json({
           data: plants.toJSON(),
           pagination: plants.pagination
