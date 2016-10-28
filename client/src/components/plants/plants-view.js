@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import ReactPaginate from 'react-paginate'
 import PlantsTable from './plants-table'
 import QueryOpts from './query-opts'
 import { searchPlants} from '../../stores/plants-store'
 import './plants-view.css'
 
+const PAGE_LIMIT = 10;
 
 class PlantsView extends Component {
 
@@ -15,21 +17,14 @@ class PlantsView extends Component {
   }
 
   componentDidMount() {
-    this.resetQuery();
+    this.loadPlants({});
   }
 
   resetQuery() {
-    this.setState({queryType: '', queryVal:''});
-    searchPlants({}).then((searchResults) => {
-      const {data: plants, pagination} = searchResults;
-      const {offset, rowCount, limit} = pagination;
-      let pageNum = Math.ceil(rowCount / limit);
-      this.setState({ plants, offset, pageNum});
-    });
+    this.loadPlants({});
   }
 
-  doQuery({common, family, symbol, sci}) {
-    // console.log(`Querying: common:${common}, family: ${family} `);
+  loadPlants({common, family, symbol, sci}) {
     searchPlants({common, family, symbol, sci}).then((searchResults) => {
       const {data: plants, pagination} = searchResults;
       const {offset, rowCount, limit} = pagination;
@@ -38,14 +33,38 @@ class PlantsView extends Component {
     });
   }
 
+
+  doQuery({common, family, symbol, sci}) {
+    this.loadPlants({common, family, symbol, sci});
+  }
+
+  handlePageClick(e)  {
+    let offset = Math.ceil(e.selected * PAGE_LIMIT);
+    this.setState({offset: offset}, () => {
+      this.loadPlants({offset});
+    });
+
+  }
+
   render() {
-    const { plants } = this.state;
+    const { plants, pageNum } = this.state;
     const {resetQuery, doQuery} = this;
 
     return (
       <div className="PlantsView">
         <QueryOpts { ...{doQuery, resetQuery} } />
         <PlantsTable { ...{plants, resetQuery, doQuery} } />
+        <ReactPaginate previousLabel={"previous"}
+                       nextLabel={"next"}
+                       breakLabel={<a href="">...</a>}
+                       breakClassName={"break-me"}
+                       pageNum={pageNum}
+                       marginPagesDisplayed={2}
+                       pageRangeDisplayed={5}
+                       clickCallback={doQuery}
+                       containerClassName={"pagination"}
+                       subContainerClassName={"pages pagination"}
+                       activeClassName={"active"} />
       </div>
     );
   }

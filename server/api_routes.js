@@ -6,17 +6,17 @@ const express = require('express');
 const router = express.Router();
 const Plant = require('./models/plant');
 
+const PAGE_LIMIT = 10;
 
-function parsePlantArgs({family, common, symbol, sci}) {
+
+
+function parsePlantArgs({family, common, symbol, sci, limit, offset}) {
   family = family ? "%" + family + "%" : "";
   common = common ? "%" + common + "%" : "";
   sci = sci ? "%" + sci + "%" : "";
   symbol = symbol ? "%" + symbol.toUpperCase() + "%" : "";
-  return {family, common, symbol, sci};
+  return {family, common, symbol, sci, limit, offset};
 }
-
-
-
 
 
 // GET plants all
@@ -24,7 +24,7 @@ router.get('/plants/', (req, res) => {
   Plant.forge()
       .query((qb) => {})
       // .fetchAll()
-      .fetchPage({limit: 20, offset: 0})
+      .fetchPage({limit: PAGE_LIMIT, offset: 0})
       .then((plants) => {
         // return res.json(plants.toJSON())
         return res.json({
@@ -42,9 +42,11 @@ router.get('/plants/', (req, res) => {
 // Accepts post of search args to return plant records.
 router.post('/plants/', (req, res) => {
 
-  debug("Handling:", req.body);
 
-  const {family, common, symbol, sci} = parsePlantArgs(req.body);
+  const {family, common, symbol, sci, limit, offset} = parsePlantArgs(req.body);
+
+  console.log("Handling:", {family, common, symbol, sci, limit, offset});
+
 
   Plant.forge()
       .query((qb) => {
@@ -54,7 +56,7 @@ router.post('/plants/', (req, res) => {
         if (family) qb.where('family', 'like', family);
         if (sci) qb.where('sci_name', 'like', sci);
       })
-      .fetchPage({limit: 20, offset: 0})
+      .fetchPage({limit, offset})
       .then((plants) => {
         // return res.json(plants.toJSON())
         return res.json({
