@@ -11,8 +11,8 @@ describe("BOOKSHELF",function() {
         .expect("Content-type", /json/)
         .expect(200)
         .end(function (err, res) {
-          // console.log(res.body);
-          // console.log(res.body.length);
+          const {data, pagination} = res.body;
+          console.log({length: data.length, pagination});
           done();
         });
   });
@@ -26,9 +26,9 @@ describe("BOOKSHELF",function() {
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
-          // console.log(res.body);
-          // console.log(res.body.length);
-          const firstPlant = res.body[0];
+          const {data, pagination} = res.body;
+          console.log({length: data.length, pagination});
+          const firstPlant = data[0];
           firstPlant.symbol.should.equal("ABELM");
           done();
         });
@@ -43,9 +43,9 @@ describe("BOOKSHELF",function() {
         .expect("Content-type",/json/)
         .expect(200)
         .end(function(err, res){
-          // const firstPlant = res.body[0];
-          // console.log(firstPlant);
-          res.body.length.should.equal(2);
+          const {data, pagination} = res.body;
+          console.log({length: data.length, pagination});
+          data.length.should.equal(2);
           done();
         });
   });

@@ -11,7 +11,7 @@ class PlantsView extends Component {
     super(props);
     this.doQuery = this.doQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
-    this.state = {plants: []};
+    this.state = {plants: [], offset:0, pageNum: 1};
   }
 
   componentDidMount() {
@@ -20,15 +20,21 @@ class PlantsView extends Component {
 
   resetQuery() {
     this.setState({queryType: '', queryVal:''});
-    searchPlants({}).then((plants) => {
-      this.setState({plants});
+    searchPlants({}).then((searchResults) => {
+      const {data: plants, pagination} = searchResults;
+      const {offset, rowCount, limit} = pagination;
+      let pageNum = Math.ceil(rowCount / limit);
+      this.setState({ plants, offset, pageNum});
     });
   }
 
   doQuery({common, family, symbol, sci}) {
     // console.log(`Querying: common:${common}, family: ${family} `);
-    searchPlants({common, family, symbol, sci}).then((plants) => {
-      this.setState({plants});
+    searchPlants({common, family, symbol, sci}).then((searchResults) => {
+      const {data: plants, pagination} = searchResults;
+      const {offset, rowCount, limit} = pagination;
+      let pageNum = Math.ceil(rowCount / limit);
+      this.setState({ plants, offset, pageNum});
     });
   }
 

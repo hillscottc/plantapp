@@ -12,6 +12,10 @@ export function searchPlants({common, family, symbol, sci}) {
       .then(checkHttpResp)
       .then((response) => response.json())
       .then((json) => {
-        return json.map(item => PlantModel.fromJS(item));
+        const {data, pagination} = json;
+        return {
+          data: data.map(item => PlantModel.fromJS(item)),
+          pagination
+        };
       });
 }
