@@ -30,7 +30,7 @@ class PlantsView extends Component {
     searchPlants({common, family, symbol, sci, offset}).then((searchResults) => {
       const {data: plants, pagination} = searchResults;
       const {rowCount, limit} = pagination;
-      let pageNum = Math.ceil(rowCount / limit);
+      const pageNum = Math.ceil(rowCount / limit);
       this.setState({ plants, common, family, symbol, sci, offset, pageNum});
     });
   }
@@ -42,7 +42,7 @@ class PlantsView extends Component {
 
   handlePageClick(e)  {
     const {common, family, symbol, sci, limit} = this.state;
-    let offset = Math.ceil(e.selected * limit);
+    const offset = Math.ceil(e.selected * limit);
     this.loadPlants({common, family, symbol, sci, offset});
   }
 
@@ -53,7 +53,7 @@ class PlantsView extends Component {
     return (
       <div className="PlantsView">
         <QueryOpts { ...{doQuery, resetQuery} } />
-        <PlantsTable { ...{plants, resetQuery, doQuery} } />
+        <PlantsTable { ...{plants, doQuery} } />
         <ReactPaginate previousLabel={"previous"}
                        nextLabel={"next"}
                        breakLabel={<a href="">...</a>}
