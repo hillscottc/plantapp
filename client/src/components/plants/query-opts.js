@@ -44,6 +44,7 @@ class QueryOpts extends Component {
   }
 
   clickReset() {
+    this.setState({family:'', common:'', symbol: '', sci: ''});
     this.props.resetQuery();
   }
 
