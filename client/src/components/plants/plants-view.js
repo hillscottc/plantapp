@@ -5,7 +5,6 @@ import QueryOpts from './query-opts'
 import { searchPlants} from '../../stores/plants-store'
 import './plants-view.css'
 
-const PAGE_LIMIT = 10;
 
 class PlantsView extends Component {
 
