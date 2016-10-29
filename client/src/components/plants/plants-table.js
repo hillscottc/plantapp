@@ -1,16 +1,9 @@
 import React, { PropTypes }  from 'react'
-import { Table, Button } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 
 const PlantsTable = (props) => (
   <div>
-    <br/>
-    <Button
-        bsStyle="primary"
-        bsSize="xsmall"
-        onClick={props.resetQuery}>
-      reset
-    </Button>
     <Table striped bordered condensed hover responsive>
       <thead>
         <tr><th>Symbol</th><th>Synonym</th><th>Family</th><th>Common</th><th>Pics</th><th>Sci-name</th></tr>

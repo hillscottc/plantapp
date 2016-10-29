@@ -4,7 +4,7 @@ See this running on Heroku at <a href="https://plantapp.herokuapp.com/">https://
 
 ## Project structure
 - An [Express] app is the backend, serving the data api.
-- The database is [PostgreSQL] with a [pg-promise] interface. The plant data comes as a `.csv` file from [the USDA Plants Database]. 
+- The database is [PostgreSQL] modeled with [Bookshelf] ORM. The plant data comes as a `.csv` file from [the USDA Plants Database]. 
 - A [create-react-app] is the web frontend. [node-foreman] is used to run them together. (As suggested in [this post]). Augmented with bootstrap and react-router.
 ## Install
 ```sh
@@ -42,4 +42,5 @@ DEBUG=plantapp:* npm start
 [the USDA Plants Database]: https://plants.usda.gov/dl_all.html
 [PostgreSQL]: https://www.postgresql.org/
 [pg-promise]: https://github.com/vitaly-t/pg-promise
-[debug]: https://github.com/visionmedia/debug 
+[debug]: https://github.com/visionmedia/debug
+[Bookshelf]: http://bookshelfjs.org/

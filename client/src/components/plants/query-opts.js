@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react'
+import { Button } from 'react-bootstrap';
 import './query-opts.css'
 
 
@@ -10,6 +11,7 @@ class QueryOpts extends Component {
     this.changeFamilyVal = this.changeFamilyVal.bind(this);
     this.changeSymbolVal = this.changeSymbolVal.bind(this);
     this.changeSciVal = this.changeSciVal.bind(this);
+    this.clickReset = this.clickReset.bind(this);
     this.state = {family:'', common:'', symbol: '', sci: ''};
   }
 
@@ -41,9 +43,14 @@ class QueryOpts extends Component {
     this.props.doQuery({family, common, symbol, sci});
   }
 
+  clickReset() {
+    this.setState({family:'', common:'', symbol: '', sci: ''});
+    this.props.resetQuery();
+  }
+
   render() {
     const { family, common, symbol, sci } = this.state;
-    const {changeCommonVal, changeFamilyVal, changeSymbolVal, changeSciVal} = this;
+    const {changeCommonVal, changeFamilyVal, changeSymbolVal, changeSciVal, clickReset} = this;
 
     return (
         <div className="QueryOpts">
@@ -63,6 +70,13 @@ class QueryOpts extends Component {
             <label htmlFor="common">common</label>
             <input id="common" type="text" value={common} onChange={changeCommonVal} />
           </div>
+          <br />
+          <Button
+              bsStyle="primary"
+              bsSize="xsmall"
+              onClick={clickReset}>
+            reset
+          </Button>
         </div>
     );
   }

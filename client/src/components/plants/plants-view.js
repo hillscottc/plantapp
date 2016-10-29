@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactPaginate from 'react-paginate'
 import PlantsTable from './plants-table'
 import QueryOpts from './query-opts'
 import { searchPlants} from '../../stores/plants-store'
@@ -11,35 +12,59 @@ class PlantsView extends Component {
     super(props);
     this.doQuery = this.doQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
-    this.state = {plants: []};
+    this.handlePageClick = this.handlePageClick.bind(this);
+    this.state = { plants:[],
+      common:'', family:'', symbol:'', sci:'', // search terms
+      offset:0, pageNum: 1, limit: 10};
   }
 
   componentDidMount() {
-    this.resetQuery();
+    this.loadPlants({});
   }
 
   resetQuery() {
-    this.setState({queryType: '', queryVal:''});
-    searchPlants({}).then((plants) => {
-      this.setState({plants});
+    this.loadPlants({});
+  }
+
+  loadPlants({common, family, symbol, sci, offset}) {
+    searchPlants({common, family, symbol, sci, offset}).then((searchResults) => {
+      const {data: plants, pagination} = searchResults;
+      const {rowCount, limit} = pagination;
+      const pageNum = Math.ceil(rowCount / limit);
+      this.setState({ plants, common, family, symbol, sci, offset, pageNum});
     });
   }
 
+
   doQuery({common, family, symbol, sci}) {
-    // console.log(`Querying: common:${common}, family: ${family} `);
-    searchPlants({common, family, symbol, sci}).then((plants) => {
-      this.setState({plants});
-    });
+    this.loadPlants({common, family, symbol, sci});
+  }
+
+  handlePageClick(e)  {
+    const {common, family, symbol, sci, limit} = this.state;
+    const offset = Math.ceil(e.selected * limit);
+    this.loadPlants({common, family, symbol, sci, offset});
   }
 
   render() {
-    const { plants } = this.state;
-    const {resetQuery, doQuery} = this;
+    const { plants, pageNum } = this.state;
+    const {resetQuery, doQuery, handlePageClick} = this;
 
     return (
       <div className="PlantsView">
         <QueryOpts { ...{doQuery, resetQuery} } />
-        <PlantsTable { ...{plants, resetQuery, doQuery} } />
+        <PlantsTable { ...{plants, doQuery} } />
+        <ReactPaginate previousLabel={"previous"}
+                       nextLabel={"next"}
+                       breakLabel={<a href="">...</a>}
+                       breakClassName={"break-me"}
+                       pageNum={pageNum}
+                       marginPagesDisplayed={2}
+                       pageRangeDisplayed={5}
+                       clickCallback={handlePageClick}
+                       containerClassName={"pagination"}
+                       subContainerClassName={"pages pagination"}
+                       activeClassName={"active"} />
       </div>
     );
   }
