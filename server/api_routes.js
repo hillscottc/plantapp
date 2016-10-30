@@ -27,9 +27,16 @@ function setPlantsQuery(qb, queryArgs) {
 
 // GET plants all
 router.get('/plants/', (req, res) => {
+
+  const {family, common, symbol, sci, limit, offset} = req.query;
+
   Plant.forge()
-      .query((qb) => {})
-      .fetchPage({})
+      .query((qb) => {
+        //qb is knex query builder
+        setPlantsQuery(qb, {family, common, symbol, sci});
+      })
+      // .fetchPage({})
+      .fetchPage({limit, offset})
       .then((plants) => {
         return res.json({
           data: plants.toJSON(),
@@ -48,7 +55,7 @@ router.post('/plants/', (req, res) => {
 
   const {family, common, symbol, sci, limit, offset} = req.body;
 
-  debug("Handling:", req.body);
+  debug("Handling POST:", req.body);
 
   Plant.forge()
       .query((qb) => {

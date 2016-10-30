@@ -23,7 +23,8 @@
     "foreman": "^2.0.0",
     "knex": "^0.12.6",
     "morgan": "^1.7.0",
-    "pg": "^6.1.0"
+    "pg": "^6.1.0",
+    "query-string": "^4.2.3"
   },
   "devDependencies": {
     "babel-register": "^6.16.3",
