@@ -1,13 +1,13 @@
+import querystring from 'querystring';
 import { checkHttpResp } from '../utils.js';
 import PlantModel from './plant-model'
-const querystring = require('querystring');
 
 /*
  I can either POST or GET these search queries...
  GET would allow the queries to be bookmarked, were it not for React-Router.
  So might as well use POST, to save the extra parsing payloads to querystrings.
  */
-const USE_POST = true;
+const USE_POST = false;
 
 function fetchGet(payload) {
   return fetch("/api/plants/?" + querystring.stringify(payload));
