@@ -7,7 +7,7 @@ import PlantModel from './plant-model'
  GET would allow the queries to be bookmarked, were it not for React-Router.
  So might as well use POST, to save the extra parsing payloads to querystrings.
  */
-const USE_POST = false;
+const USE_POST = true;
 
 function fetchGet(payload) {
   return fetch("/api/plants/?" + querystring.stringify(payload));
@@ -21,14 +21,6 @@ function fetchPost(payload) {
   };
   return fetch("/api/plants/", fetchArgs)
 }
-
-
-/*
-
- I SHOULD BE USING THE BS MODEL HERE, NOT MINE.
-
- */
-
 
 export function searchPlants({common, family, symbol, sci, limit=10, offset=0}) {
 
