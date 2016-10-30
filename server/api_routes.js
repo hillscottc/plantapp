@@ -6,21 +6,29 @@ const express = require('express');
 const router = express.Router();
 const Plant = require('./models/plant');
 
+/**
+ * Sets a knex query builder object for given search params.
+ * @param qb a knex query builder
+ * @param queryArgs for plants
+ */
+function setPlantsQuery(qb, queryArgs) {
+  let {family, common, symbol, sci} = queryArgs;
 
-function parsePlantArgs({family, common, symbol, sci, limit, offset}) {
   family = family ? "%" + family + "%" : "";
   common = common ? "%" + common + "%" : "";
   sci = sci ? "%" + sci + "%" : "";
   symbol = symbol ? "%" + symbol.toUpperCase() + "%" : "";
-  return {family, common, symbol, sci, limit, offset};
-}
 
+  if (symbol) qb.where('symbol', 'like', symbol);
+  if (common) qb.where('common_name', 'like', common);
+  if (family) qb.where('family', 'like', family);
+  if (sci) qb.where('sci_name', 'like', sci);
+}
 
 // GET plants all
 router.get('/plants/', (req, res) => {
   Plant.forge()
       .query((qb) => {})
-      // .fetchAll()
       .fetchPage({})
       .then((plants) => {
         return res.json({
@@ -38,17 +46,14 @@ router.get('/plants/', (req, res) => {
 // Accepts post of search args to return plant records.
 router.post('/plants/', (req, res) => {
 
-  const {family, common, symbol, sci, limit, offset} = parsePlantArgs(req.body);
+  const {family, common, symbol, sci, limit, offset} = req.body;
 
-  debug("Handling:", {family, common, symbol, sci, limit, offset});
+  debug("Handling:", req.body);
 
   Plant.forge()
       .query((qb) => {
         //qb is knex query builder
-        if (symbol) qb.where('symbol', 'like', symbol);
-        if (common) qb.where('common_name', 'like', common);
-        if (family) qb.where('family', 'like', family);
-        if (sci) qb.where('sci_name', 'like', sci);
+        setPlantsQuery(qb, {family, common, symbol, sci});
       })
       .fetchPage({limit, offset})
       .then((plants) => {
