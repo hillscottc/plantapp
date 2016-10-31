@@ -2,28 +2,10 @@
  * Server routes at /api/
  */
 const debug = require('debug')('plantapp:api');
-const express = require('express');
+import {Plant, setPlantsQuery} from './database/models/plant';
+import express from 'express';
+
 const router = express.Router();
-const Plant = require('./models/plant');
-
-/**
- * Sets a knex query builder object for given search params.
- * @param qb a knex query builder
- * @param queryArgs for plants
- */
-function setPlantsQuery(qb, queryArgs) {
-  let {family, common, symbol, sci} = queryArgs;
-
-  family = family ? "%" + family + "%" : "";
-  common = common ? "%" + common + "%" : "";
-  sci = sci ? "%" + sci + "%" : "";
-  symbol = symbol ? "%" + symbol.toUpperCase() + "%" : "";
-
-  if (symbol) qb.where('symbol', 'like', symbol);
-  if (common) qb.where('common_name', 'like', common);
-  if (family) qb.where('family', 'like', family);
-  if (sci) qb.where('sci_name', 'like', sci);
-}
 
 // GET plants all
 router.get('/plants/', (req, res) => {
@@ -35,7 +17,6 @@ router.get('/plants/', (req, res) => {
         //qb is knex query builder
         setPlantsQuery(qb, {family, common, symbol, sci});
       })
-      // .fetchPage({})
       .fetchPage({limit, offset})
       .then((plants) => {
         return res.json({

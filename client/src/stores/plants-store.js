@@ -4,7 +4,7 @@ import { checkHttpResp } from '../utils.js';
 /*
  I can either POST or GET these search queries...
  GET would allow the queries to be bookmarked, were it not for React-Router.
- So might as well use POST, to save the extra parsing payloads to querystrings.
+ So I might as well use POST, to save the extra parsing payloads to querystrings.
  */
 const USE_POST = true;
 
