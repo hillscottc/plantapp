@@ -1,11 +1,10 @@
 import querystring from 'querystring';
 import { checkHttpResp } from '../utils.js';
-import PlantModel from './plant-model'
 
 /*
  I can either POST or GET these search queries...
  GET would allow the queries to be bookmarked, were it not for React-Router.
- So might as well use POST, to save the extra parsing payloads to querystrings.
+ So I might as well use POST, to save the extra parsing payloads to querystrings.
  */
 const USE_POST = true;
 
@@ -33,9 +32,6 @@ export function searchPlants({common, family, symbol, sci, limit=10, offset=0}) 
       .then((response) => response.json())
       .then((json) => {
         const {data, pagination} = json;
-        return {
-          data: data.map(item => PlantModel.fromJS(item)),
-          pagination
-        };
+        return { data, pagination };
       });
 }
