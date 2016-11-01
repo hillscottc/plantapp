@@ -6,6 +6,18 @@ import { searchPlants} from '../../stores/plants-store'
 import './plants-view.css'
 
 
+// function parseQueryString(url) {
+//   var urlParams = {};
+//   url.replace(
+//       new RegExp("([^?=&]+)(=([^&]*))?", "g"),
+//       function($0, $1, $2, $3) {
+//         urlParams[$1] = $3;
+//       }
+//   );
+//   return urlParams;
+// }
+
+
 class PlantsView extends Component {
 
   constructor(props) {
@@ -19,7 +31,19 @@ class PlantsView extends Component {
   }
 
   componentDidMount() {
+
+
+    // This works....But is it needed?
+
+    // const urlParams = parseQueryString(location.search);
+    // if (Object.keys(urlParams).length) {
+    //   console.log("Loading url args:", JSON.stringify(urlParams));
+    // }
+    // this.loadPlants(urlParams);
+
     this.loadPlants({});
+
+
   }
 
   resetQuery() {
