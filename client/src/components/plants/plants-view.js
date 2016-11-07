@@ -2,20 +2,9 @@ import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate'
 import PlantsTable from './plants-table'
 import QueryOpts from './query-opts'
+// import {parseQueryString} from '../../utils'
 import { searchPlants} from '../../stores/plants-store'
 import './plants-view.css'
-
-
-// function parseQueryString(url) {
-//   var urlParams = {};
-//   url.replace(
-//       new RegExp("([^?=&]+)(=([^&]*))?", "g"),
-//       function($0, $1, $2, $3) {
-//         urlParams[$1] = $3;
-//       }
-//   );
-//   return urlParams;
-// }
 
 
 class PlantsView extends Component {
@@ -32,9 +21,7 @@ class PlantsView extends Component {
 
   componentDidMount() {
 
-
     // This works....But is it needed?
-
     // const urlParams = parseQueryString(location.search);
     // if (Object.keys(urlParams).length) {
     //   console.log("Loading url args:", JSON.stringify(urlParams));
@@ -42,8 +29,6 @@ class PlantsView extends Component {
     // this.loadPlants(urlParams);
 
     this.loadPlants({});
-
-
   }
 
   resetQuery() {

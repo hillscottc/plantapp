@@ -2,7 +2,7 @@
  * Server routes at /api/
  */
 const debug = require('debug')('plantapp:api');
-import {Plant, setPlantsQuery} from './database/models/plant';
+import Plant from './database/models/plant';
 import express from 'express';
 
 const router = express.Router();
@@ -15,7 +15,7 @@ router.get('/plants/', (req, res) => {
   Plant.forge()
       .query((qb) => {
         //qb is knex query builder
-        setPlantsQuery(qb, {family, common, symbol, sci});
+        Plant.setPlantsQuery(qb, {family, common, symbol, sci});
       })
       .fetchPage({limit, offset})
       .then((plants) => {
@@ -41,7 +41,7 @@ router.post('/plants/', (req, res) => {
   Plant.forge()
       .query((qb) => {
         //qb is knex query builder
-        setPlantsQuery(qb, {family, common, symbol, sci});
+        Plant.setPlantsQuery(qb, {family, common, symbol, sci});
       })
       .fetchPage({limit, offset})
       .then((plants) => {
