@@ -38,7 +38,14 @@ const PlantsTable = (props) => (
 
 
 PlantsTable.propTypes = {
-  plants: PropTypes.array.isRequired,
+  plants: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    symbol: PropTypes.string.isRequired,
+    synonym: PropTypes.string.isRequired,
+    sci_name: PropTypes.string.isRequired,
+    common_name: PropTypes.string.isRequired,
+    family: PropTypes.string.isRequired,
+  })).isRequired,
   doQuery: PropTypes.func.isRequired
 };
 
