@@ -1,0 +1,8 @@
+.QueryOpts div {
+  display: inline-block;
+  padding: 5px;
+}
+
+.QueryOpts label {
+  padding-right: 5px;
+}

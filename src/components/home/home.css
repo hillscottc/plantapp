@@ -1,0 +1,28 @@
+
+@import 'https://fonts.googleapis.com/css?family=Modak';
+
+#header{
+  margin-top: 70px;
+  z-index: 2;
+  position: relative;
+  padding-bottom: 20px;
+  left: 30px;
+
+}
+
+#header > h1{
+  font-family: 'Modak', cursive;
+  font-size: 72pt;
+}
+
+#header > p{
+  font-size: small;
+  font-style: italic;
+}
+
+#grassImg {
+  position: absolute;
+  top: 6px;
+  z-index: 1;
+  opacity: 0.5;
+}
