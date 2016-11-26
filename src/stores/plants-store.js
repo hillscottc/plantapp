@@ -8,7 +8,8 @@ import { checkHttpResp } from '../utils.js';
  */
 const USE_POST = true;
 
-const API_HOST = process.env.REACT_APP_API_HOST || 'https://sch-datahub.herokuapp.com';
+// const API_HOST = process.env.REACT_APP_API_HOST || 'https://sch-datahub.herokuapp.com';
+const API_HOST = process.env.REACT_APP_API_HOST;
 
 function fetchGet(payload) {
   return fetch(API_HOST + "/api/plants/?" + querystring.stringify(payload));
