@@ -13,8 +13,9 @@ const config = require('./webpack.config.js');
 
 const isDeveloping = process.env.NODE_ENV !== 'production';
 const port = isDeveloping ? 3000 : process.env.PORT;
-const app = express();
+const apiPort = process.env.API_HOST || 'https://sch-datahub.herokuapp.com';
 
+const app = express();
 
 if (isDeveloping) {
   const compiler = webpack(config);
@@ -46,8 +47,7 @@ if (isDeveloping) {
 
 app.listen(port, '0.0.0.0', function onStart(err) {
   if (err) {
-    console.log(err);
+    console.error(err);
   }
-  console.log('API_HOST', process.env.API_HOST)
-  console.info('==> 🌎 Listening on port %s. Open up http://0.0.0.0:%s/ in your browser.', port, port);
+  console.info('==> 🌎  Running at http://0.0.0.0:%s/, API_HOST at %s', port, apiPort);
 });
