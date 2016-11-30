@@ -1,5 +1,5 @@
 import querystring from 'querystring';
-import { checkHttpResp } from '../utils.js';
+import { checkHttpResp } from './utils';
 
 /*
  I can either POST or GET these search queries...
@@ -8,8 +8,8 @@ import { checkHttpResp } from '../utils.js';
  */
 const USE_POST = true;
 
-const API_HOST = process.env.REACT_APP_API_HOST || 'https://sch-datahub.herokuapp.com';
-// const API_HOST = process.env.REACT_APP_API_HOST;
+const API_HOST = process.env.API_HOST;
+// const API_HOST = 'https://sch-datahub.herokuapp.com';
 
 function fetchGet(payload) {
   return fetch(API_HOST + "/api/plants/?" + querystring.stringify(payload));
@@ -25,6 +25,9 @@ function fetchPost(payload) {
 }
 
 export function searchPlants({common, family, symbol, sci, limit=10, offset=0}) {
+
+  console.log('env', process.env.NODE_ENV);
+  console.log('host', process.env.API_HOST);
 
   const payload = {common, family, symbol, sci, limit, offset};
 

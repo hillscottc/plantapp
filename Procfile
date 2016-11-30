@@ -1,2 +1,1 @@
-api: PORT=$API_PORT node $DATAHUB_ROOT/dist/server
-app: npm start
+web: node server.js

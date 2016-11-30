@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate'
 import PlantsTable from './plants-table'
 import QueryOpts from './query-opts'
 // import {parseQueryString} from '../../utils'
-import { searchPlants} from '../../stores/plants-store'
+import { searchPlants} from '../../plants-store'
 import './plants-view.css'
 
 

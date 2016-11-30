@@ -4,3 +4,6 @@ dist
 *.log
 coverage
 .idea
+.env
+
+yarn.lock
