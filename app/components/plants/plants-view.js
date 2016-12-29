@@ -6,7 +6,10 @@ import QueryOpts from './query-opts'
 import { searchPlants} from '../../plants-store'
 import './plants-view.css'
 
+import { inject, observer } from 'mobx-react';
 
+@inject('routing')
+@observer
 class PlantsView extends Component {
 
   constructor(props) {
@@ -59,8 +62,12 @@ class PlantsView extends Component {
     const { plants, pageNum } = this.state;
     const {resetQuery, doQuery, handlePageClick} = this;
 
+    const { location, push, goBack } = this.props.routing;
+
+
     return (
       <div className="PlantsView">
+        <div>Current pathname: {location.pathname}</div>
         <QueryOpts { ...{doQuery, resetQuery} } />
         <PlantsTable { ...{plants, doQuery} } />
         <ReactPaginate previousLabel={"previous"}
