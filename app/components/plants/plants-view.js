@@ -8,7 +8,7 @@ import './plants-view.css'
 
 import { inject, observer } from 'mobx-react';
 
-@inject('routing')
+@inject('routing', 'appState')
 @observer
 class PlantsView extends Component {
 
@@ -16,7 +16,7 @@ class PlantsView extends Component {
     super(props);
     this.doQuery = this.doQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
-    this.handlePageClick = this.handlePageClick.bind(this);
+    // this.handlePageClick = this.handlePageClick.bind(this);
     this.state = { plants:[],
       common:'', family:'', symbol:'', sci:'', // search terms
       offset:0, pageNum: 1, limit: 10};
@@ -52,22 +52,36 @@ class PlantsView extends Component {
     this.loadPlants({common, family, symbol, sci});
   }
 
-  handlePageClick(e)  {
+  // Defining in this way means no explicit bind
+  handlePageClick = (e) => {
     const {common, family, symbol, sci, limit} = this.state;
     const offset = Math.ceil(e.selected * limit);
     this.loadPlants({common, family, symbol, sci, offset});
-  }
+  };
+
+
+  onReset = () => {
+    this.props.appState.resetTimer();
+  };
 
   render() {
     const { plants, pageNum } = this.state;
     const {resetQuery, doQuery, handlePageClick} = this;
 
     const { location, push, goBack } = this.props.routing;
+    const { timer } = this.props.appState;
 
 
     return (
       <div className="PlantsView">
         <div>Current pathname: {location.pathname}</div>
+
+        <button onClick={this.onReset}>
+          Seconds passed: {timer}
+        </button>
+
+
+
         <QueryOpts { ...{doQuery, resetQuery} } />
         <PlantsTable { ...{plants, doQuery} } />
         <ReactPaginate previousLabel={"previous"}

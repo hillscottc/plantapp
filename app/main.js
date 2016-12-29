@@ -19,7 +19,7 @@ const appState = new AppState();
 
 const stores = {
   routing: routingStore,
-  appStore: appState
+  appState: appState
 };
 
 const history = syncHistoryWithStore(browserHistory, routingStore);
