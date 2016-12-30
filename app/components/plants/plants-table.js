@@ -2,6 +2,7 @@ import React, { PropTypes }  from 'react'
 import { Table } from 'react-bootstrap';
 
 
+
 const PlantsTable = (props) => (
   <div>
     <Table striped bordered condensed hover responsive>
@@ -38,14 +39,7 @@ const PlantsTable = (props) => (
 
 
 PlantsTable.propTypes = {
-  plants: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    symbol: PropTypes.string.isRequired,
-    synonym: PropTypes.string.isRequired,
-    sci_name: PropTypes.string.isRequired,
-    common_name: PropTypes.string.isRequired,
-    family: PropTypes.string.isRequired,
-  })).isRequired,
+  plants: PropTypes.object.isRequired,
   doQuery: PropTypes.func.isRequired
 };
 

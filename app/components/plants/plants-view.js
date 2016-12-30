@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate'
+import { inject, observer } from 'mobx-react';
 import PlantsTable from './plants-table'
 import QueryOpts from './query-opts'
-// import {parseQueryString} from '../../utils'
 import { searchPlants} from '../../plants-store'
 import './plants-view.css'
-
-import { inject, observer } from 'mobx-react';
 
 @inject('routing', 'appState')
 @observer
@@ -14,29 +12,15 @@ class PlantsView extends Component {
 
   constructor(props) {
     super(props);
-    this.doQuery = this.doQuery.bind(this);
-    this.resetQuery = this.resetQuery.bind(this);
-    // this.handlePageClick = this.handlePageClick.bind(this);
-    // this.state = { plants:[],
-    //   common:'', family:'', symbol:'', sci:'', // search terms
-    //   offset:0, pageNum: 1, limit: 10};
   }
 
   componentDidMount() {
-
-    // This works....But is it needed?
-    // const urlParams = parseQueryString(location.search);
-    // if (Object.keys(urlParams).length) {
-    //   console.log("Loading url args:", JSON.stringify(urlParams));
-    // }
-    // this.loadPlants(urlParams);
-
     this.loadPlants({});
   }
 
-  resetQuery() {
+  resetQuery = () => {
     this.loadPlants({});
-  }
+  };
 
   loadPlants({common, family, symbol, sci, offset}) {
     searchPlants({common, family, symbol, sci, offset}).then((searchResults) => {
@@ -44,10 +28,7 @@ class PlantsView extends Component {
       const {rowCount, limit} = pagination;
       const pageNum = Math.ceil(rowCount / limit);
 
-      // old
-      // this.setState({ plants, common, family, symbol, sci, offset, pageNum});
-
-      // Mobx. Update the observed appState.
+      // Update the mobx-observed appState object.
       Object.assign(this.props.appState, {
           plants,
           common,
@@ -58,56 +39,37 @@ class PlantsView extends Component {
           pageNum
         });
 
-
     });
   }
 
-
-  doQuery({common, family, symbol, sci}) {
+  doQuery = ({common, family, symbol, sci}) => {
     this.loadPlants({common, family, symbol, sci});
-  }
+  };
 
-  // Defining in this way means no explicit bind
   handlePageClick = (e) => {
-
-    // old
-    // const {common, family, symbol, sci, limit} = this.state;
-
-    // mobx
     const {common, family, symbol, sci, limit} = this.props.appState;
-
     const offset = Math.ceil(e.selected * limit);
     this.loadPlants({common, family, symbol, sci, offset});
   };
 
 
-  onReset = () => {
+  resetTimerClick = () => {
     this.props.appState.resetTimer();
   };
 
   render() {
 
     const {resetQuery, doQuery, handlePageClick} = this;
-
-    // old
-    // const { plants, pageNum } = this.state;
-
-    // mobx.
     const { plants, pageNum, timer } = this.props.appState;
-
-
     const { location, push, goBack } = this.props.routing;
-
 
     return (
       <div className="PlantsView">
         <div>Current pathname: {location.pathname}</div>
 
-        <button onClick={this.onReset}>
+        <button onClick={this.resetTimerClick}>
           Seconds passed: {timer}
         </button>
-
-
 
         <QueryOpts { ...{doQuery, resetQuery} } />
         <PlantsTable { ...{plants, doQuery} } />
