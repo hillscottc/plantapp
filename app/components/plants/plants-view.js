@@ -17,9 +17,9 @@ class PlantsView extends Component {
     this.doQuery = this.doQuery.bind(this);
     this.resetQuery = this.resetQuery.bind(this);
     // this.handlePageClick = this.handlePageClick.bind(this);
-    this.state = { plants:[],
-      common:'', family:'', symbol:'', sci:'', // search terms
-      offset:0, pageNum: 1, limit: 10};
+    // this.state = { plants:[],
+    //   common:'', family:'', symbol:'', sci:'', // search terms
+    //   offset:0, pageNum: 1, limit: 10};
   }
 
   componentDidMount() {
@@ -43,7 +43,22 @@ class PlantsView extends Component {
       const {data: plants, pagination} = searchResults;
       const {rowCount, limit} = pagination;
       const pageNum = Math.ceil(rowCount / limit);
-      this.setState({ plants, common, family, symbol, sci, offset, pageNum});
+
+      // old
+      // this.setState({ plants, common, family, symbol, sci, offset, pageNum});
+
+      // Mobx. Update the observed appState.
+      Object.assign(this.props.appState, {
+          plants,
+          common,
+          family,
+          symbol,
+          sci,
+          offset,
+          pageNum
+        });
+
+
     });
   }
 
@@ -54,7 +69,13 @@ class PlantsView extends Component {
 
   // Defining in this way means no explicit bind
   handlePageClick = (e) => {
-    const {common, family, symbol, sci, limit} = this.state;
+
+    // old
+    // const {common, family, symbol, sci, limit} = this.state;
+
+    // mobx
+    const {common, family, symbol, sci, limit} = this.props.appState;
+
     const offset = Math.ceil(e.selected * limit);
     this.loadPlants({common, family, symbol, sci, offset});
   };
@@ -65,11 +86,17 @@ class PlantsView extends Component {
   };
 
   render() {
-    const { plants, pageNum } = this.state;
+
     const {resetQuery, doQuery, handlePageClick} = this;
 
+    // old
+    // const { plants, pageNum } = this.state;
+
+    // mobx.
+    const { plants, pageNum, timer } = this.props.appState;
+
+
     const { location, push, goBack } = this.props.routing;
-    const { timer } = this.props.appState;
 
 
     return (
