@@ -7,46 +7,41 @@ class QueryOpts extends Component {
 
   constructor(props) {
     super(props);
-    this.changeCommonVal = this.changeCommonVal.bind(this);
-    this.changeFamilyVal = this.changeFamilyVal.bind(this);
-    this.changeSymbolVal = this.changeSymbolVal.bind(this);
-    this.changeSciVal = this.changeSciVal.bind(this);
-    this.clickReset = this.clickReset.bind(this);
     this.state = {family:'', common:'', symbol: '', sci: ''};
   }
 
-  changeSymbolVal(e) {
+  changeSymbolVal = (e) => {
     const symbol = e.target.value;
     this.setState({symbol});
     const {family, common, sci} = this.state;
     this.props.doQuery({family, common, symbol, sci});
-  }
+  };
 
-  changeCommonVal(e) {
+  changeCommonVal = (e) => {
     const common = e.target.value;
     this.setState({common});
     const {family, symbol, sci} = this.state;
     this.props.doQuery({family, common, symbol, sci});
-  }
+  };
 
-  changeFamilyVal(e) {
+  changeFamilyVal = (e) => {
     const family = e.target.value;
     this.setState({family});
     const {common, symbol, sci} = this.state;
     this.props.doQuery({family, common, symbol, sci});
-  }
+  };
 
-  changeSciVal(e) {
+  changeSciVal = (e) => {
     const sci = e.target.value;
     this.setState({sci});
     const {common, symbol, family} = this.state;
     this.props.doQuery({family, common, symbol, sci});
-  }
+  };
 
-  clickReset() {
+  clickReset = () => {
     this.setState({family:'', common:'', symbol: '', sci: ''});
     this.props.resetQuery();
-  }
+  };
 
   render() {
     const { family, common, symbol, sci } = this.state;

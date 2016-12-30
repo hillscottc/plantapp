@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate'
 import PlantsTable from './plants-table'
 import QueryOpts from './query-opts'
-// import {parseQueryString} from '../../utils'
 import { searchPlants} from '../../plants-store'
 import './plants-view.css'
 
@@ -11,29 +10,18 @@ class PlantsView extends Component {
 
   constructor(props) {
     super(props);
-    this.doQuery = this.doQuery.bind(this);
-    this.resetQuery = this.resetQuery.bind(this);
-    this.handlePageClick = this.handlePageClick.bind(this);
     this.state = { plants:[],
       common:'', family:'', symbol:'', sci:'', // search terms
       offset:0, pageNum: 1, limit: 10};
   }
 
   componentDidMount() {
-
-    // This works....But is it needed?
-    // const urlParams = parseQueryString(location.search);
-    // if (Object.keys(urlParams).length) {
-    //   console.log("Loading url args:", JSON.stringify(urlParams));
-    // }
-    // this.loadPlants(urlParams);
-
     this.loadPlants({});
   }
 
-  resetQuery() {
+  resetQuery = () => {
     this.loadPlants({});
-  }
+  };
 
   loadPlants({common, family, symbol, sci, offset}) {
     searchPlants({common, family, symbol, sci, offset}).then((searchResults) => {
@@ -45,15 +33,15 @@ class PlantsView extends Component {
   }
 
 
-  doQuery({common, family, symbol, sci}) {
+  doQuery = ({common, family, symbol, sci}) => {
     this.loadPlants({common, family, symbol, sci});
-  }
+  };
 
-  handlePageClick(e)  {
+  handlePageClick = (e) => {
     const {common, family, symbol, sci, limit} = this.state;
     const offset = Math.ceil(e.selected * limit);
     this.loadPlants({common, family, symbol, sci, offset});
-  }
+  };
 
   render() {
     const { plants, pageNum } = this.state;
