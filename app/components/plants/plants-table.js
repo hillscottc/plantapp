@@ -2,7 +2,6 @@ import React, { PropTypes }  from 'react'
 import { Table } from 'react-bootstrap';
 
 
-
 const PlantsTable = (props) => (
   <div>
     <Table striped bordered condensed hover responsive>
