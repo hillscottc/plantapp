@@ -1,6 +1,7 @@
+import {useStrict} from 'mobx';
 import { Provider } from 'mobx-react';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
-import AppState from './AppState'
+import PlantStore from './PlantStore'
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
@@ -10,20 +11,14 @@ import Home from './components/home/home';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
+useStrict(false);
 
-const routingStore = new RouterStore();
+const routing = new RouterStore();
+const plantStore = new PlantStore();
 
-// this is a demo store
-const appState = new AppState();
+const stores = {routing, plantStore};
 
-
-const stores = {
-  routing: routingStore,
-  appState: appState
-};
-
-const history = syncHistoryWithStore(browserHistory, routingStore);
-
+const history = syncHistoryWithStore(browserHistory, routing);
 
 ReactDOM.render((
   <Provider {...stores}>
