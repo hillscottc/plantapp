@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react'
-import { inject, observer } from 'mobx-react';
-import { action } from 'mobx';
-import { Button } from 'react-bootstrap';
+import { action } from 'mobx'
+import { inject, observer } from 'mobx-react'
+import { Button } from 'react-bootstrap'
 import './query-opts.css'
 
 

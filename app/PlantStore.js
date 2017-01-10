@@ -30,7 +30,7 @@ class PlantStore {
     fetchPost(payload)
       .then(checkHttpResp)
       .then((response) => response.json())
-      .then((json) => {
+      .then(action("searching plants", (json) => {
         const {data: plants, pagination} = json;
         const {rowCount, limit} = pagination;
         const pageNum = Math.ceil(rowCount / limit);
@@ -45,7 +45,7 @@ class PlantStore {
           pageNum
         });
 
-    });
+    }));
   }
 
 }

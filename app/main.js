@@ -12,7 +12,7 @@ import Home from './components/home/home';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
-useStrict(false);
+useStrict(true);
 
 const routing = new RouterStore();
 const plantStore = new PlantStore();

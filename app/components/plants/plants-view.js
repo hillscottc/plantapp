@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate'
 import { inject, observer } from 'mobx-react';
-import { action } from 'mobx';
 import PlantsTable from './plants-table'
 import QueryOpts from './query-opts'
 import './plants-view.css'
@@ -22,7 +21,6 @@ class PlantsView extends Component {
     this.loadPlants({});
   };
 
-  @action
   loadPlants({common, family, symbol, sci, offset}) {
     this.props.plantStore.searchPlants({common, family, symbol, sci, offset});
   }
