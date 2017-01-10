@@ -3,7 +3,7 @@ import ReactPaginate from 'react-paginate'
 import { inject, observer } from 'mobx-react';
 import { action } from 'mobx';
 import PlantsTable from './plants-table'
-import QueryOpts from './query-opts_MOBX'
+import QueryOpts from './query-opts'
 import './plants-view.css'
 
 @inject('routing', 'plantStore')

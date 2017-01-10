@@ -17,7 +17,7 @@ class PlantStore {
   @observable plants = [];
   @observable common = '';
   @observable family = '';
-  @observable symbol = 'AAA';
+  @observable symbol = '';
   @observable sci = '';
   @observable offset = 0;
   @observable pageNum = 1;
