@@ -6,7 +6,7 @@ import PlantsTable from './plants-table'
 import QueryOpts from './query-opts'
 import './plants-view.css'
 
-@inject('routing', 'plantStore')
+@inject('plantStore')
 @observer
 class PlantsView extends Component {
 
@@ -24,9 +24,7 @@ class PlantsView extends Component {
 
   @action
   loadPlants({common, family, symbol, sci, offset}) {
-
     this.props.plantStore.searchPlants({common, family, symbol, sci, offset});
-
   }
 
   doQuery = ({common, family, symbol, sci}) => {
@@ -40,25 +38,13 @@ class PlantsView extends Component {
   };
 
 
-  @action
-  resetTimerClick = () => {
-    this.props.plantStore.resetTimer();
-  };
-
   render() {
 
     const {resetQuery, doQuery, handlePageClick} = this;
-    const { plants, pageNum, timer } = this.props.plantStore;
-    const { location, push, goBack } = this.props.routing;
+    const { plants, pageNum} = this.props.plantStore;
 
     return (
       <div className="PlantsView">
-        <div>Current pathname: {location.pathname}</div>
-
-        <button onClick={this.resetTimerClick}>
-          Seconds passed: {timer}
-        </button>
-
         <QueryOpts { ...{doQuery, resetQuery} } />
         <PlantsTable { ...{plants, doQuery} } />
         <ReactPaginate previousLabel={"previous"}

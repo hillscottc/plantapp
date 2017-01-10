@@ -58,6 +58,7 @@
     "jscs": "^3.0.3",
     "jsdom": "^9.1.0",
     "json-loader": "^0.5.3",
+    "mobx-react-devtools": "^4.2.11",
     "mocha": "^3.2.0",
     "mocha-jsdom": "^1.0.0",
     "postcss-loader": "^1.1.1",

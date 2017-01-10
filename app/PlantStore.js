@@ -13,7 +13,6 @@ function fetchPost(payload) {
 }
 
 class PlantStore {
-  @observable timer = 0;
   @observable plants = [];
   @observable common = '';
   @observable family = '';
@@ -23,15 +22,6 @@ class PlantStore {
   @observable pageNum = 1;
   @observable limit = 10;
 
-  constructor() {
-    setInterval(() => {
-      this.timer += 1;
-    }, 1000);
-  }
-
-  @action resetTimer() {
-    this.timer = 0;
-  }
 
   @action searchPlants({common, family, symbol, sci, limit=10, offset=0}) {
 
