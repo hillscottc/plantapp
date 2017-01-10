@@ -1,5 +1,5 @@
 import React, { PropTypes }  from 'react'
-import { Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap'
 
 
 const PlantsTable = (props) => (

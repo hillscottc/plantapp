@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactPaginate from 'react-paginate'
-import { inject, observer } from 'mobx-react';
+import { inject, observer } from 'mobx-react'
 import PlantsTable from './plants-table'
 import QueryOpts from './query-opts'
 import './plants-view.css'

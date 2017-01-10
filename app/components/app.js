@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Grid, Navbar, Nav, NavItem} from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import React, { Component } from 'react'
+import { Grid, Navbar, Nav, NavItem} from 'react-bootstrap'
+import { LinkContainer } from 'react-router-bootstrap'
 
 
 const divStyle = {backgroundColor: "#66cc99"};

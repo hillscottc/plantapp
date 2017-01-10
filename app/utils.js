@@ -13,7 +13,7 @@ export function checkHttpResp(response) {
 
 export function parseQueryString(url) {
 
-  var urlParams = {};
+  let urlParams = {};
   url.replace(
       new RegExp("([^?=&]+)(=([^&]*))?", "g"),
       function($0, $1, $2, $3) {

@@ -1,16 +1,16 @@
-import {useStrict} from 'mobx';
-import { Provider } from 'mobx-react';
-import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
-import DevTools from 'mobx-react-devtools';
-import PlantStore from './PlantStore'
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from 'react'
+import ReactDOM from 'react-dom'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-import App from './components/app';
-import About from './components/about/about';
-import Home from './components/home/home';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap/dist/css/bootstrap-theme.css';
+import { useStrict } from 'mobx'
+import { Provider } from 'mobx-react'
+import { RouterStore, syncHistoryWithStore } from 'mobx-react-router'
+import DevTools from 'mobx-react-devtools'
+import PlantStore from './PlantStore'
+import App from './components/app'
+import About from './components/about/about'
+import Home from './components/home/home'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap/dist/css/bootstrap-theme.css'
 
 useStrict(true);
 

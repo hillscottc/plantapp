@@ -1,5 +1,5 @@
-import { observable, action } from 'mobx';
-import { checkHttpResp } from './utils';
+import { observable, action } from 'mobx'
+import { checkHttpResp } from './utils'
 
 const API_HOST = process.env.API_HOST || 'https://sch-datahub.herokuapp.com';
 
