@@ -54,16 +54,16 @@ class QueryOpts extends Component {
             <input id="symbol" type="text" value={symbol} onChange={changeSymbolVal} />
           </div>
           <div>
-            <label htmlFor="sci">sci</label>
-            <input id="sci" type="text" value={sci} onChange={changeSciVal} />
-          </div>
-          <div>
             <label htmlFor="sci">family</label>
             <input id="family" type="text" value={family} onChange={changeFamilyVal} />
           </div>
           <div>
             <label htmlFor="common">common</label>
             <input id="common" type="text" value={common} onChange={changeCommonVal} />
+          </div>
+          <div>
+            <label htmlFor="sci">sci</label>
+            <input id="sci" type="text" value={sci} onChange={changeSciVal} />
           </div>
           <br />
           <Button
