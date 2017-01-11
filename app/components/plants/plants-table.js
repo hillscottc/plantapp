@@ -6,16 +6,13 @@ const PlantsTable = (props) => (
   <div>
     <Table striped bordered condensed hover responsive>
       <thead>
-        <tr><th>Symbol</th><th>Synonym</th><th>Family</th><th>Common</th><th>Pics</th><th>Sci-name</th></tr>
+        <tr><th>Symbol</th><th>Family</th><th>Common</th><th>Pics</th><th>Sci-name</th></tr>
       </thead>
       <tbody>
         {props.plants.map((plant) =>
           <tr key={plant.id} >
             <td>
               <a onClick={() => props.doQuery({symbol: plant.symbol})} >{plant.symbol}</a>
-            </td>
-            <td>
-              {plant.synonym}
             </td>
             <td>
               <a onClick={() => props.doQuery({family: plant.family})} >{plant.family}</a>

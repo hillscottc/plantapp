@@ -1,8 +1,12 @@
 .QueryOpts div {
   display: inline-block;
-  padding: 5px;
+  padding: 10px;
 }
 
 .QueryOpts label {
   padding-right: 5px;
+}
+
+.QueryOpts input {
+  width: 100px;
 }
