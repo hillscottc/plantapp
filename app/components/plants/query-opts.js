@@ -1,69 +1,86 @@
 import React, { Component, PropTypes } from 'react'
-import { Button } from 'react-bootstrap';
+import { action } from 'mobx'
+import { inject, observer } from 'mobx-react'
+import { Button } from 'react-bootstrap'
 import './query-opts.css'
 
 
+@inject('plantStore')
+@observer
 class QueryOpts extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {family:'', common:'', symbol: '', sci: ''};
-  }
+  };
 
+  @action
   changeSymbolVal = (e) => {
     const symbol = e.target.value;
-    this.setState({symbol});
-    const {family, common, sci} = this.state;
+    this.props.plantStore.symbol = symbol;
+
+    const {family, common, sci} = this.props.plantStore;
     this.props.doQuery({family, common, symbol, sci});
   };
 
-  changeCommonVal = (e) => {
+  @action
+  changeCommonVal= (e) => {
     const common = e.target.value;
-    this.setState({common});
-    const {family, symbol, sci} = this.state;
+    this.props.plantStore.common = common;
+
+    const {family, symbol, sci} = this.props.plantStore;
     this.props.doQuery({family, common, symbol, sci});
   };
 
+  @action
   changeFamilyVal = (e) => {
     const family = e.target.value;
-    this.setState({family});
-    const {common, symbol, sci} = this.state;
+    this.props.plantStore.family = family;
+
+    const {common, symbol, sci} = this.props.plantStore;
     this.props.doQuery({family, common, symbol, sci});
   };
 
+  @action
   changeSciVal = (e) => {
     const sci = e.target.value;
-    this.setState({sci});
-    const {common, symbol, family} = this.state;
+    this.props.plantStore.sci = sci;
+
+    const {common, symbol, family} = this.props.plantStore;
     this.props.doQuery({family, common, symbol, sci});
   };
 
+  @action
   clickReset = () => {
-    this.setState({family:'', common:'', symbol: '', sci: ''});
+    Object.assign(this.props.plantStore, {
+      common: '',
+      family: '',
+      symbol: '',
+      sci: '',
+    });
     this.props.resetQuery();
   };
 
   render() {
-    const { family, common, symbol, sci } = this.state;
+    const { family, common, symbol, sci } = this.props.plantStore;
     const {changeCommonVal, changeFamilyVal, changeSymbolVal, changeSciVal, clickReset} = this;
 
     return (
         <div className="QueryOpts">
           <div>
             <label htmlFor="symbol">symbol</label>
-            <input id="symbol" type="text" value={symbol} onChange={changeSymbolVal} />
+            <input id="symbol" type="text" value={symbol || ''} onChange={changeSymbolVal} />
           </div>
           <div>
             <label htmlFor="sci">family</label>
-            <input id="family" type="text" value={family} onChange={changeFamilyVal} />
+            <input id="family" type="text" value={family || ''} onChange={changeFamilyVal} />
           </div>
           <div>
             <label htmlFor="common">common</label>
-            <input id="common" type="text" value={common} onChange={changeCommonVal} />
+            <input id="common" type="text" value={common || ''} onChange={changeCommonVal} />
           </div>
           <div>
             <label htmlFor="sci">sci</label>
-            <input id="sci" type="text" value={sci} onChange={changeSciVal} />
+            <input id="sci" type="text" value={sci || ''} onChange={changeSciVal} />
           </div>
           <br />
           <Button

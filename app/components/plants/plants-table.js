@@ -6,28 +6,28 @@ const PlantsTable = (props) => (
   <div>
     <Table striped bordered condensed hover responsive>
       <thead>
-      <tr><th>Symbol</th><th>Family</th><th>Common</th><th>Pics</th><th>Sci-name</th></tr>
+        <tr><th>Symbol</th><th>Family</th><th>Common</th><th>Pics</th><th>Sci-name</th></tr>
       </thead>
       <tbody>
-      {props.plants.map((plant) =>
-        <tr key={plant.id} >
-          <td>
-            <a onClick={() => props.doQuery({symbol: plant.symbol})} >{plant.symbol}</a>
-          </td>
-          <td>
-            <a onClick={() => props.doQuery({family: plant.family})} >{plant.family}</a>
-          </td>
-          <td>
-            <a onClick={() => props.doQuery({common: plant.common_name})} >{plant.common_name}</a>
-          </td>
-          <td>
-            <a target="_blank" href={`http://images.google.com/images?q="${plant.sci_name}"`}>
-              <span className={plant.sci_name ? "glyphicon glyphicon-camera": ""}> </span>
-            </a>
-          </td>
-          <td>{plant.sci_name}</td>
-        </tr>
-      )}
+        {props.plants.map((plant) =>
+          <tr key={plant.id} >
+            <td>
+              <a onClick={() => props.doQuery({symbol: plant.symbol})} >{plant.symbol}</a>
+            </td>
+            <td>
+              <a onClick={() => props.doQuery({family: plant.family})} >{plant.family}</a>
+            </td>
+            <td>
+              <a onClick={() => props.doQuery({common: plant.common_name})} >{plant.common_name}</a>
+            </td>
+            <td>
+              <a target="_blank" href={`http://images.google.com/images?q="${plant.sci_name}"`}>
+                <span className={plant.sci_name ? "glyphicon glyphicon-camera": ""}> </span>
+              </a>
+            </td>
+            <td>{plant.sci_name}</td>
+          </tr>
+        )}
       </tbody>
     </Table>
   </div>
@@ -35,14 +35,7 @@ const PlantsTable = (props) => (
 
 
 PlantsTable.propTypes = {
-  plants: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number.isRequired,
-    symbol: PropTypes.string.isRequired,
-    synonym: PropTypes.string.isRequired,
-    sci_name: PropTypes.string.isRequired,
-    common_name: PropTypes.string.isRequired,
-    family: PropTypes.string.isRequired,
-  })).isRequired,
+  plants: PropTypes.object.isRequired,
   doQuery: PropTypes.func.isRequired
 };
 
